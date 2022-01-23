@@ -1,0 +1,44 @@
+{
+  "name": "flashdevpoint",
+  "version": "0.0.1",
+  "description": "A Quasar Framework app",
+  "productName": "FlashPoint",
+  "author": "shir <shir.gazala@gmail.com>",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@quasar/extras": "1.9.17",
+    "axios": "0.21.1",
+    "core-js": "3.9.0",
+    "firebase": "8.2.9",
+    "quasar": "1.15.4",
+    "vue": "2.6.12",
+    "vue-fullscreen": "2.3.2"
+  },
+  "devDependencies": {
+    "@quasar/app": "2.1.15",
+    "@quasar/quasar-app-extension-qmediaplayer": "1.2.1",
+    "firebase-tools": "9.5.0",
+    "vue-router": "^3.2.0",
+    "vuex": "3.6.2"
+  },
+  "browserslist": [
+    "ie >= 11",
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
+  ],
+  "engines": {
+    "node": ">= 10.18.1",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
+}

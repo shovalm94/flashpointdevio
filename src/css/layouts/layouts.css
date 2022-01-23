@@ -1,0 +1,7 @@
+@import "box/style.css";
+
+.flex__justify-center {
+  display: flex;
+  justify-content: center;
+}
+

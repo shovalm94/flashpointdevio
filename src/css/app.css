@@ -1,0 +1,16 @@
+@import "./Fonts/style.css";
+@import "Forms/style.css";
+@import "layouts/layouts.css";
+
+* {
+  direction: rtl;
+}
+
+.active {
+  color: #000;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+}
