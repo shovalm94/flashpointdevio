@@ -39,7 +39,7 @@
       <q-card-section class="text-center">
 
         <q-avatar size="100px" font-size="52px">
-          <img v-if="img"
+          <img
                src="../../assets/flashdev.png"
                alt="https://st.depositphotos.com/2101611/4338/v/950/depositphotos_43381243-stock-illustration-male-avatar-profile-picture.jpg"
           >
