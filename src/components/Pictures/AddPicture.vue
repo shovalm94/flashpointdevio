@@ -1,6 +1,5 @@
 
 <!-- THIS COMPONENT IS IN CHARGE OF STORAGE HANDLING -->
-<!--  todo: this component is all about manging firebase storage. -->
 <!--  image uploading (for any cause) should be managed from this component-->
 
 <template>

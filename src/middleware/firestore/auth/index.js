@@ -9,15 +9,12 @@ function read(options){
    })
 }
 function update(options){
-  return firebaseInstance.db().collection(options.path).doc(options.id).update(options.item).then()
-}
-function onUpload(options) {
-  return firebaseInstance.db().collection(options.path).doc(options.id).update(options.imageUrl).then()
+  return firebaseInstance.db().collection(options.path).doc(options.id).update(options.item)
 }
 
 export default {
   createUser,
   read,
   update,
-  onUpload
+
 }

@@ -14,7 +14,7 @@
 
       <q-card-section class="text-center">
         <q-avatar font-size="52px" size="100px" @click="">
-          <img :src=user.imgUrl
+          <img :src=editedUser.imgUrl
                alt="https://st.depositphotos.com/2101611/4338/v/950/depositphotos_43381243-stock-illustration-male-avatar-profile-picture.jpg"
                >
           <q-btn class="q-mr-sm" style="position: absolute;color:gray"
@@ -53,7 +53,8 @@
           </template>
         </q-input>
 
-        <q-input v-model="editedUser.phone" label="Phone Number" type="phone">
+        <q-input v-model="editedUser.phone" label="Phone Number" type="phone"
+                 :rules="[ val => val && val.length  === 10 || 'Please enter a valid phone number']">
           <template v-slot:append>
             <q-icon name="phone"/>
           </template>
@@ -94,8 +95,7 @@ export default {
       } else if (this.formHasError === true) {
         console.log('something went wrong')
       } else {
-        this.editedUser.imgUrl=this.user.imgUrl;
-        this.updateUser(this.editedUser)
+        this.updateUser({...this.editedUser})
         this.$router.go(-1)
       }
     },
@@ -111,9 +111,7 @@ export default {
     },
   },
   created() {
-    this.editedUser.fullName=this.user.fullName;
-    this.editedUser.email=this.user.email;
-    this.editedUser.phone=this.user.phone;
+    this.editedUser ={...this.user}
   }
 }
 </script>

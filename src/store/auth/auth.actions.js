@@ -19,7 +19,7 @@ export default {
   upload: ({state, commit}, fileData) => {
     storage.uploadToStorage(state.userId,fileData)
       .then((imgUrl) => {
-        database.onUpload({path: 'users',id:state.userId, imageUrl: {imgUrl}}).then(() => {
+        database.update({path: 'users',id:state.userId, item: {imgUrl}}).then(() => {
           commit('setUserImage', imgUrl)
         }).catch(e => console.log(e));
       })

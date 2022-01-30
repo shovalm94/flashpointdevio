@@ -109,8 +109,10 @@ export default {
 computed: mapState('auth',['user','userId']),
   methods: {
     ...mapActions('auth',['getUser']),
+    ...mapMutations('auth',['resetUser']),
     logout() {
       firebaseInstance.firebase.auth().signOut().then(() => {
+        this.resetUser()
         this.$router.push('/login')
       })
         .catch((error) => {
@@ -119,7 +121,9 @@ computed: mapState('auth',['user','userId']),
     }
   },
   created() {
-    this.getUser()
+    if(Object.keys(this.user).length === 0){
+      this.getUser()
+    }
   }
 
 }

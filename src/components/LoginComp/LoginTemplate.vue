@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-form @submit.prevent.stop="onLogin()">
-      <q-input ref="email" v-model="email" :rules="[ val => val && val.length > 0 || 'Please enter your email']"
+      <q-input ref="email" v-model="email" :rules="[ val => val && val.length > 0 || 'Please enter your email',ValidEmail]"
                label="Email*"
                lazy-rules
                type="email">
@@ -10,7 +10,7 @@
         </template>
       </q-input>
       <q-input ref="password" v-model="password"
-               :rules="[ val => val && val.length > 0 || 'Please enter your password']"
+               :rules="[ val => val && val.length > 6 || 'Please enter your password']"
                :type="isPwd ? 'password' : 'text'"
                label="Password*"
                lazy-rules>
@@ -26,7 +26,7 @@
       <q-btn class="text-primary" icon="login" label="Login" outline type="submit"/>
     </q-form>
     <br>
-    <div class="text-subtitle2">Forgot your password? click here</div>
+    <div class="text-subtitle2" @click="resetPassword">Forgot your password? click here</div>
     <br>
   </div>
 </template>
@@ -46,7 +46,7 @@ export default {
   },
   computed: mapState('auth', ['user', 'userId']),
   methods: {
-    ...mapActions('auth',['']),
+    ...mapActions('auth',['getUser']),
     ...mapMutations('auth',['setUser',"setUserId"]),
     onLogin() {
       this.$refs.email.validate()
@@ -67,7 +67,7 @@ export default {
           .then((userCredential) => {
             window.user = userCredential.user;
             this.setUserId(window.user.uid)
-
+            this.getUser()
             this.$q.notify({
               type: 'positive',
               message: 'Welcome Back!'
@@ -83,6 +83,13 @@ export default {
           });
       }
     },
+    ValidEmail (val) {
+      const emailPattern = /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/;
+      return emailPattern.test(val) || 'Invalid email';
+    },
+    resetPassword(){
+      firebaseInstance.firebase.auth().sendPasswordResetEmail(this.email)
+    }
   }
 }
 </script>

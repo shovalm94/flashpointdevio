@@ -5,8 +5,7 @@
              label="Full name*"
              lazy-rules
              type="text"/>
-
-    <q-input ref="email" v-model="localUser.email" :rules="[ val => val && val.length > 0 || 'Please enter your email']"
+    <q-input ref="email" v-model="localUser.email" :rules="[ val => val && val.length > 0 || 'Please enter your email',ValidEmail]"
              label="Email*"
              lazy-rules
              type="email">
@@ -30,7 +29,7 @@
 
 
     <q-input ref="password" v-model="localUser.password"
-             :rules="[ val => val && val.length > 0 || 'Please type something']"
+             :rules="[ val => val && val.length > 6 || 'Please type something']"
              :type="isPwd ? 'password' : 'text'"
              label="Password*"
              lazy-rules>
@@ -81,9 +80,9 @@ export default {
       localUser: {
         fullName: ' ',
         email: '',
+        phone: '',
         password: '',
         passwordRepeat: '',
-        phone: '',
       },
       isPwd: true,
       accept: false,
@@ -123,12 +122,17 @@ export default {
 
     register() {
       if (this.accept === true) {
-        this.setUser({...this.localUser})
         firebaseInstance.firebase.auth().createUserWithEmailAndPassword(this.localUser.email, this.localUser.passwordRepeat)
           .then((res) => {
             window.user = res.user;
+            this.setUser({...this.localUser})
             this.setUserId(window.user.uid)
-            database.createUser({path:'users',item:{...this.localUser},id:window.user.uid}).then(() => {
+
+            const item= {...this.localUser};
+            delete item.password
+            delete item.passwordRepeat
+
+            database.createUser({path:'users',item,id:window.user.uid}).then(() => {
               this.uploadImage();
               this.$router.push('/home')
             })
@@ -136,7 +140,6 @@ export default {
           .catch((err) => {
             console.log(err)
           });
-
       }
     },
     getFileData(e) {
@@ -144,9 +147,12 @@ export default {
     },
     uploadImage() {
       this.upload(this.fileData);
-    }
+    },
+    ValidEmail (val) {
+      const emailPattern = /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/;
+      return emailPattern.test(val) || 'Invalid email';
+    },
   },
-
 }
 </script>
 

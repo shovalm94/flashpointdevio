@@ -10,6 +10,7 @@ export default {
   name: "GoogleLogin",
   computed: mapState('auth', ['user', 'userId']),
   methods: {
+    ...mapActions('auth',['getUser']),
     ...mapMutations('auth',['setUser',"setUserId"]),
     loginWithGoogle() {
       const provider = new firebaseInstance.firebase.auth.GoogleAuthProvider();
@@ -20,7 +21,11 @@ export default {
           this.setUserId(window.user.uid)
           if(result.additionalUserInfo.isNewUser) { // newUser
             const item={fullName:result.user.displayName,email:result.user.email}
+            this.setUser(item);
             database.createUser({path: 'users', item, id: window.user.uid})
+          }
+          else{
+            this.getUser()
           }
             this.$router.push('/home')
         }).catch((error) => {
