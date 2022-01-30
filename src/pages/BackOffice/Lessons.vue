@@ -17,8 +17,8 @@ export default {
   components: {},
 
   computed: {
-    // ...mapState('courses', ['courses', 'editCourse']),
-    // ...mapState('chapters', ['chapters', 'newChapter']),
+    ...mapState('courses', ['courses', 'editCourse']),
+    ...mapState('chapters', ['chapters', 'newChapter']),
     // ...mapState('lessons', ['']),
   },
 
@@ -42,7 +42,7 @@ export default {
     async insert() {
       await this.setLocalNewLesson();
       await this.insertNewLesson();
-      this.$router.push(`/Chapters`)
+      await this.$router.push(`/Chapters/${this.newChapter.id}`)
     },
 
   }

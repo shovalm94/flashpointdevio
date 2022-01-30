@@ -9,7 +9,7 @@
           <q-icon name="attach_file"/>
         </template>
       </q-file>
-      <q-file outlined value="" v-model="localCourse.imgTeacher" label="upload image" hint="תמונת מרצה" id="fileUpload">
+      <q-file outlined value="" v-model="localCourse.imgTeacher" label="upload image" hint="תמונת מרצה">
         <template v-slot:prepend>
           <q-icon name="attach_file"/>
         </template>
@@ -30,6 +30,7 @@
 import firebase from '../../middleware/storage'
 import {mapState, mapMutations, mapActions} from 'vuex'
 import UpdateCoursePropertyDialog from "components/CourseComps/UpdateCoursePropertyDialog";
+import {date} from 'quasar'
 
 export default {
   name: "creator",
@@ -42,10 +43,10 @@ export default {
         courseDescription: '',
         courseName: '',
         courseLength: '',
-        TimeUpload:'',
+        TimeUpload:new Date(),
         TeacherName:'',
         imgTeacher:[],
-        logoCourse:''
+        logoCourse:'',
       }
     }
   },
@@ -53,16 +54,14 @@ export default {
   methods: {
     ...mapActions('courses', ['insertCourse']),
     ...mapMutations('courses', ['setEditedCourse', "setEditedCourseId"]),
+
     async insert() {
-      this.TimeUpload();
       await this.setEditedCourse(this.localCourse)
       debugger
       await this.insertCourse()
+
     },
-    TimeUpload(){
-      let current = new Date();
-    }
-  }
+ }
 }
 
 </script>

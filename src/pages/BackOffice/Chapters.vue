@@ -3,27 +3,7 @@
 
     <div class="q-pa-md" style="min-width: 450px">
       <h2>קורס ראשון: html, css</h2>
-<!--      <q-list bordered>-->
-<!--        <q-item clickable v-ripple>-->
-<!--          <q-item-section style="text-align: center">'CourseName - פרקי הקורס'</q-item-section>-->
-<!--          <q-item-section thumbnail>-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-<!--        &lt;!&ndash;        <q-item clickable v-ripple v-for="item in userProjectsArr">&ndash;&gt;-->
-<!--        <q-item clickable v-ripple>-->
-<!--          <q-btn color="black" @click="remove(item.id)" style="width: 80px">Delete</q-btn>-->
-<!--          <q-btn color="black" @click="update(item.id)" style="width: 80px">Update</q-btn>-->
-<!--          <q-item-section style="text-align: center" @click="$router.push(`/spacificChapter/${item.id}`)">Test-->
-<!--          </q-item-section>-->
-<!--          <q-item-section thumbnail @click="$router.push(`/spacificChapter/${item.id}`)">-->
-<!--            <img alt="img" src="https://cdn.quasar.dev/img/mountains.jpg">-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-<!--      </q-list>-->
-<!--      <br><br><br>-->
-<!--      <q-btn color="primary" @click="$router.push(`/`)" style="width: 150px">-->
-<!--        הוסף פרק חדש-->
-<!--      </q-btn>-->
+
       <br><br><br>
 
 
@@ -92,14 +72,14 @@
 
               </q-list>
             </q-btn-dropdown>
-            <q-btn push color="primary" label="להוספת שיעור חדש" @click="LessonAdd()"/>
+            <q-btn push color="primary" label="להוספת שיעור חדש" @click="LessonAdd(chapter)"/>
           </div>
         </q-card-section>
         <q-separator/>
 
         <q-card-actions align="right">
         <q-btn flat @click="remove(chapter.id)">Delete</q-btn>
-          <q-btn flat label="Update" @click="goToItem('amAEfkzpExJvhHzChmXs', chapter)"></q-btn>
+          <q-btn flat label="Update" @click="goToItem(editedCourseId, chapter)"></q-btn>
         </q-card-actions>
       </q-card>
     </div>
@@ -114,7 +94,7 @@ import {mapActions, mapState, mapMutations} from 'vuex';
 export default {
   name: "Chapters",
   computed: {
-    ...mapState('courses', ['courses','editCourse']),
+    ...mapState('courses', ['courses','editCourse', 'editedCourseId']),
     ...mapState('chapters', ['chapters']),
     // ...mapState('lessons', [])
   },
@@ -175,13 +155,14 @@ export default {
       this.deleteChapter(id);
     },
 
-    goToItem(amAEfkzpExJvhHzChmXs, chapter) {
+    goToItem(editedCourseId, chapter) {
       this.setNewChapter(chapter)
-      this.$router.push(`/UpdateChapters/amAEfkzpExJvhHzChmXs/${chapter.id}`);
+      this.$router.push(`/UpdateChapters/${editedCourseId}/${chapter.id}`);
     },
 
-    LessonAdd () {
-      this.$router.push(`/Lessons`);
+    async LessonAdd (chapter) {
+     await this.setNewChapter(chapter);
+      await this.$router.push(`/Lessons`);
     },
 
     LessonUpdate (lesson) {
@@ -192,7 +173,7 @@ export default {
     },
 
     exit() {
-
+      this.$router.push(`/createCourse`);
     },
 
   },

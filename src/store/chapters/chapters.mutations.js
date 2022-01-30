@@ -1,7 +1,6 @@
 export default {
 
   setNewChapter:((state, localNewChapter) =>{
-
     state.newChapter = localNewChapter
   }),
 
@@ -28,6 +27,11 @@ export default {
   editNewChapter: ((state, chapter) => {
     const index = state.chapters.findIndex(p => p.id === chapter.id)
     state.chapters.splice(index, 1, chapter)
+  }),
+
+  deleteChapter: ((state, chapterID) => {
+    const index = state.chapters.findIndex(p => p.id === chapterID)
+    state.chapters.splice(index, 1)
   }),
 
   setOptions: (() => {

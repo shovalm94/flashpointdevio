@@ -1,5 +1,5 @@
-
 import firebase from "../../middleware/firestore/courses"
+import {date} from "quasar";
 
 export default /* context */ {
 
@@ -17,19 +17,22 @@ export default /* context */ {
     await commit('insertCourse', state.editCourse)
   },
 
-  getCourses: async ({commit}) => {
+  getCourses: async ({commit, getters}) => {
     debugger
     let res = await firebase.get({entity: 'courses'})
-    debugger
-
     commit('setCourses', res)
+    // let courses = getters['timeSince']
+    // commit('setCourses', courses)
+
+    // commit('setTimeUpload')
   },
 
-  deleteCourseActions: async ({state,commit}) => {
+  deleteCourseActions: async ({state, commit}) => {
     debugger
     await firebase.Delete({entity: "courses", id: state.editCourse.id})
-
+    commit('deleteCourse', state.editCourse.id)
   },
+
   updateCourseActions: async ({state, commit}) => {
     let item = {}
     Object.assign(item, state.editCourse)
@@ -40,6 +43,7 @@ export default /* context */ {
     commit('resetEditCourse')
     commit('NewEditCourse', item)
   },
+
 
 }
 

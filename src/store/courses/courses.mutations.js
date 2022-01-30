@@ -1,13 +1,16 @@
+import {date} from "quasar";
+
+
 export default {
   setCourses:((state,courses)=> state.courses = courses),
 
   setCourse:((state,course)=> state.editCourse =course),
 
-  insertCourse:((state,courses) => state.courses = courses),
+  insertCourse:((state,course) =>  state.courses.push(course)),
 
   setEditedCourse:((state,course) => state.editCourse = course),
 
-  setEditedCourseId: ((state, id) => state.editCourse.id = id),
+  setEditedCourseId: ((state, id) => state.editedCourseId = id),
 
   resetEditCourse:((state) =>{
     for (const key in state.editCourse) {
@@ -19,6 +22,12 @@ export default {
     debugger
     const index = state.courses.findIndex(p => p.id === course.id)
     state.courses.splice(index, 1, course)
+  }),
+
+  deleteCourse: ((state, course) => {
+    debugger
+    const index = state.courses.findIndex(p => p.id === course.id)
+    state.courses.splice(index, 1)
   }),
 
 

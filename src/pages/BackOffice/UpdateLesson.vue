@@ -57,6 +57,7 @@ export default {
 
   computed: {
     ...mapState('lessons', ['newLesson']),
+    ...mapState('chapters', ['newChapter']),
   },
 
   data() {
@@ -79,7 +80,7 @@ export default {
     update() {
       this.setLocalNewLesson();
       this.updateLesson();
-      this.$router.push(`/Chapters`);
+      this.$router.push(`/Chapters/${this.newChapter.id}`);
     },
 
     getItemById(id) {
@@ -89,10 +90,11 @@ export default {
 
     remove(id) {
       this.deleteLesson(id);
+      this.$router.push(`/Chapters/${this.newChapter.id}`);
     },
 
     exit() {
-      this.$router.push(`/Chapters`);
+      this.$router.push(`/Chapters/${this.newChapter.id}`);
     },
 
   },

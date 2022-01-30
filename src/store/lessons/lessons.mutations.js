@@ -14,11 +14,16 @@ export default {
   }),
 
   insertNewLesson: ((state, newLesson) => {
-    state.lessonsv.push(newLesson)
+    state.lessons.push(newLesson)
   }),
 
   editNewLesson: ((state, lesson) => {
     const index = state.lessons.findIndex(p => p.id === lesson.id)
     state.lessons.splice(index, 1, lesson)
+  }),
+
+  deleteLesson: ((state, lessonId) => {
+    const index = state.lessons.findIndex(p => p.id === lessonId)
+    state.lessons.splice(index, 1)
   }),
 }

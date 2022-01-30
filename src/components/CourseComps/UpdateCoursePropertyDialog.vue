@@ -6,8 +6,10 @@
         <div class="text-h6 player-title"> שם קורס: {{ course.courseName }}</div>
       </q-card-section>
       <q-card-section class="q-pt-none">תיאור: {{ course.courseDescription }}</q-card-section>
+      <q-card-section class="q-pt-none">הועלה לפני: {{ course.TimeUpload }}</q-card-section>
       <q-btn @click="deleteCourse(course.id)">מחיקה</q-btn>
       <q-btn @click="updateCourse(course)">צפייה ועדכון</q-btn>
+      <q-btn @click="goToCourseChapter(course)">פרקי הקורס</q-btn>
     </q-card>
 
   </div>
@@ -40,11 +42,19 @@ export default {
       debugger
       // await this.updateCourseActions()
 
-    }
+    },
+
+    goToCourseChapter(course) {
+      debugger
+      this.setEditedCourseId(course.id)
+      this.$router.push(`Chapters/${course.id}`);
+    },
+
   },
 
   created() {
     this.getCourses();
+
   }
 }
 </script>

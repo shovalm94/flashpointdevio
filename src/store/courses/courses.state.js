@@ -2,7 +2,9 @@ export default {
   video:[],
   courses: [],
   chapters:[],
+  lessons:[],
   editedCourseId:'',
+
   editCourse: {
       ImgCourse: '',
       courseDescription: '',

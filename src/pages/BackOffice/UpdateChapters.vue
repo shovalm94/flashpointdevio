@@ -17,7 +17,7 @@ export default {
   components: {},
 
   computed: {
-    ...mapState('courses', ['courses', 'editCourse']),
+    ...mapState('courses', ['courses', 'editCourse', 'editedCourseId']),
     ...mapState('chapters', ['chapters', 'newChapter']),
   },
 
@@ -41,7 +41,7 @@ export default {
     update() {
       this.setLocalNewChapter();
       this.updateChapter();
-      this.$router.push(`/Chapters`);
+      this.$router.push(`/Chapters/${this.editedCourseId}`);
     },
 
     getItemById() {

@@ -4,7 +4,7 @@ export default {
 
   chapterId:'',
 
-  lessonsv:[],
+  lessons:[],
 
   newLesson: {
     Name: '',
