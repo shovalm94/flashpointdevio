@@ -17,6 +17,9 @@ const routes = [
       {path: '/privacy-and-security', component: () => import('../pages/Profile/SubSettings/PrivacyAndSecurity'), meta: {authNotRequired: true}},
       {path: '/help-and-support', component: () => import('../pages/Profile/SubSettings/HelpAndSupport'), meta: {authNotRequired: true}},
       {path: '/app-info', component: () => import('../pages/Profile/SubSettings/AppInfo'), meta: {authNotRequired: true}},
+      {path: '/createCourse', component: () => import('../pages/BackOffice/Creator'), meta: {authNotRequired: true}},
+      {path: '/updateCourse', component: () => import('../components/CourseComps/UpdateCoursePropertyDialog'), meta: {authNotRequired: true}},
+      {path: '/singleCourse', component: () => import('../pages/BackOffice/singleCourseShow'), meta: {authNotRequired: true}},
 
     ],
   },
