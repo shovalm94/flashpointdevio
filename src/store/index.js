@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import courses from './courses'
+import chapters from './chapters'
+import lessons from './lessons'
 import auth from './auth'
 
 
@@ -22,6 +24,8 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       courses,
+      chapters,
+      lessons,
       auth,
     },
 
