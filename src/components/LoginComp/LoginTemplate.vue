@@ -26,7 +26,10 @@
       <q-btn class="text-primary" icon="login" label="Login" outline type="submit"/>
     </q-form>
     <br>
-    <div class="text-subtitle2" @click="resetPassword">Forgot your password? click here</div>
+    <div class="text-subtitle2">Forgot your password? <a href="#" @click="resetPassword()">click here</a>
+
+    </div>
+
     <br>
   </div>
 </template>
@@ -42,6 +45,7 @@ export default {
       email: '',
       password: '',
       isPwd: true,
+      resetPass:false,
     }
   },
   computed: mapState('auth', ['user', 'userId']),
@@ -88,7 +92,22 @@ export default {
       return emailPattern.test(val) || 'Invalid email';
     },
     resetPassword(){
-      firebaseInstance.firebase.auth().sendPasswordResetEmail(this.email)
+      this.$refs.email.validate()
+      if(!this.$refs.email.hasError) {
+        firebaseInstance.firebase.auth().sendPasswordResetEmail(this.email)
+          .then(()=>{
+            this.$q.notify({
+              type: 'positive',
+              message: 'check your mail and reset your password !'
+            })
+          })
+      }
+      else {
+        this.$q.notify({
+          type: 'negative',
+          message: 'One or more of the details you entered are incorrect. Please try again'
+        })
+      }
     }
   }
 }
