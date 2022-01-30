@@ -21,11 +21,14 @@ const routes = [
       {path: '/Lessons', component: () => import('../pages/BackOffice/Lessons'), meta: {authNotRequired: true}},
       {path: '/UpdateChapters/:courseId/:chapterId', component: () => import('../pages/BackOffice/UpdateChapters'), meta: {authNotRequired: true}},
       {path: '/UpdateLesson/:lessonId', component: () => import('pages/BackOffice/UpdateLesson'), meta: {authNotRequired: true}},
+      {path: '/createCourse', component: () => import('../pages/BackOffice/Creator'), meta: {authNotRequired: true}},
+      {path: '/updateCourse', component: () => import('../components/CourseComps/UpdateCoursePropertyDialog'), meta: {authNotRequired: true}},
+      {path: '/singleCourse', component: () => import('../pages/BackOffice/singleCourseShow'), meta: {authNotRequired: true}},
 
     ],
   },
 
-// :CourseId
+
 
 
     // Always leave this as last one, but you can also remove it
