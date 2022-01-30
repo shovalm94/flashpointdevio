@@ -1,0 +1,61 @@
+
+:root {
+  --yellow: #FFCA00;
+  --yellow-hover: #FFCA00;
+}
+
+.btn__submit {
+  transition: 1s;
+  height: 48px;
+  width: 356px;
+  border-radius: 7px;
+  border: 0.1px #aaa solid;
+  background-color: var(--yellow);
+  margin-top: 20px;
+  padding: 5px 0 10px 0;
+  font-family: "Almoni DL AAA black", "sans-serif";
+}
+
+.btn__submit:active,.button__submit:hover {
+  transition: 0.5s;
+  background: var(--yellow-hover);
+}
+
+.btn__submit:active {
+  transform: translateY(-5px);
+}
+
+.btn__save {
+  height: 32px;
+  width: 64px;
+  background-color:var(--yellow);
+  border-radius: 7px;
+  border: 0;
+  margin-top: 20px;
+  padding: 5px 0 10px 0;
+  font-family: "Almoni DL AAA black", "sans-serif";
+  cursor: pointer;
+}
+
+.btn__cancel {
+  height: 32px;
+  width: 64px;
+  background-color: transparent;
+  border-radius: 7px;
+  border: 0;
+  margin-top: 20px;
+  padding: 5px 0 10px 0;
+  font-family: "Almoni DL AAA black", "sans-serif";
+  cursor: pointer;
+}
+
+.btn__reset-password {
+  height: 40px;
+  width: 356px;
+  border-radius: 7px;
+  border: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}

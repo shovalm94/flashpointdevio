@@ -1,0 +1,10 @@
+.form__link {
+  cursor: pointer;
+  color: #3980E7;
+  transition: 300ms;
+  text-decoration: none;
+}
+.form__link:hover {
+  transition: 300ms;
+  color: #0f5090;
+}

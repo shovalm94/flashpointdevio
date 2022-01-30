@@ -1,0 +1,44 @@
+// app global css in Sass form
+.text-grand-hotel
+  font-family: 'Grand Hotel', 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'
+
+.small-screen-only
+  @media (max-width: $breakpoint-xs-max)
+    display: block
+  @media (min-width: $breakpoint-sm-min)
+    display: none
+
+.large-screen-only
+  @media (max-width: $breakpoint-xs-max)
+    display: none
+  @media (min-width: $breakpoint-sm-min)
+    display: block
+
+.constrain
+  max-width: 975px
+  margin: auto
+
+  //.bars
+  //height: 60px
+  //background-color: #d4a422
+  //z-index: 1
+
+.borderCheck
+  border: solid red 1px
+
+.titleUp
+  margin-left: 2%
+
+.q-card
+  border-radius: 32px
+  width: 80%
+
+.group-btn
+  box-shadow: none
+
+.mainCard
+  padding: 2% 2% 0 2%
+
+.allBtn
+  display: flex
+  justify-content: space-around

@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@394&display=swap');
+@font-face {
+  font-family: "Almoni DL AAA";
+  src: url('almoni/almoni-dl-aaa-regular.otf')
+  format('opentype');
+  font-weight: normal;
+}
+@font-face {
+  font-family: "Almoni DL AAA black";
+  src: url('almoni/almoni-dl-aaa-black.otf')
+  format('opentype');
+  font-weight: auto;
+}
+@font-face {
+  font-family: "Almoni DL AAA bold";
+  src: url('almoni/almoni-dl-aaa-bold.otf')
+  format('opentype');
+  font-weight: bold;  }
