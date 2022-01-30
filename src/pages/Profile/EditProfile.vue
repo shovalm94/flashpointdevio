@@ -80,6 +80,7 @@ export default {
         fullName: '',
         email: '',
         phone: '',
+        imgUrl:''
       },
       editImg: false,
       fileData:''
@@ -93,6 +94,7 @@ export default {
       } else if (this.formHasError === true) {
         console.log('something went wrong')
       } else {
+        this.editedUser.imgUrl=this.user.imgUrl;
         this.updateUser(this.editedUser)
         this.$router.go(-1)
       }

@@ -4,7 +4,6 @@ import storage from "../../middleware/storage";
 
 export default {
   getUser: ({commit, state}) => {
-    // commit('resetUser', {})
     database.read({path: 'users', id: state.userId})
       .then(result => {
         commit('setUser', result)
