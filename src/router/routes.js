@@ -17,11 +17,15 @@ const routes = [
       {path: '/privacy-and-security', component: () => import('../pages/Profile/SubSettings/PrivacyAndSecurity'), meta: {authNotRequired: true}},
       {path: '/help-and-support', component: () => import('../pages/Profile/SubSettings/HelpAndSupport'), meta: {authNotRequired: true}},
       {path: '/app-info', component: () => import('../pages/Profile/SubSettings/AppInfo'), meta: {authNotRequired: true}},
+      {path: '/Chapters/', component: () => import('../pages/BackOffice/Chapters'), meta: {authNotRequired: true}},
+      {path: '/Lessons', component: () => import('../pages/BackOffice/Lessons'), meta: {authNotRequired: true}},
+      {path: '/UpdateChapters/:courseId/:chapterId', component: () => import('../pages/BackOffice/UpdateChapters'), meta: {authNotRequired: true}},
+      {path: '/UpdateLesson/:lessonId', component: () => import('pages/BackOffice/UpdateLesson'), meta: {authNotRequired: true}},
 
     ],
   },
 
-
+// :CourseId
 
 
     // Always leave this as last one, but you can also remove it

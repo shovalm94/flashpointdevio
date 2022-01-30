@@ -1,0 +1,113 @@
+<template>
+  <q-page class="flex flex-center">
+
+      <div class="q-pa-md" style="min-width: 450px">
+        <!--      <h2>`קורס: {{ chapter.name }}`</h2>-->
+        <q-btn color="primary" label="חזור לרשימת הפרקים" @click="exit()" style="width: 350px"/>
+      </div>
+
+
+    <div class="q-pa-md" style="width: 350px">
+      <div>Update lesson:</div>
+      <q-input outlined v-model="updatedNewLesson.name" label="Name"/>
+      <q-input outlined v-model="updatedNewLesson.description" label="Description"/>
+      <q-btn color="primary" label="Update" @click="update()"/>
+    </div>
+
+    <div class="q-pa-md row items-start q-gutter-md">
+      <q-card v-ripple>
+        <q-separator/>
+
+        <q-card-section class="bg-primary text-white">
+          <div class="text-h6">{{ newLesson.name }}</div>
+        </q-card-section>
+        <q-separator/>
+
+        <q-card-section class="bg-primary text-white">
+          <div class="text-h6">{{ newLesson.description }}</div>
+        </q-card-section>
+        <q-separator/>
+
+        <q-card-section class="bg-primary text-white">
+          <div class="text-h6">{{ newLesson.id }}</div>
+        </q-card-section>
+        <q-separator/>
+
+
+        <q-card-actions align="right">
+          <q-btn flat @click="remove(newLesson.id)">Delete</q-btn>
+          <!--          <q-btn flat label="Update" @click="goToItem('amAEfkzpExJvhHzChmXs', chapter)">-->
+
+          <!--          </q-btn>-->
+        </q-card-actions>
+      </q-card>
+    </div>
+  </q-page>
+
+</template>
+
+<script>
+
+import {mapActions, mapMutations, mapState} from "vuex";
+
+export default {
+  name: 'testUpdateComponent',
+
+  components: {},
+
+  computed: {
+    ...mapState('lessons', ['newLesson']),
+  },
+
+  data() {
+    return {
+      updatedNewLesson: {
+        name: '',
+        description: '',
+      },
+    }
+  },
+
+  methods: {
+    ...mapActions('lessons', ['getSingleLesson', 'updateLesson', 'deleteLesson']),
+    ...mapMutations('lessons', ['setNewLesson']),
+
+    setLocalNewLesson() {
+      this.setNewLesson(this.updatedNewLesson);
+    },
+
+    update() {
+      this.setLocalNewLesson();
+      this.updateLesson();
+      this.$router.push(`/Chapters`);
+    },
+
+    getItemById(id) {
+      debugger
+      this.getSingleLesson(id);
+    },
+
+    remove(id) {
+      this.deleteLesson(id);
+    },
+
+    exit() {
+      this.$router.push(`/Chapters`);
+    },
+
+  },
+
+  created() {
+    Object.assign(this.updatedNewLesson, this.newLesson)
+    debugger
+    this.getItemById(this.newLesson.id);
+  }
+
+}
+
+
+</script>
+
+<style scoped>
+
+</style>

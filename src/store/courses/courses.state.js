@@ -1,7 +1,10 @@
-
 export default {
-
-    courseId: '',
-    chapterId: '',
-    lessonId: '',
+  courses: [],
+  chapters:[],
+  editedCourseId:'',
+  editCourse: {
+    courseDescription:'',
+    courseName:'',
+    courseLength:'',
+  }
 }
