@@ -1,8 +1,6 @@
 <template>
   <q-page class="q-pa-md">
-
     <q-card class="my-card" flat>
-
       <q-btn
         class="q-mr-sm"
         dense
@@ -37,14 +35,12 @@
       </q-btn>
 
       <q-card-section class="text-center">
-
         <q-avatar size="100px" font-size="52px">
           <img
                src="../../assets/flashdev.png"
                alt="https://st.depositphotos.com/2101611/4338/v/950/depositphotos_43381243-stock-illustration-male-avatar-profile-picture.jpg"
           >
         </q-avatar>
-
         <q-item-section><br>
           <q-item-label class="text-bold">Sara Katz</q-item-label>
           <q-item-label caption>
