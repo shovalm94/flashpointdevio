@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+// import VuexPersistence from 'vuex-persist'
+// import localForge from 'localforage'
 
 import courses from './courses'
 import chapters from './chapters'
 import lessons from './lessons'
 import auth from './auth'
+
 
 
 // import users from './users'
@@ -20,6 +23,7 @@ Vue.use(Vuex)
  * with the Store instance.
  */
 
+
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
@@ -29,9 +33,9 @@ export default function (/* { ssrContext } */) {
       auth,
     },
 
-    // enable strict mode (adds overhead!)
-    // for dev mode only
-    strict: process.env.DEBUGGING
+// enable strict mode (adds overhead!)
+// for dev mode only
+//     strict: process.env.DEBUGGING
   })
 
   return Store;
