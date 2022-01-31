@@ -6,7 +6,7 @@ export default {
   editedCourseId:'',
 
   editCourse: {
-      ImgCourse: '',
+      ImgCourse: [],
       courseDescription: '',
       courseName: '',
       courseLength: '',

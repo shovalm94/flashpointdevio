@@ -29,6 +29,11 @@
         <q-separator/>
 
         <q-card-section class="bg-primary text-white">
+          <img :src="newLesson.lessonVideo" alt="">
+        </q-card-section>
+        <q-separator/>
+
+        <q-card-section class="bg-primary text-white">
           <div class="text-h6">{{ newLesson.id }}</div>
         </q-card-section>
         <q-separator/>
@@ -65,6 +70,7 @@ export default {
       updatedNewLesson: {
         name: '',
         description: '',
+        lessonVideo: []
       },
     }
   },

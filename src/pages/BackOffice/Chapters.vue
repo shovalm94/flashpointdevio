@@ -9,7 +9,10 @@
 
       <h3>הוסף פרק חדש בקורס זה:</h3>
       <q-input outlined v-model="localNewChapter.Name" label="שם הפרק"/>
+      <q-input outlined v-model="localNewChapter.Description" label="שם הפרק"/>
       <q-input outlined v-model="localNewChapter.LevelOfDifficulty" label="רמת קושי"/>
+      <q-file outlined v-model="localNewChapter.ChapterImg" label="upload image"
+              hint="תמונת הפרק" id="fileUpload"></q-file>
       <q-btn push color="primary" label="insert" @click="insert()"/>
       <q-btn color="primary" label="חזור לרשימת הקורסים" @click="exit()" style="width: 350px"/>
     </div>
@@ -20,7 +23,17 @@
         <q-separator/>
 
         <q-card-section class="bg-primary text-white">
-          <div class="text-h6">{{ chapter.Name }}</div>
+          <div class="text-h6">{{ chapter.Name}}</div>
+        </q-card-section>
+        <q-separator/>
+
+        <q-card-section class="bg-primary text-white">
+          <img :src="chapter.ChapterImg" alt="">
+        </q-card-section>
+        <q-separator/>
+
+        <q-card-section class="bg-primary text-white">
+          <div class="text-h6">{{ chapter.Description}}</div>
         </q-card-section>
         <q-separator/>
 
@@ -35,36 +48,11 @@
         <q-separator/>
 
 
-<!--        <q-card-section class="bg-primary text-white">-->
-<!--        <div class="q-pa-md">-->
-<!--          <div class="q-gutter-md row items-start">-->
-<!--&lt;!&ndash;            <div class="col-12">&ndash;&gt;-->
-<!--&lt;!&ndash;              <q-badge color="secondary" multi-line>&ndash;&gt;-->
-<!--&lt;!&ndash;                Model: "{{ model }}"&ndash;&gt;-->
-<!--&lt;!&ndash;              </q-badge>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;            <q-select&ndash;&gt;-->
-<!--&lt;!&ndash;              filled&ndash;&gt;-->
-<!--&lt;!&ndash;              v-model="model"&ndash;&gt;-->
-<!--&lt;!&ndash;              :options="options"&ndash;&gt;-->
-<!--&lt;!&ndash;              option-value="id"&ndash;&gt;-->
-<!--&lt;!&ndash;              option-label="desc"&ndash;&gt;-->
-<!--&lt;!&ndash;              option-disable="inactive"&ndash;&gt;-->
-<!--&lt;!&ndash;              emit-value&ndash;&gt;-->
-<!--&lt;!&ndash;              map-options&ndash;&gt;-->
-<!--&lt;!&ndash;              style="min-width: 250px; max-width: 300px"&ndash;&gt;-->
-<!--&lt;!&ndash;            />&ndash;&gt;-->
-<!--&lt;!&ndash;            <q-btn push color="primary" label="להוספת שיעור חדש" @click="LessonAdd()"/>&ndash;&gt;-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        </q-card-section>-->
-<!--<q-separator/>-->
         <q-card-section class="bg-primary text-white">
           <div class="q-pa-md">
             <q-btn-dropdown color="blue" label="lessons in this chapter">
               <q-list>
-                <q-item clickable v-for="lesson in (chapter.Lessons)"  v-close-popup @click="LessonUpdate(lesson)">
+                <q-item clickable v-for="lesson in (chapter.Lessons)"  v-close-popup @click="LessonUpdate(chapter,lesson)">
                   <q-item-section>
                     <q-item-label >{{lesson.name}}</q-item-label>
                   </q-item-section>
@@ -103,32 +91,11 @@ export default {
     return {
       localNewChapter: {
         Name: '',
+        Description: '',
         LevelOfDifficulty: '',
+        ChapterImg: [],
         Lessons: []
       },
-      model: null,
-      options: [
-        {
-          id: 'goog',
-          desc: 'Google'
-        },
-        {
-          id: 'fb',
-          desc: 'Facebook'
-        },
-        {
-          id: 'twt',
-          desc: 'Twitter'
-        },
-        {
-          id: 'app',
-          desc: 'Apple'
-        },
-        {
-          id: 'ora',
-          desc: 'Oracle',
-        }
-      ],
     }
   },
 
@@ -165,8 +132,9 @@ export default {
       await this.$router.push(`/Lessons`);
     },
 
-    LessonUpdate (lesson) {
+    LessonUpdate (chapter, lesson) {
       debugger
+      this.setNewChapter(chapter);
       this.resetNewLesson();
       this.setNewLesson(lesson);
       this.$router.push(`/UpdateLesson/${lesson.id}`);

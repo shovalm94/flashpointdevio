@@ -27,10 +27,10 @@ export default /* context */ {
     // commit('setTimeUpload')
   },
 
-  deleteCourseActions: async ({state, commit}) => {
+  deleteCourseActions: async ({state, commit}, id) => {
     debugger
-    await firebase.Delete({entity: "courses", id: state.editCourse.id})
-    commit('deleteCourse', state.editCourse.id)
+    await firebase.Delete({entity: "courses", id})
+    commit('deleteCourse', id)
   },
 
   updateCourseActions: async ({state, commit}) => {

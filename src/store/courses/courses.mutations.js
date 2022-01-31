@@ -24,9 +24,9 @@ export default {
     state.courses.splice(index, 1, course)
   }),
 
-  deleteCourse: ((state, course) => {
+  deleteCourse: ((state, courseId) => {
     debugger
-    const index = state.courses.findIndex(p => p.id === course.id)
+    const index = state.courses.findIndex(p => p.id === courseId)
     state.courses.splice(index, 1)
   }),
 

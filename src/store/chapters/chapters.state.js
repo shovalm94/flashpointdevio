@@ -6,10 +6,10 @@ export default {
 
   newChapter: {
     Name: '',
+    Description:'',
     LevelOfDifficulty: '',
-    Lessons: []
+    Lessons: [],
+    ChapterImg: [],
   },
-
-  options:[]
 
 }

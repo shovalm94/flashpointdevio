@@ -9,6 +9,7 @@ export default {
   newLesson: {
     Name: '',
     description: '',
+    lessonVideo: [],
   },
 
 

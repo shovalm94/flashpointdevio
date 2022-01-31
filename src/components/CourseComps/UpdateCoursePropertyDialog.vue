@@ -31,8 +31,9 @@ export default {
 
     async deleteCourse(id) {
       await this.setEditedCourseId(id)
-      await this.deleteCourseActions()
+      await this.deleteCourseActions(id)
     },
+
     async updateCourse(course) {
       debugger
       this.setCourse(course)

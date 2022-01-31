@@ -3,6 +3,8 @@
     <div>insert new lesson:</div>
     <q-input outlined v-model="LocalNewLesson.name" label="Name"/>
     <q-input outlined v-model="LocalNewLesson.description" label="Description"/>
+    <q-file outlined v-model="LocalNewLesson.lessonVideo" label="upload video"
+            hint="סרטון השיעור" id="fileUpload"></q-file>
     <q-btn color="primary" label="Insert" @click="insert()"/>
   </div>
 </template>
@@ -19,7 +21,7 @@ export default {
   computed: {
     ...mapState('courses', ['courses', 'editCourse']),
     ...mapState('chapters', ['chapters', 'newChapter']),
-    // ...mapState('lessons', ['']),
+
   },
 
   data() {
@@ -27,6 +29,7 @@ export default {
       LocalNewLesson: {
         name: '',
         description: '',
+        lessonVideo: []
       },
     }
   },

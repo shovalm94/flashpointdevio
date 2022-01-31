@@ -27,9 +27,12 @@ function get(options){
 
 
 function getSingle(options){
+  debugger
   let item = {}
-  return firebaseInstance.db().collection(`${options.entity}`).doc(options.item).get()
+   return firebaseInstance.db().collection(`${options.entity}`).doc(options.item).get()
     .then(result =>{
+      console.log(result.data())
+      debugger
         item = {
           ...result.data(),
           id: result.id
