@@ -8,7 +8,7 @@
         icon="keyboard_backspace"
         round
         size="12px"
-        to="/profile">
+        to="/profile/123">
         <q-tooltip>Back</q-tooltip>
       </q-btn>
 
