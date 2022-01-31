@@ -26,7 +26,8 @@
     "@quasar/quasar-app-extension-qmediaplayer": "1.2.1",
     "firebase-tools": "9.5.0",
     "vue-router": "^3.2.0",
-    "vuex": "3.6.2"
+    "vuex": "3.6.2",
+    "vue-cli-plugin-quasar": "4.0.4"
   },
   "browserslist": [
     "ie >= 11",

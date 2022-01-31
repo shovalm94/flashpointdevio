@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import VuexPersistence from 'vuex-persist'
-// import localForge from 'localforage'
+import createPersistedState from 'vuex-persistedstate';
+const dataState = createPersistedState({
+  paths:['courses', 'chapters', 'lessons']
+})
+
+
 
 import courses from './courses'
 import chapters from './chapters'
@@ -26,13 +30,14 @@ Vue.use(Vuex)
 
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
+    strict: process.env.NODE_ENV !== 'production',
     modules: {
       courses,
       chapters,
       lessons,
       auth,
     },
-
+plugins: [dataState]
 // enable strict mode (adds overhead!)
 // for dev mode only
 //     strict: process.env.DEBUGGING
