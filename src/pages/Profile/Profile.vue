@@ -48,7 +48,7 @@
         <q-item-section><br>
           <q-item-label class="text-bold">Sara Katz</q-item-label>
           <q-item-label caption>
-            {Tel-aviv, Israel
+            Tel-aviv, Israel
           </q-item-label>
         </q-item-section>
       </q-card-section>
