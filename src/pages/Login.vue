@@ -51,10 +51,11 @@ export default {
   },
 
   created() {
-    if (window.user) {
-      this.$router.push('/home');
-
-    }
+    //todo: delete this check
+    // if (window.user) {
+    //   this.$router.push('/home');
+    //
+    // }
   }
 }
 </script>

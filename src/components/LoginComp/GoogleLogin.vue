@@ -21,7 +21,7 @@ export default {
           // The signed-in user info.
           var user = result.user;
           window.user = result.user;
-          this.$router.push('/home')
+          this.$router.push('/')
         }).catch((error) => {
         // Handle Errors here.
         var errorCode = error.code;

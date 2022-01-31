@@ -1,9 +1,9 @@
 <template>
   <div>
+<!--    <Home></Home>-->
     <q-layout view="hHh Lpr lff" class="shadow-2 rounded-borders">
       <NavDesktop class="nav-desktop"></NavDesktop>
       <NavMobile class="nav-mobile"></NavMobile>
-
       <q-page-container class="constrain">
         <q-page>
           <router-view/>
@@ -17,9 +17,10 @@
 <script>
 import NavDesktop from "components/Nav/NavDesktop";
 import NavMobile from "components/Nav/NavMobile";
+import Home from "pages/Home";
 
 export default {
-  components: {NavMobile, NavDesktop},
+  components: {Home, NavMobile, NavDesktop},
   created() {
 
   },
