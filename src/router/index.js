@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import firebaseInstance from '../middleware/firebase'
 import routes from './routes'
 
+
 Vue.use(VueRouter)
 
 /*

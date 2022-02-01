@@ -76,7 +76,7 @@ export default {
               type: 'positive',
               message: 'Welcome Back!'
             })
-            this.$router.push('/home')
+            this.$router.push('/')
           })
           .catch((error) => {
             console.log(error)

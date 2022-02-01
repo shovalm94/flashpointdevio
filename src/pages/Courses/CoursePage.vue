@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="list" v-for="course in coursesList" :key="item">
+    <div class="list" v-for="course in coursesList" >
       <q-card class="rectangle">
         <q-item>
           <q-item-section avatar class="titleUp">
             <q-avatar>
-              <img :src= course.logoCourse alt="courseLogo">
+              <img :src= course.logoCourse :alt="require('../../assets/flashdev.png')">
             </q-avatar>
           </q-item-section>
           <q-item-section>
@@ -51,7 +51,9 @@ export default {
   name: "Cuorses",
   components: {Lesson},
   data() {
-    return {}
+    return {
+
+    }
   },
   computed: mapState('courses', ["coursesList"]),
   methods: {
@@ -70,90 +72,90 @@ export default {
 
 <style scoped>
 
-.list {
-  height: 620px;
-  width: 620px;
-}
+/*.list {*/
+/*  height: 620px;*/
+/*  width: 620px;*/
+/*}*/
 
-.rectangle {
-  position: absolute;
-  box-sizing: border-box;
-  width: 620px;
-  border: 1.77px solid #ECECEF;
-  border-radius: 10.63px;
-  background-color: #FFFFFF;
-}
+/*.rectangle {*/
+/*  position: absolute;*/
+/*  box-sizing: border-box;*/
+/*  width: 620px;*/
+/*  border: 1.77px solid #ECECEF;*/
+/*  border-radius: 10.63px;*/
+/*  background-color: #FFFFFF;*/
+/*}*/
 
-.firstHead {
-  height: 41px;
-  width: 234px;
-  color: #212121;
-  font-family: "Almoni DL AAA";
-  font-size: 28.34px;
-  letter-spacing: -0.33px;
-  line-height: 40.74px;
-  text-align: right;
-}
+/*.firstHead {*/
+/*  height: 41px;*/
+/*  width: 234px;*/
+/*  color: #212121;*/
+/*  font-family: "Almoni DL AAA";*/
+/*  font-size: 28.34px;*/
+/*  letter-spacing: -0.33px;*/
+/*  line-height: 40.74px;*/
+/*  text-align: right;*/
+/*}*/
 
-.secondHead {
-  height: 36px;
-  width: 94px;
-  color: #7A7A7A;
-  font-family: "Almoni DL AAA";
-  font-size: 23.03px;
-  letter-spacing: -0.45px;
-  line-height: 35.43px;
-  text-align: right;
-}
+/*.secondHead {*/
+/*  height: 36px;*/
+/*  width: 94px;*/
+/*  color: #7A7A7A;*/
+/*  font-family: "Almoni DL AAA";*/
+/*  font-size: 23.03px;*/
+/*  letter-spacing: -0.45px;*/
+/*  line-height: 35.43px;*/
+/*  text-align: right;*/
+/*}*/
 
-.courseImg {
-  position: relative;
-  height: 283.43px;
-  width: 620px;
-}
+/*.courseImg {*/
+/*  position: relative;*/
+/*  height: 283.43px;*/
+/*  width: 620px;*/
+/*}*/
 
-.lessonName {
-  position: relative;
-  height: 40.74px;
-  width: 382.63px;
-  color: #212121;
-  font-family: "Almoni DL AAA";
-  font-size: 28.34px;
-  font-weight: bold;
-  letter-spacing: -0.33px;
-  line-height: 40.74px;
-  text-align: right;
-}
+/*.lessonName {*/
+/*  position: relative;*/
+/*  height: 40.74px;*/
+/*  width: 382.63px;*/
+/*  color: #212121;*/
+/*  font-family: "Almoni DL AAA";*/
+/*  font-size: 28.34px;*/
+/*  font-weight: bold;*/
+/*  letter-spacing: -0.33px;*/
+/*  line-height: 40.74px;*/
+/*  text-align: right;*/
+/*}*/
 
-.discription {
-  height: 63.77px;
-  width: 382.63px;
-  color: #6C6B81;
-  font-family: "Almoni DL AAA";
-  font-size: 28.34px;
-  letter-spacing: -0.33px;
-  line-height: 31.89px;
-  text-align: right;
-}
+/*.discription {*/
+/*  height: 63.77px;*/
+/*  width: 382.63px;*/
+/*  color: #6C6B81;*/
+/*  font-family: "Almoni DL AAA";*/
+/*  font-size: 28.34px;*/
+/*  letter-spacing: -0.33px;*/
+/*  line-height: 31.89px;*/
+/*  text-align: right;*/
+/*}*/
 
-.teacherName {
-  height: 41px;
-  width: 111px;
-  opacity: 0.8;
-  color: #212121;
-  font-family: "Almoni DL AAA";
-  font-size: 28.34px;
-  letter-spacing: -0.33px;
-  line-height: 40.74px;
-  text-align: right;
-}
+/*.teacherName {*/
+/*  height: 41px;*/
+/*  width: 111px;*/
+/*  opacity: 0.8;*/
+/*  color: #212121;*/
+/*  font-family: "Almoni DL AAA";*/
+/*  font-size: 28.34px;*/
+/*  letter-spacing: -0.33px;*/
+/*  line-height: 40.74px;*/
+/*  text-align: right;*/
+/*}*/
 
-.teacherImg {
-  X: 1075.6px;
-  Y: 672.69px;
-  Width: 38.97px;
-  Height: 38.97px;
-}
+/*.teacherImg {*/
+/*  X: 1075.6px;*/
+/*  Y: 672.69px;*/
+/*  Width: 38.97px;*/
+/*  Height: 38.97px;*/
+/*}*/
 
 </style>
 
