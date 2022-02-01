@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--    todo: class name-->
     <div class="list" v-for="course in coursesList" :key="item">
       <q-card class="rectangle">
         <q-item>
@@ -53,9 +52,7 @@ export default {
   name: "Cuorses",
   components: {Lesson},
   data() {
-    return {
-      // courses: []
-    }
+    return {}
   },
   computed: mapState('courses', ["coursesList"]),
   methods: {

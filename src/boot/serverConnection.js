@@ -15,7 +15,6 @@ export default async () => {
   firebaseInstance.fBInit(config);
 
   firebaseInstance.firebase.auth().onAuthStateChanged( user => {
-    debugger
     window.user =user
   })
 }

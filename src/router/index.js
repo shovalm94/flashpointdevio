@@ -27,8 +27,6 @@ export default function (/* { store, ssrContext } */) {
   })
 
   router.beforeEach(  (to, from, next) => {
-    debugger
-    // todo: if user, and route to login, stay on current
     firebaseInstance.firebase.auth().onAuthStateChanged( user => {
       if (!user && !to.meta.authNotRequired) {
         next('/login')
