@@ -55,6 +55,17 @@
           </q-item-section>
         </q-item>
 
+
+        <q-item :to="{path:`/delete-account/${userId}`}" clickable>
+          <q-item-section avatar>
+            <q-icon color="grey" name="delete" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Delete Account</q-item-label>
+          </q-item-section>
+        </q-item>
+
         <q-item to="/help-and-support" clickable>
           <q-item-section avatar>
             <q-icon color="grey" name="help" />
@@ -75,7 +86,6 @@
           </q-item-section>
         </q-item>
       </q-list>
-
     </q-card>
 
   </q-page>
@@ -83,10 +93,15 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   name: 'settings',
+  computed: mapState('auth', ['user', 'userId']),
   data() {
-    return {}
+    return {
+
+    }
   }
 }
 </script>

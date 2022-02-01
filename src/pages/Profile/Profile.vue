@@ -21,7 +21,7 @@
         icon="settings"
         round
         size="12px"
-        to="/settings">
+        :to="{path:`settings/${userId}`}">
         <q-tooltip>Settings</q-tooltip>
       </q-btn>
 
@@ -46,9 +46,6 @@
 
         <q-item-section><br>
           <q-item-label class="text-bold">{{user.fullName}}</q-item-label>
-<!--          <q-item-label caption>-->
-<!--            {Tel-aviv, Israel-->
-<!--          </q-item-label>-->
         </q-item-section>
       </q-card-section>
 

@@ -10,7 +10,7 @@
         </template>
       </q-input>
       <q-input ref="password" v-model="password"
-               :rules="[ val => val && val.length > 6 || 'Please enter your password']"
+               :rules="[ val => val && val.length >= 6 || 'Please enter your password']"
                :type="isPwd ? 'password' : 'text'"
                label="Password*"
                lazy-rules>

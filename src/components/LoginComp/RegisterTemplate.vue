@@ -29,7 +29,7 @@
 
 
     <q-input ref="password" v-model="localUser.password"
-             :rules="[ val => val && val.length > 6 || 'Please type something']"
+             :rules="[ val => val && val.length >= 6 || 'Please type something']"
              :type="isPwd ? 'password' : 'text'"
              label="Password*"
              lazy-rules>

@@ -24,6 +24,9 @@ export default {
         }).catch(e => console.log(e));
       })
   },
+  delete:({state,commit})=>{
+    database.deleteFromAuth()
+  }
 
 
 }

@@ -11,10 +11,13 @@ function read(options){
 function update(options){
   return firebaseInstance.db().collection(options.path).doc(options.id).update(options.item)
 }
-
+function deleteFromAuth(){
+  return firebaseInstance.authentication().currentUser.delete()
+}
 export default {
   createUser,
   read,
   update,
+  deleteFromAuth
 
 }

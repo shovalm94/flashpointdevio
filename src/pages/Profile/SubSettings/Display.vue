@@ -9,7 +9,7 @@
         icon="keyboard_backspace"
         round
         size="12px"
-        to="/settings">
+        :to="{path:`profile/settings/${userId}`}">
         <q-tooltip>Back</q-tooltip>
       </q-btn>
 
@@ -50,8 +50,11 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   name: 'display',
+  computed: mapState('auth', ['user', 'userId']),
   data() {
     return {}
   }
