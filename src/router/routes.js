@@ -7,7 +7,7 @@ const routes = [
 
     children: [
       { path: '/login', component: () => import('../pages/Login'), meta:{authNotRequired: true}},
-      { path: '/home', component: () => import('../pages/Home'), meta: {authNotRequired: false}} ,
+      { path: '/', component: () => import('../pages/Home'), meta: {authNotRequired: false}} ,
       { path: '/school', component: () => import('pages/Courses/School'), meta: {authNotRequired: false}},
       {path: '/profile/:id', component: () => import('../pages/Profile/Profile'), meta: {authNotRequired: false}},
       {path: '/edit-profile/:id', component: () => import('../pages/Profile/EditProfile'), meta: {authNotRequired: false}},

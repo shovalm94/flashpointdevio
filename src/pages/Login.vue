@@ -51,10 +51,6 @@ export default {
   },
 
   created() {
-    if (window.user) {
-      this.$router.push('/home');
-
-    }
   }
 }
 </script>

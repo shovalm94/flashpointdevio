@@ -1,39 +1,38 @@
 <template>
   <div>
-
-    <div class="list" v-for="item in courses" :key="item.id">
+    <div class="list" v-for="course in coursesList" :key="item">
       <q-card class="rectangle">
         <q-item>
-        <q-item-section avatar class="titleUp">
-          <q-avatar>
-            <img src="../../assets/flashdev.png" alt="">
-          </q-avatar>
-        </q-item-section>
-        <q-item-section>
-          <q-item-label class="firstHead">{{item.courseName}}</q-item-label>
-          <q-item-label caption class="timeUp">
-            {{item.TimeUpload}}
-          </q-item-label>
-        </q-item-section>
+          <q-item-section avatar class="titleUp">
+            <q-avatar>
+              <img :src= course.logoCourse alt="courseLogo">
+            </q-avatar>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label class="firstHead">{{course.courseName}}</q-item-label>
+            <q-item-label caption class="secondHead">
+              {{course.TimeUpload}}
+            </q-item-label>
+          </q-item-section>
         </q-item>
         <q-item-section>
-          <div class="courseImg">
-            <q-img src="https://cdn.quasar.dev/img/mountains.jpg"/>
+          <div >
+            <img :src= course.ImgCourse class="courseImg" alt="courseImg">
           </div>
-          </q-item-section>
+        </q-item-section>
         <q-card-section>
           <div class="lessonName"> שם השיעור</div>
-          <div class="discription"> {{item.courseDescription}}</div>
+          <div class="discription"> {{course.courseDescription}}</div>
         </q-card-section>
         <q-item>
-          <q-item-section class="teacherImg" avatar >
+          <q-item-section class="teacherImg" avatar>
             <q-avatar>
-              <img src="../../assets/flashdev.png" alt="">
+              <img :src= course.imgTeacher alt="teacherImg">
             </q-avatar>
           </q-item-section>
 
           <q-item-section>
-            <q-item-label class="teacherName">{{item.TeacherName}}</q-item-label>
+            <q-item-label class="teacherName">{{course.TeacherName}}</q-item-label>
           </q-item-section>
         </q-item>
       </q-card>
@@ -45,29 +44,27 @@
 
 <script>
 
-import firebaseInstance from '../../middleware/firebase';
+import {mapActions, mapState} from "vuex";
 import Lesson from "components/CourseComps/Lesson";
 
 export default {
   name: "Cuorses",
   components: {Lesson},
   data() {
-    return  {
-      courses: []
-    }
+    return {}
   },
+  computed: mapState('courses', ["coursesList"]),
   methods: {
+    ...mapActions('courses', ["getCourses"]),
     read() {
-      firebaseInstance.db().collection('courses').get()
-        .then(result => result.docs.forEach(doc => {
-          this.courses.push(doc.data())
-        }))
+      this.getCourses()
     }
   },
   created() {
     this.read()
   }
 }
+
 
 </script>
 
@@ -77,6 +74,7 @@ export default {
   height: 620px;
   width: 620px;
 }
+
 .rectangle {
   position: absolute;
   box-sizing: border-box;
@@ -85,7 +83,8 @@ export default {
   border-radius: 10.63px;
   background-color: #FFFFFF;
 }
-.firstHead{
+
+.firstHead {
   height: 41px;
   width: 234px;
   color: #212121;
@@ -96,7 +95,7 @@ export default {
   text-align: right;
 }
 
-.timeUp {
+.secondHead {
   height: 36px;
   width: 94px;
   color: #7A7A7A;
@@ -106,13 +105,14 @@ export default {
   line-height: 35.43px;
   text-align: right;
 }
+
 .courseImg {
   position: relative;
   height: 283.43px;
   width: 620px;
 }
 
-.lessonName{
+.lessonName {
   position: relative;
   height: 40.74px;
   width: 382.63px;
@@ -124,7 +124,8 @@ export default {
   line-height: 40.74px;
   text-align: right;
 }
-.discription{
+
+.discription {
   height: 63.77px;
   width: 382.63px;
   color: #6C6B81;
@@ -134,6 +135,7 @@ export default {
   line-height: 31.89px;
   text-align: right;
 }
+
 .teacherName {
   height: 41px;
   width: 111px;
@@ -145,6 +147,7 @@ export default {
   line-height: 40.74px;
   text-align: right;
 }
+
 .teacherImg {
   X: 1075.6px;
   Y: 672.69px;
