@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import firebaseInstance from "src/middleware/firebase";
+import firebaseInstance from "../../middleware/firebase";
 
 export default {
   name: 'profile',
