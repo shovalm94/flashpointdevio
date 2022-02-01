@@ -6,6 +6,8 @@ export default {
 
   setUserId: ((state, id) => state.userId = id),
 
+  setUserImage:((state,url)=> state.user.imgUrl=url),
+
   resetUserId: ((state) => state.userId = ''),
 
   resetUser: ((state) => {state.user = {}}),

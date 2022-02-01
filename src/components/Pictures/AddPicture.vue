@@ -1,6 +1,5 @@
 
 <!-- THIS COMPONENT IS IN CHARGE OF STORAGE HANDLING -->
-<!--  todo: this component is all about manging firebase storage. -->
 <!--  image uploading (for any cause) should be managed from this component-->
 
 <template>
@@ -70,10 +69,10 @@ export default {
       const self = this
       self.uploadValue = 0;
       self.imageData = event.target.files[0];
-      this.upload()
+      // this.upload()
     },
-    upload(){
-    }
+    // upload(){
+    // }
   },
 }
 </script>

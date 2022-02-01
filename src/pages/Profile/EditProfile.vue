@@ -12,101 +12,107 @@
         <q-tooltip>Back</q-tooltip>
       </q-btn>
 
-
       <q-card-section class="text-center">
         <q-avatar font-size="52px" size="100px" @click="">
-          <img v-if="img"
+          <img :src=editedUser.imgUrl
                alt="https://st.depositphotos.com/2101611/4338/v/950/depositphotos_43381243-stock-illustration-male-avatar-profile-picture.jpg"
-               src="../../assets/flashdev.png"
-          >
+               >
+          <q-btn class="q-mr-sm" style="position: absolute;color:gray"
+            dense
+            flat
+            icon="edit"
+            round
+            size="12px"
+          @click="editImg=!editImg">
+            <q-tooltip>Edit image</q-tooltip>
+          </q-btn>
         </q-avatar>
+        <q-input v-if="editImg" type="file" ref="fileInput" accept="image/*" @change="getFileData"/>
+        <q-btn v-if="editImg" flat color="primary" label="Upload" @click="updateImage"/>
 
         <q-item-section><br>
-          <q-item-label class="text-bold">Sara Katz</q-item-label>
+          <q-item-label class="text-bold">{{ editedUser.fullName }}</q-item-label>
           <q-item-label caption>
             ערוך פרופיל
           </q-item-label>
         </q-item-section>
       </q-card-section>
-
-      <q-separator/><br>
+      <q-separator/>
+      <br>
 
       <q-form>
-        <q-input v-model="fullName" label="Full name" type="text"/>
 
-        <q-input v-model="address" label="Address" type="text">
-          <template v-slot:append>
-            <q-icon name="place"/>
-          </template>
-        </q-input>
+        <q-input v-model="editedUser.fullName" label="Full name" type="text"/>
 
-        <q-input ref="email" v-model="email" label="Email" type="email">
+        <q-input ref="email" v-model="editedUser.email" label="Email" type="email"
+                 :rules="[ val => val && val.length > 0|| 'Please enter your email',ValidEmail]"
+                 lazy-rules
+        >
           <template v-slot:append>
             <q-icon name="mail"/>
           </template>
         </q-input>
 
-        <q-input v-model="phone" label="Phone Number" type="phone">
+        <q-input v-model="editedUser.phone" label="Phone Number" type="phone"
+                 :rules="[ val => val && val.length  === 10 || 'Please enter a valid phone number']">
           <template v-slot:append>
             <q-icon name="phone"/>
           </template>
         </q-input>
-
-        <q-input ref="status" v-model="status" label="Status" type="text">
-          <template v-slot:append>
-            <q-icon name="bolt"/>
-          </template>
-        </q-input>
-
         <br>
         <div class="text-center">
           <q-btn @click="update" class="text-primary" label="Save changes" outline/>
         </div>
       </q-form>
-
     </q-card>
-
   </q-page>
 </template>
-
 <script>
 
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: 'edit-profile',
+  computed: mapState('auth', ['user', 'userId']),
+
   data() {
     return {
-      fullName: '',
-      email: '',
-      address: '',
-      phone: '',
-      status: '',
-      img: ''
+      editedUser: {
+        fullName: '',
+        email: '',
+        phone: '',
+        imgUrl:''
+      },
+      editImg: false,
+      fileData:''
     }
   },
   methods: {
-
+    ...mapActions('auth', ['updateUser','upload']),
     update() {
-
+      if (this.$refs.email.hasError === true) {
+        this.formHasError = true
+      } else if (this.formHasError === true) {
+        console.log('something went wrong')
+      } else {
+        this.updateUser({...this.editedUser})
+        this.$router.go(-1)
+      }
     },
-
-    click1() {
-      this.$refs.input1.click()
+    getFileData(e) {
+      this.fileData = e.target.files[0];
     },
-
-    previewImage(event) {
-      const self = this
-      self.uploadValue = 0;
-      self.profilePicture = null;
-      self.imageData = event.target.files[0];
-      this.onUpload()
+    updateImage(){
+      this.upload(this.fileData)
     },
-
-    onUpload() {
-
+    ValidEmail (val) {
+      const emailPattern = /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/;
+      return emailPattern.test(val) || 'Invalid email';
     },
-
   },
+  created() {
+    this.editedUser ={...this.user}
+  }
 }
 </script>
 <style lang="sass" scoped>
