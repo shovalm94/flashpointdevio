@@ -46,7 +46,6 @@
 
 import {mapActions, mapState} from "vuex";
 import Lesson from "components/CourseComps/Lesson";
-//todo vuex
 
 export default {
   name: "Cuorses",
