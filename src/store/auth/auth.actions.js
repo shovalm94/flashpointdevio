@@ -13,6 +13,9 @@ export default {
     firebaseInstance.firebase.auth().currentUser.updateEmail(item.email).then(() => {
     }).catch(e => console.log(e));
     database.update({path: 'users', id: state.userId, item}).then(() => {
+      database.readCourses({path:`users/${state.userId}/courses`}).then((res)=>{
+        database.update({path:`courses/${res}/students`,id:state.userId,item})
+      })
       commit('setUser', item)
     });
   },
