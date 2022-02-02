@@ -5,35 +5,36 @@
         <q-item>
           <q-item-section avatar class="titleUp">
             <q-avatar>
-              <img :src= course.logoCourse :alt="require('../../assets/flashdev.png')">
+              <img :src= course.data.logoCourse :alt="require('../../assets/flashdev.png')">
             </q-avatar>
           </q-item-section>
           <q-item-section>
-            <q-item-label class="firstHead">{{course.courseName}}</q-item-label>
+            <q-item-label class="firstHead">{{course.data.courseName}}</q-item-label>
             <q-item-label caption class="secondHead">
-              {{course.TimeUpload}}
+              {{course.data.TimeUpload}}
             </q-item-label>
           </q-item-section>
         </q-item>
         <q-item-section>
           <div >
-            <img :src= course.ImgCourse class="courseImg" alt="courseImg">
+            <img :src= course.data.ImgCourse class="courseImg" alt="courseImg">
           </div>
         </q-item-section>
         <q-card-section>
           <div class="lessonName"> שם השיעור</div>
-          <div class="discription"> {{course.courseDescription}}</div>
+          <div class="discription"> {{course.data.courseDescription}}</div>
         </q-card-section>
         <q-item>
           <q-item-section class="teacherImg" avatar>
             <q-avatar>
-              <img :src= course.imgTeacher alt="teacherImg">
+              <img :src= course.data.imgTeacher alt="teacherImg">
             </q-avatar>
           </q-item-section>
 
           <q-item-section>
-            <q-item-label class="teacherName">{{course.TeacherName}}</q-item-label>
+            <q-item-label class="teacherName">{{course.data.TeacherName}}</q-item-label>
           </q-item-section>
+          <q-btn outline rounded color="primary" label="Add course" @click="add(course.id)" />
         </q-item>
       </q-card>
     </div>
@@ -48,18 +49,23 @@ import {mapActions, mapState} from "vuex";
 import Lesson from "components/CourseComps/Lesson";
 
 export default {
-  name: "Cuorses",
+  name: "Courses",
   components: {Lesson},
   data() {
     return {
-
     }
   },
-  computed: mapState('courses', ["coursesList"]),
+  computed: {
+    ...mapState('courses', ["coursesList"]),
+    ...mapState('auth',['user'])
+},
   methods: {
-    ...mapActions('courses', ["getCourses"]),
+    ...mapActions('courses', ["getCourses","addStudents"]),
     read() {
-      this.getCourses()
+      this.getCourses();
+    },
+    add(id){
+      this.addStudents({id,uid:window.user.uid,user:this.user});
     }
   },
   created() {
