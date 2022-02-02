@@ -36,10 +36,10 @@
           >
           <div>
             <q-icon name="grid_view" size="28px"/>
-            <div class="icon-text">קורסים</div>
+            <div class="icon-text">הקורסים שלי</div>
           </div>
           </router-link>
-          <div @click="$router.push('/home')" class="menu-item">
+          <div @click="$router.push('/')" class="menu-item">
             <q-icon name="home" size="28px"/>
             <div class="icon-text">ראשי</div>
           </div>
