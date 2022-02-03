@@ -31,7 +31,7 @@ export default {
 
   getLessons:async ({commit, state, rootState})=>{
     for (const chapter of state.chapters) {
-      const newChapter = await firestore.getSingle({entity: `courses/${rootState.courses.editedCourseId}/chapters/`, item:`${chapter.id}`})
+      const newChapter = await firestore.getSingle({entity: `courses/${rootState.courses.editedCourseId}/chapters/`, item:chapter.id})
       commit('setNewChapter', newChapter)
       const lessons = await firestore.get({entity: `courses/${rootState.courses.editedCourseId}/chapters/${chapter.id}/lessons`});
       commit('setLessons', lessons)
@@ -45,7 +45,8 @@ export default {
     let item = {}
     Object.assign(item, state.newChapter)
     //save in DB
-    await firestore.update({entity: `courses/${rootState.courses.editedCourseId}/chapters`, pickedDoc:`${item.id}`, fields:item})
+    debugger
+    await firestore.update({entity: `courses/${rootState.courses.editedCourseId}/chapters`, pickedDoc:item.id, fields:item})
     //saves in store
     commit('resetNewChapter')
     // commit('resetCardId')

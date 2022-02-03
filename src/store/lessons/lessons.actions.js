@@ -3,7 +3,6 @@ import firestore from "src/middleware/firestore/courses";
 export default {
 
   insertNewLesson: async ({commit, state, rootState}) => {
-    debugger
     let newLesson = {}
     Object.assign(newLesson, state.newLesson)
     //save in DS
@@ -11,7 +10,6 @@ export default {
       entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
       item: newLesson
     })).id
-    debugger
     commit('resetNewLesson')
     commit('insertNewLesson', newLesson)
   },
@@ -19,7 +17,7 @@ export default {
   getSingleLesson: async ({commit, rootState}, id) => {
     const newLesson = await firestore.getSingle({
       entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
-      item: `${id}`
+      item: id
     })
     debugger
     commit('setNewLesson', newLesson)
@@ -40,7 +38,7 @@ export default {
     //save in DB
     await firestore.update({
       entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
-      pickedDoc: `${item.id}`,
+      pickedDoc: item.id,
       fields: item
     })
     //saves in store

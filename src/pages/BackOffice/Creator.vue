@@ -46,7 +46,7 @@ export default {
         TimeUploaded: new Date().toString(),
         TeacherName:'',
         imgTeacher:[],
-        logoCourse:'',
+        courseStudySubjectsTags:[],
         NumberOfStudents:'none',
         students:[]
       }

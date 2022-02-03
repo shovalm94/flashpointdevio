@@ -45,7 +45,7 @@ export default {
     async insert() {
       await this.setLocalNewLesson();
       await this.insertNewLesson();
-      await this.$router.push(`/Chapters/${this.newChapter.id}`)
+      await this.$router.push(`/backOffice/chapters/${this.newChapter.id}`)
     },
 
   }

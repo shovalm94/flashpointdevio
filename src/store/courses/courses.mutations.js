@@ -21,7 +21,7 @@ export default {
     delete state.editCourse.id;
   }),
 
-  NewEditCourse: ((state, course) => {
+  updateCourse: ((state, course) => {
     debugger
     const index = state.courses.findIndex(p => p.id === course.id)
     state.courses.splice(index, 1, course)

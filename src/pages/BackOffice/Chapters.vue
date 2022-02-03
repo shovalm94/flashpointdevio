@@ -12,7 +12,11 @@
       <q-input outlined v-model="localNewChapter.Description" label="תיאור הפרק"/>
       <q-input outlined v-model="localNewChapter.LevelOfDifficulty" label="רמת קושי"/>
       <q-file outlined v-model="localNewChapter.ChapterImg" label="upload image"
-              hint="תמונת הפרק" id="fileUpload"></q-file>
+              hint="תמונת הפרק" id="fileUpload">
+        <template v-slot:prepend>
+          <q-icon name="attach_file"/>
+        </template>
+      </q-file>
       <q-btn push color="primary" label="insert" @click="insert()"/>
       <q-btn color="primary" label="חזור לרשימת הקורסים" @click="exit()" style="width: 350px"/>
     </div>
@@ -20,33 +24,27 @@
 
     <div class="q-pa-md row items-start q-gutter-md">
       <q-card v-ripple v-for="chapter in chapters">
-        <q-separator/>
 
         <q-card-section class="bg-primary text-white">
-          <div class="text-h6">{{ chapter.Name}}</div>
+          <img :src="chapter.ChapterImg" alt="תמונה">
         </q-card-section>
-        <q-separator/>
 
         <q-card-section class="bg-primary text-white">
-          <img :src="chapter.ChapterImg" alt="">
+          <div class="text-h6">שם הפרק: {{ chapter.Name}} </div>
         </q-card-section>
-        <q-separator/>
 
         <q-card-section class="bg-primary text-white">
-          <div class="text-h6">{{ chapter.Description}}</div>
+          <div class="text-h6">תיאור תוכן הפרק: {{ chapter.Description}}</div>
         </q-card-section>
-        <q-separator/>
 
         <q-card-section class="bg-primary text-white">
-          <div class="text-h6">{{ chapter.LevelOfDifficulty }}</div>
+          <div class="text-h6">רמת קושי/רמת השתדלות נדרשת:  {{ chapter.LevelOfDifficulty }}</div>
         </q-card-section>
-        <q-separator/>
+
 
         <q-card-section class="bg-primary text-white">
           <div class="text-h6">{{ chapter.id }}</div>
         </q-card-section>
-        <q-separator/>
-
 
         <q-card-section class="bg-primary text-white">
           <div class="q-pa-md">
@@ -63,7 +61,6 @@
             <q-btn push color="primary" label="להוספת שיעור חדש" @click="LessonAdd(chapter)"/>
           </div>
         </q-card-section>
-        <q-separator/>
 
         <q-card-actions align="right">
         <q-btn flat @click="remove(chapter.id)">Delete</q-btn>
@@ -124,12 +121,12 @@ export default {
 
     goToItem(editedCourseId, chapter) {
       this.setNewChapter(chapter)
-      this.$router.push(`/UpdateChapters/${editedCourseId}/${chapter.id}`);
+      this.$router.push(`/backOffice/updateChapters/${editedCourseId}/${chapter.id}`);
     },
 
     async LessonAdd (chapter) {
      await this.setNewChapter(chapter);
-      await this.$router.push(`/Lessons`);
+      await this.$router.push(`/backOffice/lessons`);
     },
 
     LessonUpdate (chapter, lesson) {
@@ -137,11 +134,11 @@ export default {
       this.setNewChapter(chapter);
       this.resetNewLesson();
       this.setNewLesson(lesson);
-      this.$router.push(`/UpdateLesson/${lesson.id}`);
+      this.$router.push(`/backOffice/updateLesson/${lesson.id}`);
     },
 
     exit() {
-      this.$router.push(`/createCourse`);
+      this.$router.push(`/backOffice/createCourse`);
     },
 
     test : function() {

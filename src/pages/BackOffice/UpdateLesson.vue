@@ -16,34 +16,23 @@
 
     <div class="q-pa-md row items-start q-gutter-md">
       <q-card v-ripple>
-        <q-separator/>
 
         <q-card-section class="bg-primary text-white">
-          <div class="text-h6">{{ newLesson.name }}</div>
+          <div class="text-h6">שם השיעור: {{ newLesson.name }}</div>
         </q-card-section>
-        <q-separator/>
+
 
         <q-card-section class="bg-primary text-white">
-          <div class="text-h6">{{ newLesson.description }}</div>
+          <div class="text-h6">תיאור תוכן השיעור: {{ newLesson.description }}</div>
         </q-card-section>
-        <q-separator/>
+
 
         <q-card-section class="bg-primary text-white">
-          <img :src="newLesson.lessonVideo" alt="">
+          <img :src="newLesson.lessonVideo" alt="Lesson video">
         </q-card-section>
-        <q-separator/>
-
-        <q-card-section class="bg-primary text-white">
-          <div class="text-h6">{{ newLesson.id }}</div>
-        </q-card-section>
-        <q-separator/>
-
 
         <q-card-actions align="right">
           <q-btn flat @click="remove(newLesson.id)">Delete</q-btn>
-          <!--          <q-btn flat label="Update" @click="goToItem('amAEfkzpExJvhHzChmXs', chapter)">-->
-
-          <!--          </q-btn>-->
         </q-card-actions>
       </q-card>
     </div>
@@ -86,7 +75,7 @@ export default {
     update() {
       this.setLocalNewLesson();
       this.updateLesson();
-      this.$router.push(`/Chapters/${this.newChapter.id}`);
+      this.$router.push(`/backOffice/chapters/${this.newChapter.id}`);
     },
 
     getItemById(id) {
@@ -96,11 +85,11 @@ export default {
 
     remove(id) {
       this.deleteLesson(id);
-      this.$router.push(`/Chapters/${this.newChapter.id}`);
+      this.$router.push(`/backOffice/chapters/${this.newChapter.id}`);
     },
 
     exit() {
-      this.$router.push(`/Chapters/${this.newChapter.id}`);
+      this.$router.push(`/backOffice/chapters/${this.newChapter.id}`);
     },
 
   },

@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div style="width: 350px">
   <q-input v-model="LocalEditCourse.courseDescription"> תיאור הקורס </q-input>
   <q-input v-model="LocalEditCourse.courseName">שם הקורס</q-input>
   <q-input v-model="LocalEditCourse.imgTeacher">תמונת מורה</q-input>
-  <q-input v-model="LocalEditCourse.TimeUpload">זמן העלאה</q-input>
   <q-input v-model="LocalEditCourse.ImgCourse">תמונת קורס</q-input>
   <q-input v-model="LocalEditCourse.courseLength">אורך הקורס</q-input>
   <q-input v-model="LocalEditCourse.logoCourse">לוגו</q-input>
@@ -42,7 +41,7 @@ export default {
       debugger
       this.setEditedCourse(this.LocalEditCourse);
       await this.updateCourseActions()
-      await this.$router.push(`/createCourse`)
+      await this.$router.push(`/backOffice/createCourse`)
 
     }
 

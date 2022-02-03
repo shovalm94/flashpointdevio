@@ -1,19 +1,12 @@
 import firebase from "../../middleware/firestore/courses"
-import {date} from "quasar";
 import moment from 'moment';
 
 export default /* context */ {
 
   insertCourse: async ({state, commit}) => {
-    console.log(state.editCourse)
-    debugger
-    // await (database.firebase.firestore().collection('courses').doc().set(state.editCourse))
-
     let res = (await firebase.insert({entity: 'courses', item: state.editCourse})).id
     console.log(res)
-    debugger
     await commit('setEditedCourseId', res)
-    debugger
     await commit('insertCourse', state.editCourse)
   },
 
@@ -47,10 +40,10 @@ export default /* context */ {
     Object.assign(item, state.editCourse)
     //save in DB
     debugger
-    await firebase.update({entity: `courses`, pickedDoc: `${item.id}`, fields: item})
+    await firebase.update({entity: `courses`, pickedDoc: item.id, fields: item})
     //saves in store
     commit('resetEditCourse')
-    commit('NewEditCourse', item)
+    commit('updateCourse', item)
   },
 
 

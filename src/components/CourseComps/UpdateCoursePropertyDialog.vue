@@ -67,17 +67,14 @@ export default {
       this.setCourse(course)
       debugger
       this.setEditedCourseId(course.id)
-      await this.$router.push('/singleCourse')
-      debugger
-      // await this.updateCourseActions()
-
+      await this.$router.push('/backOffice/singleCourse')
     },
 
     goToCourseChapter(course) {
       debugger
       this.setEditedCourseId(course.id)
       this.setEditedCourse(course);
-      this.$router.push(`Chapters/${course.id}`);
+      this.$router.push(`/backOffice/chapters/${course.id}`);
     },
 
     studentInfo(course, student) {
@@ -85,7 +82,6 @@ export default {
       this.setEditedCourse(course);
       this.setCourseStudent(student);
       this.small = true;
-      // this.$router.push(`/UpdateLesson/${lesson.id}`);
     },
 
     thisStudent : function (){

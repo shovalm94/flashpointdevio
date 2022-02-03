@@ -13,7 +13,7 @@ export default {
     TimeUploaded:'',
       TeacherName:'',
       imgTeacher:'',
-      logoCourse:'',
+      courseStudySubjectsTags:'',
     NumberOfStudents:'',
     },
 

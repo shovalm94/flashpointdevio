@@ -47,7 +47,7 @@ export default {
     update() {
       this.setLocalNewChapter();
       this.updateChapter();
-      this.$router.push(`/Chapters/${this.editedCourseId}`);
+      this.$router.push(`/backOffice/chapters/${this.editedCourseId}`);
     },
 
     getItemById() {
