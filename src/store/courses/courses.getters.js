@@ -1,8 +1,8 @@
 import {date} from "quasar";
 
-export default /* state */ {
-
-  coursesSize: (state) => Object.keys(state.courses).length,
+// export default /* state */ {
+//
+//   coursesSize: (state) => Object.keys(state.courses).length,
 
   // timeSince: (state) => {
   //   debugger
@@ -47,4 +47,4 @@ export default /* state */ {
 // // console.log(timeSince(new Date(Date.now() - aDay)));
 //     debugger
 //   }
-}
+// }

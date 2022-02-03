@@ -2,14 +2,14 @@
   <q-page class="flex flex-center">
 
     <div class="q-pa-md" style="min-width: 450px">
-      <h2>קורס ראשון: html, css</h2>
+     <h2>{{ test() }}</h2>
 
       <br><br><br>
 
 
       <h3>הוסף פרק חדש בקורס זה:</h3>
       <q-input outlined v-model="localNewChapter.Name" label="שם הפרק"/>
-      <q-input outlined v-model="localNewChapter.Description" label="שם הפרק"/>
+      <q-input outlined v-model="localNewChapter.Description" label="תיאור הפרק"/>
       <q-input outlined v-model="localNewChapter.LevelOfDifficulty" label="רמת קושי"/>
       <q-file outlined v-model="localNewChapter.ChapterImg" label="upload image"
               hint="תמונת הפרק" id="fileUpload"></q-file>
@@ -82,9 +82,9 @@ import {mapActions, mapState, mapMutations} from 'vuex';
 export default {
   name: "Chapters",
   computed: {
-    ...mapState('courses', ['courses','editCourse', 'editedCourseId']),
+    ...mapState('courses', ['courses', 'editCourse', 'editedCourseId']),
     ...mapState('chapters', ['chapters']),
-    // ...mapState('lessons', [])
+
   },
 
   data() {
@@ -142,6 +142,10 @@ export default {
 
     exit() {
       this.$router.push(`/createCourse`);
+    },
+
+    test : function() {
+      return  ' שם הקורס:' + this.editCourse.courseName
     },
 
   },

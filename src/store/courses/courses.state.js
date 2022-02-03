@@ -10,9 +10,13 @@ export default {
       courseDescription: '',
       courseName: '',
       courseLength: '',
-      TimeUpload:'',
+    TimeUploaded:'',
       TeacherName:'',
       imgTeacher:'',
-      logoCourse:''
-    }
+      logoCourse:'',
+    NumberOfStudents:'',
+    },
+
+    student:{},
+
 }

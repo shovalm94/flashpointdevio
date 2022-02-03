@@ -15,6 +15,7 @@
     "firebase": "8.2.9",
     "js-cookie": "^3.0.1",
     "localforage": "^1.10.0",
+    "moment": "^2.29.1",
     "quasar": "1.15.4",
     "vue": "2.6.12",
     "vue-fullscreen": "2.3.2",
@@ -25,9 +26,9 @@
     "@quasar/app": "2.1.15",
     "@quasar/quasar-app-extension-qmediaplayer": "1.2.1",
     "firebase-tools": "9.5.0",
+    "vue-cli-plugin-quasar": "4.0.4",
     "vue-router": "^3.2.0",
-    "vuex": "3.6.2",
-    "vue-cli-plugin-quasar": "4.0.4"
+    "vuex": "3.6.2"
   },
   "browserslist": [
     "ie >= 11",

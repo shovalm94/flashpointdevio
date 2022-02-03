@@ -2,7 +2,10 @@
   <div class="q-pa-md" style="width: 350px">
     <div>Updat chapters:</div>
     <q-input outlined v-model="updatedNewChapter.Name" label="Name"/>
-    <q-input outlined v-model="updatedNewChapter.LevelOfDifficulty" label="LevelOfDifficulty"/>
+    <q-input outlined v-model="updatedNewChapter.Description" label="תיאור הפרק"/>
+    <q-input outlined v-model="updatedNewChapter.LevelOfDifficulty" label="רמת קושי"/>
+    <q-file outlined v-model="updatedNewChapter.ChapterImg" label="upload image"
+            hint="תמונת הפרק" id="fileUpload" ></q-file>
     <q-btn color="primary" label="Update" @click="update()"/>
   </div>
 </template>
@@ -25,7 +28,10 @@ export default {
     return {
       updatedNewChapter: {
         Name: '',
+        Description:'',
         LevelOfDifficulty: '',
+        ChapterImg:[],
+        Lessons: []
       },
     }
   },

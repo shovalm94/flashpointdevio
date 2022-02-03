@@ -1,8 +1,8 @@
 import firebase from "../../middleware/firestore/courses"
 import {date} from "quasar";
+import moment from 'moment';
 
 export default /* context */ {
-
 
   insertCourse: async ({state, commit}) => {
     console.log(state.editCourse)
@@ -17,14 +17,18 @@ export default /* context */ {
     await commit('insertCourse', state.editCourse)
   },
 
-  getCourses: async ({commit, getters}) => {
-    debugger
+  getCourses: async ({commit}) => {
     let res = await firebase.get({entity: 'courses'})
+    for (const course of res) {
+      course.TimeAgo = moment(course.TimeUploaded).fromNow();
+      debugger
+      if(await firebase.get({entity: `courses/${course.id}/students`})){
+        debugger
+       const students = await firebase.get({entity: `courses/${course.id}/students`})
+        course.students = students
+      }
+    }
     commit('setCourses', res)
-    // let courses = getters['timeSince']
-    // commit('setCourses', courses)
-
-    // commit('setTimeUpload')
   },
 
   deleteCourseActions: async ({state, commit}, id) => {

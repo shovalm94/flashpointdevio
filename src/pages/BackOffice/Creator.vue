@@ -30,7 +30,7 @@
 import firebase from '../../middleware/storage'
 import {mapState, mapMutations, mapActions} from 'vuex'
 import UpdateCoursePropertyDialog from "components/CourseComps/UpdateCoursePropertyDialog";
-import {date} from 'quasar'
+
 
 export default {
   name: "creator",
@@ -43,10 +43,12 @@ export default {
         courseDescription: '',
         courseName: '',
         courseLength: '',
-        TimeUpload:new Date(),
+        TimeUploaded: new Date().toString(),
         TeacherName:'',
         imgTeacher:[],
         logoCourse:'',
+        NumberOfStudents:'NoN',
+        students:[]
       }
     }
   },

@@ -6,6 +6,8 @@ export default {
 
   setCourse:((state,course)=> state.editCourse =course),
 
+  setCourseStudent:((state,student)=> state.student = student),
+
   insertCourse:((state,course) =>  state.courses.push(course)),
 
   setEditedCourse:((state,course) => state.editCourse = course),
@@ -18,6 +20,7 @@ export default {
     }
     delete state.editCourse.id;
   }),
+
   NewEditCourse: ((state, course) => {
     debugger
     const index = state.courses.findIndex(p => p.id === course.id)
