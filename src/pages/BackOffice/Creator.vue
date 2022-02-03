@@ -47,7 +47,7 @@ export default {
         TeacherName:'',
         imgTeacher:[],
         logoCourse:'',
-        NumberOfStudents:'NoN',
+        NumberOfStudents:'none',
         students:[]
       }
     }

@@ -22,10 +22,15 @@ export default /* context */ {
     for (const course of res) {
       course.TimeAgo = moment(course.TimeUploaded).fromNow();
       debugger
-      if(await firebase.get({entity: `courses/${course.id}/students`})){
+      if (await firebase.get({entity: `courses/${course.id}/students`})) {
         debugger
-       const students = await firebase.get({entity: `courses/${course.id}/students`})
+        const students = await firebase.get({entity: `courses/${course.id}/students`})
         course.students = students
+        course.NumberOfStudents = 0
+        for (let i = 0; i < course.students.length; i++) {
+          debugger
+          course.NumberOfStudents += 1;
+        }
       }
     }
     commit('setCourses', res)

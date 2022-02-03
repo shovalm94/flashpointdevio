@@ -12,10 +12,21 @@
         <div class="q-pa-md">
           <q-btn-dropdown color="green" label="students listed in this course">
             <q-list>
-              <q-item clickable v-for="student in (course.students)" v-close-popup
+              <q-item clickable v-for="student in (course.students)"
                       @click="studentInfo(course, student)">
                 <q-item-section>
-                  <q-item-label>{{ student.fullName }}</q-item-label>
+                  <q-item>{{ student.fullName }}</q-item>
+<!--                  <q-btn label="צור לינק" color="primary" @click="small = true" />-->
+                  <q-dialog v-model="small">
+                    <q-card style="width: 300px">
+                      <q-card-section class="q-pt-none">
+                        {{thisStudent()}}
+                      </q-card-section>
+                      <q-card-actions align="right" class="bg-white text-teal">
+                        <q-btn flat label="OK" v-close-popup/>
+                      </q-card-actions>
+                    </q-card>
+                  </q-dialog>
                 </q-item-section>
               </q-item>
             </q-list>
@@ -35,9 +46,11 @@ import {mapActions, mapMutations, mapState} from "vuex";
 
 export default {
   name: "updateCoursePropertyDialog",
-  computed: mapState('courses', ['courses']),
+  computed: mapState('courses', ['courses', 'student']),
   data() {
-    return {}
+    return {
+      small: false
+    }
   },
   methods: {
 
@@ -71,7 +84,12 @@ export default {
       debugger
       this.setEditedCourse(course);
       this.setCourseStudent(student);
+      this.small = true;
       // this.$router.push(`/UpdateLesson/${lesson.id}`);
+    },
+
+    thisStudent : function (){
+      return this.student
     },
 
   },
