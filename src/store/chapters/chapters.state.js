@@ -10,6 +10,9 @@ export default {
     LevelOfDifficulty: '',
     Lessons: [],
     ChapterImg: [],
+    index:'',
   },
+
+  lastChapterIndex:'',
 
 }

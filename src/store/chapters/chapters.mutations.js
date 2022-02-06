@@ -4,6 +4,11 @@ export default {
     state.newChapter = localNewChapter
   }),
 
+  setIndex:((state, index1) =>{
+    debugger
+    state.lastChapterIndex = index1
+  }),
+
   resetNewChapter:((state) =>{
     for (const key in state.newChapter) {
       state.newChapter[key] = ''

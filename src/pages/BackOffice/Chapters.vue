@@ -11,12 +11,12 @@
       <q-input outlined v-model="localNewChapter.Name" label="שם הפרק"/>
       <q-input outlined v-model="localNewChapter.Description" label="תיאור הפרק"/>
       <q-input outlined v-model="localNewChapter.LevelOfDifficulty" label="רמת קושי"/>
-      <q-file outlined v-model="localNewChapter.ChapterImg" label="upload image"
-              hint="תמונת הפרק" id="fileUpload">
+      <q-file outlined v-model="localNewChapter.ChapterImg" label="upload image of the course" id="fileUpload">
         <template v-slot:prepend>
           <q-icon name="attach_file"/>
         </template>
       </q-file>
+      <q-select outlined v-model="model" :options="options" label="מספר הפרק (בברירת מחדל יכנס כפרק האחרון)" />
       <q-btn push color="primary" label="insert" @click="insert()"/>
       <q-btn color="primary" label="חזור לרשימת הקורסים" @click="exit()" style="width: 350px"/>
     </div>
@@ -27,6 +27,10 @@
 
         <q-card-section class="bg-primary text-white">
           <img :src="chapter.ChapterImg" alt="תמונה">
+        </q-card-section>
+
+        <q-card-section class="bg-primary text-white">
+          <div class="text-h6">פרק מספר: {{1+chapter.index}} </div>
         </q-card-section>
 
         <q-card-section class="bg-primary text-white">
@@ -80,19 +84,27 @@ export default {
   name: "Chapters",
   computed: {
     ...mapState('courses', ['courses', 'editCourse', 'editedCourseId']),
-    ...mapState('chapters', ['chapters']),
+    ...mapState('chapters', ['chapters', 'lastChapterIndex']),
 
   },
 
   data() {
     return {
+
       localNewChapter: {
         Name: '',
         Description: '',
         LevelOfDifficulty: '',
         ChapterImg: [],
-        Lessons: []
+        Lessons: [],
+        index:'',
       },
+
+      model: null,
+      options: [
+        'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
+      ],
+
     }
   },
 
@@ -138,18 +150,21 @@ export default {
     },
 
     exit() {
-      this.$router.push(`/backOffice/createCourse`);
+      this.$router.push(`/backOffice/UpdateCoursePropertyDialog`);
     },
 
     test : function() {
       return  ' שם הקורס:' + this.editCourse.courseName
     },
 
+
+
   },
 
    async created() {
     await this.seeChapters();
-    // this.setOptions();
+
+
 
   },
 

@@ -1,6 +1,33 @@
 <template>
   <div class="q-pa-md row items-start q-gutter-md">
-    <q-card v-for="course of courses" class="my-card">
+
+    <div class="q-pa-md">
+            <q-page-sticky position="top-left" :offset="[18, 18]">
+              <div class="q-pa-md q-gutter-sm">
+                <q-btn label="add new course" color="primary" @click="inception = true" />
+
+                <q-dialog v-model="inception">
+                  <q-card>
+                    <q-card-section>
+                      <div class="text-h6">Add a new course</div>
+                    </q-card-section>
+
+                    <q-card-section class="q-pt-none">
+                     <Creator></Creator>
+                    </q-card-section>
+
+                    <q-card-actions align="right" class="text-primary">
+                      <q-btn style="color: #212121" flat label="Close" v-close-popup/>
+                    </q-card-actions>
+                  </q-card>
+                </q-dialog>
+
+              </div>
+            </q-page-sticky>
+    </div>
+
+    <div class="q-pa-md row items-start q-gutter-md">
+    <q-card v-for="course of courses" class="my-card" style="background-color: darkorange">
       <img :src="course.imageUrl" alt="">
       <q-card-section>
         <div class="text-h6 player-title"> שם קורס: {{ course.courseName }}</div>
@@ -16,7 +43,6 @@
                       @click="studentInfo(course, student)">
                 <q-item-section>
                   <q-item>{{ student.fullName }}</q-item>
-<!--                  <q-btn label="צור לינק" color="primary" @click="small = true" />-->
                   <q-dialog v-model="small">
                     <q-card style="width: 300px">
                       <q-card-section class="q-pt-none">
@@ -33,28 +59,36 @@
           </q-btn-dropdown>
         </div>
       </q-card-section>
-      <q-btn @click="deleteCourse(course.id)">מחיקה</q-btn>
-      <q-btn @click="updateCourse(course)">צפייה ועדכון</q-btn>
-      <q-btn @click="goToCourseChapter(course)">פרקי הקורס</q-btn>
+      <q-btn outline style="background-color: blue" @click="deleteCourse(course.id)">מחיקה</q-btn>
+      <q-btn outline @click="updateCourse(course)">צפייה ועדכון</q-btn>
+      <q-btn outline @click="goToCourseChapter(course)">פרקי הקורס</q-btn>
     </q-card>
-
+    </div>
   </div>
 </template>
 
 <script>
 import {mapActions, mapMutations, mapState} from "vuex";
+import Creator from "pages/BackOffice/Creator";
 
 export default {
   name: "updateCoursePropertyDialog",
+  components: {Creator},
   computed: mapState('courses', ['courses', 'student']),
   data() {
     return {
-      small: false
+      small: false,
+      inception: false,
+      framework: {
+        plugins: [
+          'Dialog'
+        ]
+      },
     }
   },
   methods: {
 
-    ...mapMutations('courses', ['setEditedCourseId', 'setCourseStudent', 'resetEditCourse', 'NewEditCourse', 'setEditedCourse', 'setCourse']),
+    ...mapMutations('courses', ['setEditedCourseId', 'setCourseStudent', 'resetEditCourse', 'updateCourse', 'setEditedCourse', 'setCourse']),
     ...mapActions('courses', ['getCourses', 'deleteCourseActions', "updateCourseActions"]),
 
     async deleteCourse(id) {
@@ -86,6 +120,11 @@ export default {
 
     thisStudent : function (){
       return this.student
+    },
+
+
+    test : function() {
+      return  ' שם הקורס:' + this.editCourse.courseName
     },
 
   },

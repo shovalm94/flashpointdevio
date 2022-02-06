@@ -3,24 +3,32 @@ import firestore from "src/middleware/firestore/courses/index.js"
 export default {
 
   insertNewChapter: async ({state, commit, rootState}) => {
+
     console.log(rootState.courses.editedCourseId)
-    debugger
     let newChapter = {}
     Object.assign(newChapter, state.newChapter)
-    //save in DS
+    let index1 = 0
+    for (const chapter of state.chapters) {
+      if (chapter.index > index1){
+        index1 = chapter.index
+      }
+    }
+    newChapter.index = index1+1;
     debugger
-       newChapter.id =  (await firestore.insert({entity:`courses/${rootState.courses.editedCourseId}/chapters`, item:newChapter})).id
-
+    commit('setIndex',index1)
+    //save in DS
+    newChapter.id =  (await firestore.insert({entity:`courses/${rootState.courses.editedCourseId}/chapters`, item:newChapter})).id
     //saves in store
     commit('resetNewChapter')
     commit('insertNewChapter', newChapter)
   },
 
 
-  getChapters: async ({commit, rootState}) => {
-    debugger
+  getChapters: async ({commit, state, rootState}) => {
     const result = await firestore.get({entity: `courses/${rootState.courses.editedCourseId}/chapters`});
-    console.log(result)
+    result.sort(function(a, b) {
+      return a.index - b.index;
+    });
     commit('setChapters', result)
   },
 
@@ -45,7 +53,6 @@ export default {
     let item = {}
     Object.assign(item, state.newChapter)
     //save in DB
-    debugger
     await firestore.update({entity: `courses/${rootState.courses.editedCourseId}/chapters`, pickedDoc:item.id, fields:item})
     //saves in store
     commit('resetNewChapter')

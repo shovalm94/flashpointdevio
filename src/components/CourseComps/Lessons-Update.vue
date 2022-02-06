@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import UpdateCoursePropertyDialog from "components/CourseComps/UpdateCoursePropertyDialog";
+import UpdateCoursePropertyDialog from "pages/BackOffice/UpdateCoursePropertyDialog";
 
 export default {
   components: {UpdateCoursePropertyDialog},

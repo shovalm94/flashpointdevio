@@ -22,8 +22,9 @@ const routes = [
       {path: 'backOffice/updateChapters/:courseId/:chapterId', component: () => import('../pages/BackOffice/UpdateChapters'), meta: {authNotRequired: true}},
       {path: 'backOffice/updateLesson/:lessonId', component: () => import('pages/BackOffice/UpdateLesson'), meta: {authNotRequired: true}},
       {path: 'backOffice/createCourse', component: () => import('../pages/BackOffice/Creator'), meta: {authNotRequired: true}},
-      {path: 'backOffice/updateCourse', component: () => import('../components/CourseComps/UpdateCoursePropertyDialog'), meta: {authNotRequired: true}},
+      {path: 'backOffice/updateCourse', component: () => import('pages/BackOffice/UpdateCoursePropertyDialog'), meta: {authNotRequired: true}},
       {path: 'backOffice/singleCourse', component: () => import('../pages/BackOffice/singleCourseShow'), meta: {authNotRequired: true}},
+      {path: 'backOffice/UpdateCoursePropertyDialog', component: () => import('../pages/BackOffice/UpdateCoursePropertyDialog'), meta: {authNotRequired: true}},
 
     ],
   },

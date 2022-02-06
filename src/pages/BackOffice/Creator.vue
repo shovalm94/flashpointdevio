@@ -18,18 +18,14 @@
         <q-input v-model="localCourse.logoCourse" filled autogrow hint="לוגו קורס"></q-input>
         <q-btn id="addCourse" @click="insert()"> הוסף קורס</q-btn>
       </div>
-    <div>
-      <update-course-property-dialog> </update-course-property-dialog>
-    </div>
   </q-page>
   </div>
-
 </template>
 
 <script>
 import firebase from '../../middleware/storage'
 import {mapState, mapMutations, mapActions} from 'vuex'
-import UpdateCoursePropertyDialog from "components/CourseComps/UpdateCoursePropertyDialog";
+import UpdateCoursePropertyDialog from "pages/BackOffice/UpdateCoursePropertyDialog";
 
 
 export default {

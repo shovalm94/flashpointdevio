@@ -41,7 +41,7 @@ export default {
       debugger
       this.setEditedCourse(this.LocalEditCourse);
       await this.updateCourseActions()
-      await this.$router.push(`/backOffice/createCourse`)
+      await this.$router.push(`/backOffice/UpdateCoursePropertyDialog`)
 
     }
 

@@ -15,8 +15,6 @@ export default /* context */ {
     for (const course of res) {
       course.TimeAgo = moment(course.TimeUploaded).fromNow();
       debugger
-      if (await firebase.get({entity: `courses/${course.id}/students`})) {
-        debugger
         const students = await firebase.get({entity: `courses/${course.id}/students`})
         course.students = students
         course.NumberOfStudents = 0
@@ -25,7 +23,6 @@ export default /* context */ {
           course.NumberOfStudents += 1;
         }
       }
-    }
     commit('setCourses', res)
   },
 
