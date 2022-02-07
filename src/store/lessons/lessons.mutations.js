@@ -4,6 +4,10 @@ export default {
     state.newLesson = localNewLesson
   }),
 
+  setNewLessonId: ((state,localNewLessonId) => {
+    state.newLesson.id = localNewLessonId
+  }),
+
   resetNewLesson: ((state) => {
     for (const key in state.newLesson) {
       state.newLesson[key] = ''

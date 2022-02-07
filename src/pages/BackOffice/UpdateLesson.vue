@@ -1,43 +1,38 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-form @submit.prevent.stop="onSubmit()">
+    <q-page class="flex flex-center">
+      <div class="q-pa-md" style="width: 350px">
+        <div>Update lesson:</div>
 
-      <div class="q-pa-md" style="min-width: 450px">
-        <!--      <h2>`קורס: {{ chapter.name }}`</h2>-->
-        <q-btn color="primary" label="חזור לרשימת הפרקים" @click="exit()" style="width: 350px"/>
+        <q-input ref="name" outlined v-model="updatedNewLesson.name"
+                 :rules="[ val => val && val.length > 1 || 'Please type name']"
+                 label="Name"
+                 lazy-rules
+                 type="text"/>
+
+        <q-input ref="description" outlined v-model="updatedNewLesson.description"
+                 :rules="[ val => val && val.length > 1 || 'Please type description']"
+                 label="description"
+                 lazy-rules
+                 type="text"/>
+
+        <q-file outlined v-model="updatedNewLesson.lessonVideo" label="upload video"
+                hint="" id="fileUpload"></q-file>
+
+        <q-btn color="primary" label="remove" @click="remove(updatedNewLesson.id)"/>
+        <q-btn color="primary" label="back" @click="exit()"/>
+        <q-btn class="text-primary" label="Update" outline type="submit"/>
+
       </div>
 
+      <div class="q-pa-md row items-start q-gutter-md">
+        <q-card v-ripple>
+          <q-separator/>
 
-    <div class="q-pa-md" style="width: 350px">
-      <div>Update lesson:</div>
-      <q-input outlined v-model="updatedNewLesson.name" label="Name"/>
-      <q-input outlined v-model="updatedNewLesson.description" label="Description"/>
-      <q-btn color="primary" label="Update" @click="update()"/>
-    </div>
-
-    <div class="q-pa-md row items-start q-gutter-md">
-      <q-card v-ripple>
-
-        <q-card-section class="bg-primary text-white">
-          <div class="text-h6">שם השיעור: {{ newLesson.name }}</div>
-        </q-card-section>
-
-
-        <q-card-section class="bg-primary text-white">
-          <div class="text-h6">תיאור תוכן השיעור: {{ newLesson.description }}</div>
-        </q-card-section>
-
-
-        <q-card-section class="bg-primary text-white">
-          <img :src="newLesson.lessonVideo" alt="Lesson video">
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn flat @click="remove(newLesson.id)">Delete</q-btn>
-        </q-card-actions>
-      </q-card>
-    </div>
-  </q-page>
-
+        </q-card>
+      </div>
+    </q-page>
+  </q-form>
 </template>
 
 <script>
@@ -59,14 +54,35 @@ export default {
       updatedNewLesson: {
         name: '',
         description: '',
-        lessonVideo: []
+        lessonVideo: [],
+        id:''
       },
     }
   },
 
   methods: {
     ...mapActions('lessons', ['getSingleLesson', 'updateLesson', 'deleteLesson']),
-    ...mapMutations('lessons', ['setNewLesson']),
+    ...mapMutations('lessons', ['setNewLesson', 'setNewLessonId']),
+
+    onSubmit() {
+      this.$refs.description.validate()
+      this.$refs.name.validate()
+      debugger
+      if (this.$refs.name.hasError || this.$refs.description.hasError) {
+        this.formHasError = true
+      } else if (this.accept !== true) {
+        this.$q.notify({
+          message: 'success'
+        })
+      } else {
+        this.$q.notify({
+          icon: 'done',
+          color: 'positive',
+          message: 'Submitted',
+        })
+      }
+      this.update()
+    },
 
     setLocalNewLesson() {
       this.setNewLesson(this.updatedNewLesson);
@@ -79,11 +95,11 @@ export default {
     },
 
     getItemById(id) {
-      debugger
       this.getSingleLesson(id);
     },
 
     remove(id) {
+      this.setNewLessonId(id)
       this.deleteLesson(id);
       this.$router.push(`/backOffice/chapters/${this.newChapter.id}`);
     },
@@ -96,7 +112,6 @@ export default {
 
   created() {
     Object.assign(this.updatedNewLesson, this.newLesson)
-    debugger
     this.getItemById(this.newLesson.id);
   }
 

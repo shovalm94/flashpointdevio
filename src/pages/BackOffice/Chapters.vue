@@ -1,24 +1,37 @@
 <template>
+  <q-form @submit.prevent.stop="onSubmit()">
   <q-page class="flex flex-center">
-
     <div class="q-pa-md" style="min-width: 450px">
      <h2>{{ test() }}</h2>
 
       <br><br><br>
 
-
       <h3>הוסף פרק חדש בקורס זה:</h3>
-      <q-input outlined v-model="localNewChapter.Name" label="שם הפרק"/>
-      <q-input outlined v-model="localNewChapter.Description" label="תיאור הפרק"/>
-      <q-input outlined v-model="localNewChapter.LevelOfDifficulty" label="רמת קושי"/>
-      <q-file outlined v-model="localNewChapter.ChapterImg" label="upload image of the course" id="fileUpload">
-        <template v-slot:prepend>
-          <q-icon name="attach_file"/>
-        </template>
-      </q-file>
+      <q-input ref="name" outlined v-model="localNewChapter.Name"
+               :rules="[ val => val && val.length > 1 || 'Please type something']"
+               label="שם הפרק"
+               lazy-rules
+               type="text"/>
+
+      <q-input ref="description" outlined v-model="localNewChapter.Description"
+               :rules="[ val => val && val.length > 1 || 'Please type something']"
+               label="תיאור הפרק"
+               lazy-rules
+               type="text"/>
+
+      <q-input ref="level" outlined v-model="localNewChapter.LevelOfDifficulty"
+               :rules="[ val => val && val.length > 1 || 'Please type something']"
+               label="רמת קושי"
+               lazy-rules
+               type="text"/>
+
+      <q-file outlined v-model="localNewChapter.ChapterImg" label="upload image"
+              hint="תמונת הפרק" id="fileUpload"></q-file>
       <q-select outlined v-model="model" :options="options" label="מספר הפרק (בברירת מחדל יכנס כפרק האחרון)" />
       <q-btn push color="primary" label="insert" @click="insert()"/>
-      <q-btn color="primary" label="חזור לרשימת הקורסים" @click="exit()" style="width: 350px"/>
+      <q-btn class="text-primary" label="הוסף קורס" outline type="submit" />
+      <q-btn color="primary" label="חזור לרשימת הקורסים" @click="exit()"
+             style="width: 350px"/>
     </div>
 
 
@@ -73,7 +86,7 @@
       </q-card>
     </div>
   </q-page>
-
+  </q-form>
 </template>
 
 <script>
@@ -96,6 +109,7 @@ export default {
         Description: '',
         LevelOfDifficulty: '',
         ChapterImg: [],
+        TimeUpload: new Date().toString(),
         Lessons: [],
         index:'',
       },
@@ -116,6 +130,27 @@ export default {
     async seeChapters() {
       await this.getChapters();
       await this.getLessons();
+    },
+
+    onSubmit() {
+      this.$refs.description.validate()
+      this.$refs.level.validate()
+      this.$refs.name.validate()
+      debugger
+      if (this.$refs.name.hasError || this.$refs.level.hasError || this.$refs.description.hasError) {
+        this.formHasError = true
+      } else if (this.accept !== true) {
+        this.$q.notify({
+          message: 'success'
+        })
+      } else {
+        this.$q.notify({
+          icon: 'done',
+          color: 'positive',
+          message: 'Submitted',
+        })
+      }
+      this.insert()
     },
 
     setLocalNewChapter() {
@@ -142,7 +177,7 @@ export default {
     },
 
     LessonUpdate (chapter, lesson) {
-      debugger
+
       this.setNewChapter(chapter);
       this.resetNewLesson();
       this.setNewLesson(lesson);
@@ -157,14 +192,10 @@ export default {
       return  ' שם הקורס:' + this.editCourse.courseName
     },
 
-
-
   },
 
    async created() {
     await this.seeChapters();
-
-
 
   },
 

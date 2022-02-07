@@ -19,9 +19,7 @@ export default {
       entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
       item: id
     })
-    debugger
     commit('setNewLesson', newLesson)
-    debugger
   },
 
   deleteLesson: async ({state, rootState, commit}, id) => {

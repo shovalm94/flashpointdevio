@@ -1,12 +1,8 @@
 import firebaseInstance from '../../firebase'
 import database from '../courses'
 
-// function insert(options) {
-// return database.firebase.firestore().collection(`${options.entity}`).doc().set(options.item)
-// }
 
 function insert(options) {
-  debugger
   return firebaseInstance.db().collection(`${options.entity}`).add(options.item)
 }
 
@@ -30,12 +26,10 @@ function getSingle(options){
   let item = {}
    return firebaseInstance.db().collection(`${options.entity}`).doc(options.item).get()
     .then(result =>{
-      console.log(result.data())
         item = {
           ...result.data(),
           id: result.id
         }
-      console.log(item)
       return item
       })
     }
@@ -43,13 +37,11 @@ function getSingle(options){
 
 
 function update(options) {
-  debugger
   return firebaseInstance.db().collection(`${options.entity}`).doc(`${options.pickedDoc}`)
     .update(options.fields)
 }
 
 function Delete (options){
-  debugger
   return firebaseInstance.db().collection(`${options.entity}`).doc(options.id).delete()
 }
 
@@ -60,7 +52,8 @@ export default {
   get,
   getSingle,
   update,
-  Delete
+  Delete,
+
 }
 
 

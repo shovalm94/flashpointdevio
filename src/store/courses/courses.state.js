@@ -1,22 +1,23 @@
 export default {
-  video:[],
+  teacherImg:[],
+  ImgCourse: [],
   courses: [],
-  chapters:[],
-  lessons:[],
-  editedCourseId:'',
+  chapters: [],
+  lessons: [],
+  editedCourseId: '',
 
   editCourse: {
-      ImgCourse: [],
-      courseDescription: '',
-      courseName: '',
-      courseLength: '',
-    TimeUploaded:'',
-      TeacherName:'',
-      imgTeacher:'',
-      courseStudySubjectsTags:'',
-    NumberOfStudents:'',
-    },
-
-    student:{},
+    students: [],
+    courseDescription: '',
+    courseName: '',
+    courseLength: '',
+    TimeUploaded: '',
+    TeacherName: '',
+    imgTeacher: '',
+    logoCourse: '',
+    NumberOfStudents: '',
+    id:''
+  },
 
 }
+

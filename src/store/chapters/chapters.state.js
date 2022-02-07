@@ -8,6 +8,7 @@ export default {
     Name: '',
     Description:'',
     LevelOfDifficulty: '',
+    TimeUpload:'',
     Lessons: [],
     ChapterImg: [],
     index:'',

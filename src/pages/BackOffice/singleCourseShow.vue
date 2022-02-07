@@ -37,15 +37,16 @@ export default {
   methods: {
     ...mapActions('courses',['updateCourseActions',"getCourses"]),
     ...mapMutations('courses', ['setEditedCourseId','setEditedCourse',]),
+
     async updateCourse(){
-      debugger
       this.setEditedCourse(this.LocalEditCourse);
       await this.updateCourseActions()
       await this.$router.push(`/backOffice/UpdateCoursePropertyDialog`)
-
     }
 
   },
+
+
   created() {
     //avoid reference
     this.LocalEditCourse = {...this.editCourse}

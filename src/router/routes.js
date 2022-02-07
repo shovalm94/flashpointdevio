@@ -25,6 +25,7 @@ const routes = [
       {path: 'backOffice/updateCourse', component: () => import('pages/BackOffice/UpdateCoursePropertyDialog'), meta: {authNotRequired: true}},
       {path: 'backOffice/singleCourse', component: () => import('../pages/BackOffice/singleCourseShow'), meta: {authNotRequired: true}},
       {path: 'backOffice/UpdateCoursePropertyDialog', component: () => import('../pages/BackOffice/UpdateCoursePropertyDialog'), meta: {authNotRequired: true}},
+      {path: 'backOffice/Students', component: () => import('../pages/BackOffice/Students'), meta: {authNotRequired: true}},
 
     ],
   },

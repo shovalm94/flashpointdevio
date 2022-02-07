@@ -7,7 +7,6 @@ function onUpload(options, path) {
   const metadata = {
     contentType: options.type
   };
-  debugger
   return ref.child(name).put(options, metadata)
     .then(snapshot => {
       return snapshot.ref.getDownloadURL()

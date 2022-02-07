@@ -10,6 +10,8 @@ export default {
     Name: '',
     description: '',
     lessonVideo: [],
+    TimeAgo: '',
+    id:''
   },
 
 

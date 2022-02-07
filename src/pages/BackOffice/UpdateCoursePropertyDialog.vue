@@ -1,11 +1,9 @@
 <template>
   <div class="q-pa-md row items-start q-gutter-md">
-
     <div class="q-pa-md">
             <q-page-sticky position="top-left" :offset="[18, 18]">
               <div class="q-pa-md q-gutter-sm">
                 <q-btn label="add new course" color="primary" @click="inception = true" />
-
                 <q-dialog v-model="inception">
                   <q-card>
                     <q-card-section>
@@ -13,7 +11,7 @@
                     </q-card-section>
 
                     <q-card-section class="q-pt-none">
-                     <Creator></Creator>
+                     <div><Creator></Creator></div>
                     </q-card-section>
 
                     <q-card-actions align="right" class="text-primary">
@@ -36,32 +34,11 @@
       <q-card-section class="q-pt-none">הועלה לפני: {{ course.TimeAgo }}</q-card-section>
       <q-card-section class="q-pt-none">מספר סטודנטים בקורס: {{ course.NumberOfStudents }}</q-card-section>
       <q-card-section class="q-pt-none">
-        <div class="q-pa-md">
-          <q-btn-dropdown color="green" label="students listed in this course">
-            <q-list>
-              <q-item clickable v-for="student in (course.students)"
-                      @click="studentInfo(course, student)">
-                <q-item-section>
-                  <q-item>{{ student.fullName }}</q-item>
-                  <q-dialog v-model="small">
-                    <q-card style="width: 300px">
-                      <q-card-section class="q-pt-none">
-                        {{thisStudent()}}
-                      </q-card-section>
-                      <q-card-actions align="right" class="bg-white text-teal">
-                        <q-btn flat label="OK" v-close-popup/>
-                      </q-card-actions>
-                    </q-card>
-                  </q-dialog>
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </q-btn-dropdown>
-        </div>
+        <q-btn @click="deleteCourse(course.id)">מחיקה</q-btn>
+        <q-btn @click="showStudents(course)">סטודנטים</q-btn>
+        <q-btn @click="updateCourse(course)">צפייה ועדכון</q-btn>
+        <q-btn @click="goToCourseChapter(course)">פרקי הקורס</q-btn>
       </q-card-section>
-      <q-btn outline style="background-color: blue" @click="deleteCourse(course.id)">מחיקה</q-btn>
-      <q-btn outline @click="updateCourse(course)">צפייה ועדכון</q-btn>
-      <q-btn outline @click="goToCourseChapter(course)">פרקי הקורס</q-btn>
     </q-card>
     </div>
   </div>
@@ -74,10 +51,9 @@ import Creator from "pages/BackOffice/Creator";
 export default {
   name: "updateCoursePropertyDialog",
   components: {Creator},
-  computed: mapState('courses', ['courses', 'student']),
+  computed: mapState('courses', ['courses']),
   data() {
     return {
-      small: false,
       inception: false,
       framework: {
         plugins: [
@@ -97,29 +73,22 @@ export default {
     },
 
     async updateCourse(course) {
-      debugger
       this.setCourse(course)
-      debugger
       this.setEditedCourseId(course.id)
       await this.$router.push('/backOffice/singleCourse')
     },
 
-    goToCourseChapter(course) {
+    showStudents(Course) {
       debugger
+      this.setEditedCourse(Course);
+      debugger
+      this.$router.push('/students')
+    },
+
+    goToCourseChapter(course) {
       this.setEditedCourseId(course.id)
       this.setEditedCourse(course);
       this.$router.push(`/backOffice/chapters/${course.id}`);
-    },
-
-    studentInfo(course, student) {
-      debugger
-      this.setEditedCourse(course);
-      this.setCourseStudent(student);
-      this.small = true;
-    },
-
-    thisStudent : function (){
-      return this.student
     },
 
 
@@ -131,9 +100,9 @@ export default {
 
   created() {
     this.getCourses();
-
   }
 }
+
 </script>
 
 <style scoped>

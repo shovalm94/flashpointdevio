@@ -6,6 +6,8 @@ export default {
 
   setCourse:((state,course)=> state.editCourse =course),
 
+  setCourseStudents:((state,students)=> state.students = students),
+
   setCourseStudent:((state,student)=> state.student = student),
 
   insertCourse:((state,course) =>  state.courses.push(course)),

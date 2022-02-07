@@ -1,10 +1,10 @@
 import database from "../../middleware/firebase";
 import firestore from "src/middleware/firestore/courses/index.js"
+import moment from "moment";
 export default {
 
   insertNewChapter: async ({state, commit, rootState}) => {
 
-    console.log(rootState.courses.editedCourseId)
     let newChapter = {}
     Object.assign(newChapter, state.newChapter)
     let index1 = 0
@@ -24,7 +24,7 @@ export default {
   },
 
 
-  getChapters: async ({commit, state, rootState}) => {
+  getChapters: async ({commit, rootState}) => {
     const result = await firestore.get({entity: `courses/${rootState.courses.editedCourseId}/chapters`});
     result.sort(function(a, b) {
       return a.index - b.index;
@@ -42,11 +42,11 @@ export default {
       const newChapter = await firestore.getSingle({entity: `courses/${rootState.courses.editedCourseId}/chapters/`, item:chapter.id})
       commit('setNewChapter', newChapter)
       const lessons = await firestore.get({entity: `courses/${rootState.courses.editedCourseId}/chapters/${chapter.id}/lessons`});
+      newChapter.TimeUpload = moment(newChapter.TimeUpload).fromNow()
       commit('setLessons', lessons)
       commit('editNewChapter', state.newChapter)
     }
   },
-
 
 
   updateChapter: async ({state, rootState, commit}) => {
@@ -64,7 +64,6 @@ export default {
     await firestore.Delete({entity: `courses/${rootState.courses.editedCourseId}/chapters`, id})
     commit('deleteChapter' ,id)
   }
-
 
 }
 
