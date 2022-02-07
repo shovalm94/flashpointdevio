@@ -3,6 +3,10 @@ import firebaseInstance from '../../firebase'
 function createUser(options) {
   return firebaseInstance.db().collection(options.path).doc(options.id).set(options.item)
 }
+function create(options){
+  return firebaseInstance.db().collection(options.col1).doc(window.user.uid).collection(options.col2)
+    .doc(options.id).set({[options.id]:options.id})
+}
 function read(options){
    return firebaseInstance.db().collection(options.path).doc(options.id).get().then(res=>{
      return res.data();
@@ -26,6 +30,7 @@ function deleteFromAuth(){
 }
 export default {
   createUser,
+  create,
   read,
   readCourses,
   update,
