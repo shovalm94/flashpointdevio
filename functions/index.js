@@ -6,6 +6,8 @@ admin.initializeApp();
 
 exports.userDeleted=auth.userDeleted;
 exports.updateUserInCourse=courses.updateUserInCourse;
+exports.deleteUserInCourse=courses.deleteUserInCourse;
+exports.deleteUserInCourse=courses.deleteUserInCourse;
 
 
 

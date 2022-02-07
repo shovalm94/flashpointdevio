@@ -16,8 +16,21 @@ exports.updateUserInCourse =functions.firestore
             })
       })
   })
-
-
+exports.deleteUserInCourse =functions.firestore
+  .document('/users/{userId}')
+  .onDelete((snapshot, context) => {
+    return admin.firestore().collection('users').doc(context.params.userId)
+      .get()
+      .then(doc => {
+        const user = snapshot.data();
+        return admin.firestore().collectionGroup('students').where('id','==',context.params.userId)
+          .get().then((querySnapshot )=>{
+            querySnapshot.forEach(snap=>{
+              snap.ref.delete(user)
+            })
+          })
+      })
+  })
 
 
 
