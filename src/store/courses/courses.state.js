@@ -1,7 +1,8 @@
 
 export default {
-
-    courseId: '',
-    chapterId: '',
-    lessonId: '',
+  coursesList:[],
+  lastBatch: false,
+  courseId: '',
+  chapterId: '',
+  lessonId: '',
 }
