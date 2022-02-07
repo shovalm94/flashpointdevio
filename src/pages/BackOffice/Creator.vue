@@ -37,11 +37,7 @@
           <q-input v-model="localCourse.logoCourse" label="לוגו"></q-input>
           <q-btn class="text-primary" label="הוסף קורס" outline type="submit"/>
         </div>
-        <div>
-          <update-course-property-dialog></update-course-property-dialog>
-        </div>
       </q-page>
-
     </q-form>
   </div>
 </template>

@@ -11,7 +11,9 @@
                     </q-card-section>
 
                     <q-card-section class="q-pt-none">
-                     <div><Creator></Creator></div>
+                     <div>
+                       <Creator></Creator>
+                     </div>
                     </q-card-section>
 
                     <q-card-actions align="right" class="text-primary">
@@ -82,7 +84,7 @@ export default {
       debugger
       this.setEditedCourse(Course);
       debugger
-      this.$router.push('/students')
+      this.$router.push('/backOffice/students')
     },
 
     goToCourseChapter(course) {
