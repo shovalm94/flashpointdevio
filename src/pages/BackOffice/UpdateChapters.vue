@@ -54,6 +54,10 @@ export default {
       this.getSingleChapter(this.newChapter.id);
     },
 
+    test(){
+      console.log(123)
+    }
+
   },
 
   created() {
