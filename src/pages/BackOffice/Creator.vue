@@ -15,18 +15,18 @@
                    lazy-rules
                    type="text"/>
 
-          <q-file outlined v-model="localCourse.ImgCourse"
+          <q-file outlined v-model="ImgCourse"
                   label="תמונת קורס" id="fileUpload">
             <template v-slot:prepend>
               <q-icon name="attach_file"/>
             </template>
           </q-file>
 
-          <!--          <q-file outlined v-model="localCourse.imgTeacher" label="תמונת מרצה">-->
-          <!--            <template v-slot:prepend>-->
-          <!--              <q-icon name="attach_file"/>-->
-          <!--            </template>-->
-          <!--          </q-file>-->
+          <q-file outlined v-model="imgTeacher" label="תמונת מרצה">
+            <template v-slot:prepend>
+              <q-icon name="attach_file"/>
+            </template>
+          </q-file>
 
           <q-input ref="teacherName" v-model="localCourse.TeacherName"
                    :rules="[ val => val && val.length > 1 || 'Please type a name']"
@@ -62,11 +62,12 @@ export default {
         TeacherName: '',
         logoCourse: '',
         NumberOfStudents: 0,
+        id:'',
         students: []
       }
     }
   },
-  computed: mapState('courses', ['editCourse']),
+  computed: mapState('courses', ['editCourse', 'editedCourseId']),
   methods: {
     ...mapActions('courses', ['insertCourse']),
     ...mapMutations('courses', ['setEditedCourse', 'setEditedCourseId']),
@@ -75,7 +76,6 @@ export default {
       this.$refs.courseName.validate()
       this.$refs.description.validate()
       this.$refs.teacherName.validate()
-      debugger
       if (this.$refs.courseName.hasError || this.$refs.teacherName.hasError || this.$refs.description.hasError) {
         this.formHasError = true
       } else if (this.accept !== true) {
@@ -95,12 +95,13 @@ export default {
     async insert() {
       await this.setEditedCourse(this.localCourse)
       await this.insertCourse()
-      await this.upload('courses',this.localCourse.ImgCourse)
+      await this.upload(this.ImgCourse, "course", this.localCourse.id)
+      debugger
+      await this.upload(this.imgTeacher, "Teacher", this.localCourse.id)
     },
-    async upload(path, img) {
+    async upload(img, path, Id) {
       debugger
-      await firebaseFiles.onUpload(img, path);
-      debugger
+      await firebaseFiles.onUpload(img, path, Id);
     }
   }
 }

@@ -1,13 +1,13 @@
 import firebase from "firebase";
 
-
-function onUpload(options, path) {
+function onUpload(image,path,Id) {
+  debugger
   const ref = firebase.storage().ref(path);
-  const name = (new Date()) + '-' + options.name;
+  const name = (new Date()) + '-' + Id;
   const metadata = {
-    contentType: options.type
+    contentType: image.type
   };
-  return ref.child(name).put(options, metadata)
+  return ref.child(name).put(image, metadata)
     .then(snapshot => {
       return snapshot.ref.getDownloadURL()
         .then((url) => {
@@ -22,6 +22,6 @@ function imgDelete(options) {
 
 export default {
   onUpload,
-  imgDelete
+  imgDelete,
 }
 

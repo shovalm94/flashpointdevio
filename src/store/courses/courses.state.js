@@ -13,7 +13,6 @@ export default {
     courseLength: '',
     TimeUploaded: '',
     TeacherName: '',
-    imgTeacher: '',
     logoCourse: '',
     NumberOfStudents: '',
     id:''

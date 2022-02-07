@@ -3,6 +3,7 @@ import database from '../courses'
 
 
 function insert(options) {
+  debugger
   return firebaseInstance.db().collection(`${options.entity}`).add(options.item)
 }
 
@@ -44,8 +45,6 @@ function update(options) {
 function Delete (options){
   return firebaseInstance.db().collection(`${options.entity}`).doc(options.id).delete()
 }
-
-
 
 export default {
   insert,

@@ -4,8 +4,12 @@ import moment from 'moment';
 export default /* context */ {
 
   insertCourse: async ({state, commit}) => {
+    debugger
     let res = (await firebase.insert({entity: 'courses', item: state.editCourse})).id
+    debugger
+
     await commit('setEditedCourseId', res)
+    await commit('setIdInEditedCourse', res)
     await commit('insertCourse', state.editCourse)
   },
 

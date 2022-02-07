@@ -14,6 +14,8 @@ export default {
 
   setEditedCourse:((state,course) => state.editCourse = course),
 
+  setIdInEditedCourse: ((state, id) => state.editCourse.id = id),
+
   setEditedCourseId: ((state, id) => state.editedCourseId = id),
 
   resetEditCourse:((state) =>{
