@@ -11,7 +11,8 @@ export default {
     description: '',
     lessonVideo: [],
     TimeAgo: '',
-    id:''
+    id:'',
+    index:''
   },
 
 

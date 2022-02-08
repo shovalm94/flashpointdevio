@@ -8,6 +8,9 @@
                lazy-rules
                type="text"/>
 
+      <q-select outlined v-model="LocalNewLesson.index" :options="indexForScroll()"
+                label="מספר השיעור (בברירת מחדל יכנס כשיעור האחרון)"/>
+
       <q-input ref="description" outlined v-model="LocalNewLesson.description"
                :rules="[ val => val && val.length > 1 || 'Please type something']"
                label="שDescription"
@@ -19,7 +22,10 @@
 
       <q-btn color="primary" label="Insert" @click="insert()"/>
       <q-btn class="text-primary" label="הוסף קורס" outline type="submit"/>
+      <br>
+      <br>
 
+      <q-btn color="primary" label="חזור לרשימת הפרקים" @click="exit()" style="width: 350px"/>
     </div>
   </q-form>
 </template>
@@ -31,12 +37,10 @@ import {mapActions, mapMutations, mapState} from "vuex";
 export default {
   name: "lessons",
 
-  components: {},
-
   computed: {
     ...mapState('courses', ['courses', 'editCourse']),
     ...mapState('chapters', ['chapters', 'newChapter']),
-
+    ...mapState('lessons', ['lessons']),
   },
 
   data() {
@@ -45,6 +49,7 @@ export default {
         name: '',
         description: '',
         TimeAgo: '',
+        index: '',
         lessonVideo: []
       },
     }
@@ -82,6 +87,18 @@ export default {
         })
       }
       this.insert()
+    },
+
+    exit() {
+      this.$router.push(`/backOffice/chapters/${this.newChapter.id}`);
+    },
+
+    indexForScroll() {
+      let arr = []
+      for (const lesson of this.lessons) {
+        arr.push(lesson.index)
+      }
+      return arr
     },
 
   }

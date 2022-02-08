@@ -2,7 +2,9 @@
   <q-form @submit.prevent.stop="onSubmit()">
     <q-page class="flex flex-center">
       <div class="q-pa-md" style="width: 350px">
-        <div>Update lesson:</div>
+
+        <q-select outlined v-model="updatedNewLesson.index" :options="indexForScroll()"
+                  label="מספר השיעור (בברירת מחדל יכנס כשיעור האחרון)"/>
 
         <q-input ref="name" outlined v-model="updatedNewLesson.name"
                  :rules="[ val => val && val.length > 1 || 'Please type name']"
@@ -40,12 +42,11 @@
 import {mapActions, mapMutations, mapState} from "vuex";
 
 export default {
+
   name: 'testUpdateComponent',
 
-  components: {},
-
   computed: {
-    ...mapState('lessons', ['newLesson']),
+    ...mapState('lessons', ['newLesson', 'lessons']),
     ...mapState('chapters', ['newChapter']),
   },
 
@@ -55,7 +56,8 @@ export default {
         name: '',
         description: '',
         lessonVideo: [],
-        id:''
+        id:'',
+        index:''
       },
     }
   },
@@ -106,6 +108,14 @@ export default {
 
     exit() {
       this.$router.push(`/backOffice/chapters/${this.newChapter.id}`);
+    },
+
+    indexForScroll() {
+      let arr = []
+      for (const lesson of this.lessons) {
+        arr.push(lesson.index)
+      }
+      return arr
     },
 
   },

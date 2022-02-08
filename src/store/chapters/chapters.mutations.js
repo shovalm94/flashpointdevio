@@ -20,6 +20,13 @@ export default {
     state.chapters.push(chapter)
   }),
 
+  switchChapterPlaces: ((state, chapter) =>{
+    for (let i = chapter.index; i < state.chapters.length ; i++) {
+      state.chapters[i].index ++
+    }
+    state.chapters.splice(chapter.index, 0, chapter)
+  }),
+
   setChapters: ((state, Chapters) =>{
     state.chapters = Chapters
   }),
@@ -37,6 +44,9 @@ export default {
   deleteChapter: ((state, chapterID) => {
     const index = state.chapters.findIndex(p => p.id === chapterID)
     state.chapters.splice(index, 1)
+    for (let i = index ; i < state.chapters.length ; i++) {
+      state.chapters[i].index --
+    }
   }),
 
   setOptions: (() => {

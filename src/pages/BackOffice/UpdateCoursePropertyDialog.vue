@@ -3,25 +3,22 @@
     <div class="q-pa-md">
             <q-page-sticky position="top-left" :offset="[18, 18]">
               <div class="q-pa-md q-gutter-sm">
-                <q-btn label="add new course" color="primary" @click="inception = true" />
+                <q-btn label="add new course" color="primary" @click="inception = true" style="min-width:350px"/>
                 <q-dialog v-model="inception">
                   <q-card>
                     <q-card-section>
                       <div class="text-h6">Add a new course</div>
                     </q-card-section>
-
                     <q-card-section class="q-pt-none">
                      <div>
                        <Creator></Creator>
                      </div>
                     </q-card-section>
-
                     <q-card-actions align="right" class="text-primary">
                       <q-btn style="color: #212121" flat label="Close" v-close-popup/>
                     </q-card-actions>
                   </q-card>
                 </q-dialog>
-
               </div>
             </q-page-sticky>
     </div>
