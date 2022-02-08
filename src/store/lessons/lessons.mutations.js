@@ -8,6 +8,10 @@ export default {
     state.newLesson.id = localNewLessonId
   }),
 
+  resetLessons: ((state) =>{
+    state.lessons = []
+  }),
+
   resetNewLesson: ((state) => {
     for (const key in state.newLesson) {
       state.newLesson[key] = ''
@@ -29,5 +33,18 @@ export default {
   deleteLesson: ((state, lessonId) => {
     const index = state.lessons.findIndex(p => p.id === lessonId)
     state.lessons.splice(index, 1)
+    for (let i = index ; i < state.lessons.length ; i++) {
+      state.lessons[i].index --
+    }
   }),
+
+  switchLessonPlaces: ((state, lesson) =>{
+    for (let i = lesson.index; i < state.lessons.length ; i++) {
+      state.lessons[i].index ++
+    }
+    state.lessons.splice(lesson.index, 0, lesson)
+  }),
+
+
+
 }

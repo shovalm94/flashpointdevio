@@ -90,7 +90,7 @@
                     <q-item clickable v-for="lesson in (chapter.Lessons)" v-close-popup
                             @click="LessonUpdate(chapter,lesson)">
                       <q-item-section>
-                        <q-item-label>{{ lesson.name }}</q-item-label>
+                        <q-item-label> שיעור מספר {{1 + lesson.index }}:  {{ lesson.name }}</q-item-label>
                       </q-item-section>
                     </q-item>
 
