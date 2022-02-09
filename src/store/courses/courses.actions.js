@@ -1,16 +1,14 @@
 import firebase from "../../middleware/firestore/courses"
+import firestore from "../../middleware/storage/index"
 import moment from 'moment';
+import firebaseFiles from "src/middleware/storage";
 
 export default /* context */ {
 
   insertCourse: async ({state, commit}) => {
-    debugger
     let res = (await firebase.insert({entity: 'courses', item: state.editCourse})).id
-    debugger
-
     await commit('setEditedCourseId', res)
     await commit('setIdInEditedCourse', res)
-    await commit('insertCourse', state.editCourse)
   },
 
   getCourses: async ({commit}) => {
@@ -33,6 +31,9 @@ export default /* context */ {
 
   deleteCourseActions: async ({state, commit}, id) => {
     await firebase.Delete({entity: "courses", id})
+    await firestore.imgDelete({path: 'Teacher', Id: id})
+    debugger
+    // await firestore.imgDelete({ID:id,entity:'course'})
     commit('deleteCourse', id)
   },
 
@@ -40,11 +41,12 @@ export default /* context */ {
     let item = {}
     Object.assign(item, state.editCourse)
     //save in DB
-    await firebase.update({entity: `courses`, pickedDoc: item.id, fields:item})
+    await firebase.update({entity: `courses`, pickedDoc: item.id, fields: item})
     //saves in store
     commit('resetEditCourse')
     commit('updateCourse', item)
   },
+
 
 }
 

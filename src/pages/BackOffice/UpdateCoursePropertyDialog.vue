@@ -1,4 +1,4 @@
-<template>
+<template xmlns:src="http://www.w3.org/1999/html">
   <div class="q-pa-md row items-start q-gutter-md">
     <div class="q-pa-md">
             <q-page-sticky position="top-left" :offset="[18, 18]">
@@ -24,8 +24,8 @@
     </div>
 
     <div class="q-pa-md row items-start q-gutter-md">
-    <q-card v-for="course of courses" class="my-card" style="background-color: darkorange">
-      <img :src="course.imageUrl" alt="">
+    <q-card v-for="(course) of courses" class="my-card" style="background-color: darkorange">
+      <img :src="course.imgCourseUrl" alt="photoCourse">
       <q-card-section>
         <div class="text-h6 player-title"> שם קורס: {{ course.courseName }}</div>
       </q-card-section>
@@ -50,9 +50,10 @@ import Creator from "pages/BackOffice/Creator";
 export default {
   name: "updateCoursePropertyDialog",
   components: {Creator},
-  computed: mapState('courses', ['courses']),
+  computed: mapState('courses', ['courses','ImgCourse']),
   data() {
     return {
+      index:0,
       inception: false,
       framework: {
         plugins: [
@@ -67,6 +68,7 @@ export default {
     ...mapActions('courses', ['getCourses', 'deleteCourseActions', "updateCourseActions"]),
 
     async deleteCourse(id) {
+      debugger
       await this.setEditedCourseId(id)
       await this.deleteCourseActions(id)
     },
@@ -94,7 +96,6 @@ export default {
     test : function() {
       return  ' שם הקורס:' + this.editCourse.courseName
     },
-
   },
 
   created() {

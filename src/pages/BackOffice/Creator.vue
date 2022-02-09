@@ -46,6 +46,7 @@
 import {mapState, mapMutations, mapActions} from 'vuex'
 import UpdateCoursePropertyDialog from "./UpdateCoursePropertyDialog";
 import firebaseFiles from "../../middleware/storage/index"
+import firestore from "../../middleware/firestore/courses/index"
 
 export default {
   name: "creator",
@@ -55,6 +56,8 @@ export default {
       ImgCourse: [],
       imgTeacher: [],
       localCourse: {
+        imgCourseUrl: '',
+        ImgTeacherUrl: '',
         courseDescription: '',
         courseName: '',
         courseLength: '',
@@ -62,7 +65,7 @@ export default {
         TeacherName: '',
         logoCourse: '',
         NumberOfStudents: 0,
-        id:'',
+        id: '',
         students: []
       }
     }
@@ -70,9 +73,8 @@ export default {
   computed: mapState('courses', ['editCourse', 'editedCourseId']),
   methods: {
     ...mapActions('courses', ['insertCourse']),
-    ...mapMutations('courses', ['setEditedCourse', 'setEditedCourseId']),
+    ...mapMutations('courses', ['insertCourseMut','setEditedCourse', 'setEditedCourseId', 'addCourseImage', 'setUrlImgInEditedCourse']),
     onSubmit() {
-      console.log(this.localCourse.courseName)
       this.$refs.courseName.validate()
       this.$refs.description.validate()
       this.$refs.teacherName.validate()
@@ -95,13 +97,14 @@ export default {
     async insert() {
       await this.setEditedCourse(this.localCourse)
       await this.insertCourse()
-      await this.upload(this.ImgCourse, "course", this.localCourse.id)
-      debugger
-      await this.upload(this.imgTeacher, "Teacher", this.localCourse.id)
+      let url = await this.upload(this.ImgCourse, "course", this.localCourse.id)
+      await this.setUrlImgInEditedCourse(url)
+      await firestore.update({entity:'courses',pickedDoc:this.localCourse.id, fields:this.localCourse})
+      await this.insertCourseMut(this.editCourse)
     },
     async upload(img, path, Id) {
-      debugger
-      await firebaseFiles.onUpload(img, path, Id);
+      let url = await firebaseFiles.onUpload(img, path, Id);
+      return url
     }
   }
 }

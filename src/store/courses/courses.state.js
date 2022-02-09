@@ -8,6 +8,8 @@ export default {
 
   editCourse: {
     students: [],
+    imgCourseUrl:'',
+    ImgTeacherUrl:'',
     courseDescription: '',
     courseName: '',
     courseLength: '',
