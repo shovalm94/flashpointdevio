@@ -32,10 +32,11 @@ export default {
   }),
 
   deleteLesson: ((state, lessonId) => {
-    debugger
+    state.lessons.sort(function (a, b) {
+      return a.index - b.index;
+    });
     const index = state.lessons.findIndex(p => p.id === lessonId)
     state.lessons.splice(index, 1)
-    debugger
     for (let i = index ; i <= state.lessons.length ; i++) {
       debugger
       state.lessons[i].index --

@@ -34,6 +34,9 @@ export default {
 
   setLessons: ((state, Lessons) =>{
     state.newChapter.lessons = Lessons
+    state.newChapter.lessons.sort(function (a, b) {
+      return a.index - b.index;
+    });
   }),
 
   setTimeUpload:((state, newChapter) =>{
