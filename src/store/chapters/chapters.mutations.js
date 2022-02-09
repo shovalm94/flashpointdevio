@@ -33,7 +33,7 @@ export default {
   }),
 
   setLessons: ((state, Lessons) =>{
-    state.newChapter.Lessons = Lessons
+    state.newChapter.lessons = Lessons
   }),
 
   setTimeUpload:((state, newChapter) =>{

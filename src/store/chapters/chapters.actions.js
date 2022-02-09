@@ -33,11 +33,11 @@ export default {
         entity: `courses/${rootState.courses.editedCourseId}/chapters`,
         item: newChapter
       })).id
-
-      for (let i = newChapter.index; i < state.chapters.length; i++) {
-        await firestore.Delete({entity: `courses/${rootState.courses.editedCourseId}/chapters`, id:state.chapters[i].id})
-      }
       await commit('switchChapterPlaces', newChapter)
+      for (let i = newChapter.index; i < state.chapters.length; i++) {
+        await firestore.Delete({entity: `courses/${rootState.courses.editedCourseId}/chapters`,
+          id:state.chapters[i].id})
+      }
       for (let i = newChapter.index ; i < state.chapters.length ; i++) {
         await firestore.insert({
           entity: `courses/${rootState.courses.editedCourseId}/chapters`,

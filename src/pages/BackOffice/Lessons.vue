@@ -13,7 +13,7 @@
 
       <q-input ref="description" outlined v-model="LocalNewLesson.description"
                :rules="[ val => val && val.length > 1 || 'Please type something']"
-               label="שDescription"
+               label="Description"
                lazy-rules
                type="text"/>
 
@@ -95,9 +95,9 @@ export default {
 
     indexForScroll() {
       let arr = []
-      for (const lesson of this.lessons) {
-        arr.push(lesson.index)
-      }
+        for (let lesson of this.lessons) {
+          arr.push(lesson.index)
+        }
       return arr
     },
 

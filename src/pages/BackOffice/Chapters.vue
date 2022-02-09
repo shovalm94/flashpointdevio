@@ -82,15 +82,14 @@
               <div class="text-h6">רמת קושי/רמת השתדלות נדרשת: {{ chapter.LevelOfDifficulty }}</div>
             </q-card-section>
 
-
             <q-card-section class="bg-primary text-white">
               <div class="q-pa-md">
                 <q-btn-dropdown color="blue" label="lessons in this chapter">
                   <q-list>
-                    <q-item clickable v-for="lesson in (chapter.Lessons)" v-close-popup
-                            @click="LessonUpdate(chapter,lesson)">
+                    <q-item clickable v-for="lesson in (chapter.lessons)" v-close-popup
+                            @click="LessonUpdate(chapter, lesson)">
                       <q-item-section>
-                        <q-item-label> שיעור מספר {{1 + lesson.index }}:  {{ lesson.name }}</q-item-label>
+                        <q-item-label> שיעור מספר {{ 1 + lesson.index }}: {{ lesson.name }}</q-item-label>
                       </q-item-section>
                     </q-item>
 
@@ -120,7 +119,7 @@ export default {
   name: "Chapters",
   computed: {
     ...mapState('courses', ['courses', 'editCourse', 'editedCourseId']),
-    ...mapState('chapters', ['chapters', 'lastChapterIndex']),
+    ...mapState('chapters', ['chapters', 'lastChapterIndex', 'newChapter']),
 
   },
 
@@ -133,7 +132,7 @@ export default {
         LevelOfDifficulty: '',
         ChapterImg: [],
         TimeUpload: new Date().toString(),
-        Lessons: [],
+        lessons: [],
         index: '',
       },
 
@@ -151,7 +150,7 @@ export default {
   methods: {
     ...mapActions('chapters', ['insertNewChapter', 'getChapters', 'getLessons', 'deleteChapter']),
     ...mapMutations('chapters', ['setNewChapter']),
-    ...mapMutations('lessons', ['resetNewLesson', 'setNewLesson']),
+    ...mapMutations('lessons', ['resetNewLesson', 'setNewLesson', 'setLessons']),
 
     async seeChapters() {
       await this.getChapters();
@@ -199,18 +198,19 @@ export default {
 
     async LessonAdd(chapter) {
       await this.setNewChapter(chapter);
+      await this.setLessons(this.newChapter.lessons)
       await this.$router.push(`/backOffice/lessons`);
     },
 
-    LessonUpdate(chapter, lesson) {
-
-      this.setNewChapter(chapter);
+   async LessonUpdate(chapter, lesson) {
+      await this.setNewChapter(chapter);
       this.resetNewLesson();
       this.setNewLesson(lesson);
-      this.$router.push(`/backOffice/updateLesson/${lesson.id}`);
+     await this.setLessons(this.newChapter.lessons)
+      await this.$router.push(`/backOffice/updateLesson/${lesson.id}`);
     },
 
-    indexForScroll(){
+    indexForScroll() {
       let arr = []
       for (const chapter of this.chapters) {
         arr.push(chapter.index)

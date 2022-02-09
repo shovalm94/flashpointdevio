@@ -64,7 +64,7 @@ export default {
 
   methods: {
     ...mapActions('lessons', ['getSingleLesson', 'updateLesson', 'deleteLesson']),
-    ...mapMutations('lessons', ['setNewLesson', 'setNewLessonId', 'resetLessons']),
+    ...mapMutations('lessons', ['setNewLesson', 'setNewLessonId']),
 
     onSubmit() {
       this.$refs.description.validate()
@@ -101,6 +101,7 @@ export default {
     },
 
     remove(id) {
+      debugger
       this.setNewLessonId(id)
       this.deleteLesson(id);
       this.$router.push(`/backOffice/chapters/${this.newChapter.id}`);

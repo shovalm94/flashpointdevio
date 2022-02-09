@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md" style="width: 350px">
-    <div>Updat chapters:</div>
+    <div>Update chapters:</div>
     <q-input outlined v-model="updatedNewChapter.Name" label="Name"/>
     <q-input outlined v-model="updatedNewChapter.Description" label="תיאור הפרק"/>
     <q-input outlined v-model="updatedNewChapter.LevelOfDifficulty" label="רמת קושי"/>
@@ -31,7 +31,7 @@ export default {
         Description:'',
         LevelOfDifficulty: '',
         ChapterImg:[],
-        Lessons: []
+        lessons: []
       },
     }
   },

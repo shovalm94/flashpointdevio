@@ -13,6 +13,7 @@ export default {
         }
       }
       if (index1 === -1) {
+        debugger
         newLesson.index = 0;
       } else {
         newLesson.index = index1 + 1;
@@ -30,18 +31,17 @@ export default {
         entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
         item: newLesson
       })).id
+      await commit('switchLessonPlaces', newLesson)
       for (let i = newLesson.index; i < state.lessons.length; i++) {
         await firestore.Delete({entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
           id:state.lessons[i].id})
       }
-      await commit('switchLessonPlaces', newLesson)
       for (let i = newLesson.index ; i < state.lessons.length ; i++) {
         await firestore.insert({
           entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
           item: state.lessons[i]})
       }
     }
-    // commit('chapters/setTest', null, { root: true })
   },
 
   getSingleLesson: async ({commit, rootState}, id) => {
@@ -56,6 +56,7 @@ export default {
     debugger
     const index = state.lessons.findIndex(p => p.id === id)
     for (let i = index; i < state.lessons.length ; i++) {
+      debugger
       await firestore.Delete({entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
         id:state.lessons[i].id
       })

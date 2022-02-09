@@ -8,8 +8,9 @@ export default {
     state.newLesson.id = localNewLessonId
   }),
 
-  resetLessons: ((state) =>{
-    state.lessons = []
+  setLessons: ((state, lessons) =>{
+    debugger
+    state.lessons = lessons
   }),
 
   resetNewLesson: ((state) => {
@@ -31,9 +32,12 @@ export default {
   }),
 
   deleteLesson: ((state, lessonId) => {
+    debugger
     const index = state.lessons.findIndex(p => p.id === lessonId)
     state.lessons.splice(index, 1)
-    for (let i = index ; i < state.lessons.length ; i++) {
+    debugger
+    for (let i = index ; i <= state.lessons.length ; i++) {
+      debugger
       state.lessons[i].index --
     }
   }),
