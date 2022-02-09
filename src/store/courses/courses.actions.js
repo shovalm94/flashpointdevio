@@ -31,7 +31,8 @@ export default /* context */ {
 
   deleteCourseActions: async ({state, commit}, id) => {
     await firebase.Delete({entity: "courses", id})
-    await firestore.imgDelete({path: 'Teacher', Id: id})
+    debugger
+    await firestore.imgDelete({path: `course/${id}`})
     debugger
     // await firestore.imgDelete({ID:id,entity:'course'})
     commit('deleteCourse', id)

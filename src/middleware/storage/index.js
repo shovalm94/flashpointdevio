@@ -1,6 +1,6 @@
 import firebase from "firebase";
 import firestore from "../firebase"
-import {mapState,mapMutations,mapActions} from 'vuex'
+import {mapState, mapMutations, mapActions} from 'vuex'
 import store from '../../store'
 import url from "../storage"
 
@@ -26,14 +26,18 @@ function onUpload(image, path, Id) {
     .catch(console.error);
 }
 
-function imgDelete(options) {
-
+function imgDelete(option) {
+  debugger
+  const storageRef = firebase.storage().ref(`${option.path}`)
+  console.log(`${option.path}`)
+  debugger
+  return storageRef.delete()
 }
 
 
 export default {
-  ...mapState('courses',['ImgCourse','teacherImg']),
-  ...mapMutations('courses',['addCourseImage']),
+  ...mapState('courses', ['ImgCourse', 'teacherImg']),
+  ...mapMutations('courses', ['addCourseImage']),
   onUpload,
   imgDelete,
 }
