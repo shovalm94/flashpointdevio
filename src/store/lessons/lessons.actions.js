@@ -55,20 +55,25 @@ export default {
   deleteLesson: async ({state, rootState, commit}, id) => {
     debugger
     const index = state.lessons.findIndex(p => p.id === id)
-    for (let i = index; i < state.lessons.length ; i++) {
-      debugger
       await firestore.Delete({entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
-        id:state.lessons[i].id
+        id:state.lessons[index].id
       })
+    for (let i = index+1 ; i <= state.lessons.length ; i++) {
+      debugger
+      await firestore.update({
+        entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
+        pickedDoc: state.lessons[i].id,
+        fields: {index: i-1}
+      })
+      debugger
     }
     debugger
     await commit('deleteLesson', id)
-    for (let i = index ; i < state.lessons.length ; i++) {
-      debugger
-      await firestore.insert({
-        entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
-        item: state.lessons[i]})
-    }
+    // for (let i = index ; i < state.lessons.length ; i++) {
+    //   await firestore.insert({
+    //     entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
+    //     item: state.lessons[i]})
+    // }
     // await firestore.Delete({
     //   entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
     //   id
