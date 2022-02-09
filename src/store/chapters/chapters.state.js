@@ -9,11 +9,12 @@ export default {
     Description:'',
     LevelOfDifficulty: '',
     TimeUpload:'',
-    Lessons: [],
+    lessons: [],
     ChapterImg: [],
     index:'',
   },
 
   lastChapterIndex:'',
+
 
 }

@@ -20,7 +20,6 @@ export default {
       } else {
         newChapter.index = index1 + 1;
       }
-
     //save in DS
     newChapter.id = (await firestore.insert({
       entity: `courses/${rootState.courses.editedCourseId}/chapters`,
@@ -34,11 +33,11 @@ export default {
         entity: `courses/${rootState.courses.editedCourseId}/chapters`,
         item: newChapter
       })).id
-
-      for (let i = newChapter.index; i < state.chapters.length; i++) {
-        await firestore.Delete({entity: `courses/${rootState.courses.editedCourseId}/chapters`, id:state.chapters[i].id})
-      }
       await commit('switchChapterPlaces', newChapter)
+      for (let i = newChapter.index; i < state.chapters.length; i++) {
+        await firestore.Delete({entity: `courses/${rootState.courses.editedCourseId}/chapters`,
+          id:state.chapters[i].id})
+      }
       for (let i = newChapter.index ; i < state.chapters.length ; i++) {
         await firestore.insert({
           entity: `courses/${rootState.courses.editedCourseId}/chapters`,
@@ -67,13 +66,13 @@ export default {
 
   getLessons: async ({commit, state, rootState}) => {
     for (const chapter of state.chapters) {
-      const newChapter = await firestore.getSingle({
+      let newChapter = await firestore.getSingle({
         entity: `courses/${rootState.courses.editedCourseId}/chapters/`,
         item: chapter.id
       })
       commit('setNewChapter', newChapter)
       const lessons = await firestore.get({entity: `courses/${rootState.courses.editedCourseId}/chapters/${chapter.id}/lessons`});
-      newChapter.TimeUpload = moment(newChapter.TimeUpload).fromNow()
+      commit('setTimeUpload', newChapter)
       commit('setLessons', lessons)
       commit('editNewChapter', state.newChapter)
     }
@@ -106,7 +105,7 @@ export default {
         entity: `courses/${rootState.courses.editedCourseId}/chapters`,
         item: state.chapters[i]})
     }
-  }
+  },
 
 }
 

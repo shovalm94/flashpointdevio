@@ -101,6 +101,7 @@ export default {
     },
 
     remove(id) {
+      debugger
       this.setNewLessonId(id)
       this.deleteLesson(id);
       this.$router.push(`/backOffice/chapters/${this.newChapter.id}`);
@@ -108,6 +109,7 @@ export default {
 
     exit() {
       this.$router.push(`/backOffice/chapters/${this.newChapter.id}`);
+      this.resetLessons();
     },
 
     indexForScroll() {

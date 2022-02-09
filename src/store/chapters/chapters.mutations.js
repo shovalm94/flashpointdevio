@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export default {
 
   setNewChapter:((state, localNewChapter) =>{
@@ -5,7 +7,6 @@ export default {
   }),
 
   setIndex:((state, index1) =>{
-    debugger
     state.lastChapterIndex = index1
   }),
 
@@ -32,9 +33,12 @@ export default {
   }),
 
   setLessons: ((state, Lessons) =>{
-    state.newChapter.Lessons = Lessons
+    state.newChapter.lessons = Lessons
   }),
 
+  setTimeUpload:((state, newChapter) =>{
+    newChapter.TimeUpload = moment(newChapter.TimeUpload).fromNow()
+  }),
 
   editNewChapter: ((state, chapter) => {
     const index = state.chapters.findIndex(p => p.id === chapter.id)
@@ -48,10 +52,5 @@ export default {
       state.chapters[i].index --
     }
   }),
-
-  setOptions: (() => {
-
-  }),
-
 
 }
