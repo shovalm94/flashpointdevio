@@ -9,7 +9,6 @@ export default {
   }),
 
   setLessons: ((state, lessons) =>{
-    debugger
     state.lessons = lessons
   }),
 
@@ -38,7 +37,6 @@ export default {
     const index = state.lessons.findIndex(p => p.id === lessonId)
     state.lessons.splice(index, 1)
     for (let i = index ; i <= state.lessons.length ; i++) {
-      debugger
       state.lessons[i].index --
     }
   }),

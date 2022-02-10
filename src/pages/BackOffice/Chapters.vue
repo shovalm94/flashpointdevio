@@ -2,7 +2,7 @@
   <q-form @submit.prevent.stop="onSubmit()">
     <q-page class="flex flex-center">
       <div class="q-pa-md" style="min-width: 450px">
-        <h2>{{ test() }}</h2>
+        <h2> שם הקורס: {{this.editCourse.courseName }}</h2>
         <br><br><br>
 
         <div class="q-pa-md">
@@ -119,7 +119,7 @@ export default {
   name: "Chapters",
   computed: {
     ...mapState('courses', ['courses', 'editCourse', 'editedCourseId']),
-    ...mapState('chapters', ['chapters', 'lastChapterIndex', 'newChapter']),
+    ...mapState('chapters', ['chapters', 'newChapter']),
 
   },
 
@@ -222,9 +222,6 @@ export default {
       this.$router.push(`/backOffice/UpdateCoursePropertyDialog`);
     },
 
-    test: function () {
-      return ' שם הקורס:' + this.editCourse.courseName
-    },
 
   },
 

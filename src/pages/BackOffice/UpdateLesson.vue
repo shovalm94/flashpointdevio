@@ -109,7 +109,6 @@ export default {
 
     exit() {
       this.$router.push(`/backOffice/chapters/${this.newChapter.id}`);
-      this.resetLessons();
     },
 
     indexForScroll() {

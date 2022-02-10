@@ -5,6 +5,7 @@ export default {
   insertNewLesson: async ({commit, state, rootState}) => {
     let newLesson = {}
     Object.assign(newLesson, state.newLesson)
+      //במידה והשיעור החדש נכנס כשיעור האחרון בסדר האינקס
     if (state.newLesson.index === '') {
       let index1 = -1
       for (const lesson of state.lessons) {
@@ -26,7 +27,9 @@ export default {
       //saves in store
       commit('resetNewLesson')
       commit('insertNewLesson', newLesson)
-    } else if (newLesson.index !== '') {
+    }
+    //במידה והשיעור לא יכנס כאחרון אלא למיקום לפי בחירה
+    else if (newLesson.index !== '') {
       newLesson.id = (await firestore.insert({
         entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
         item: newLesson
@@ -53,46 +56,29 @@ export default {
   },
 
   deleteLesson: async ({state, rootState, commit}, id) => {
-    debugger
     const index = state.lessons.findIndex(p => p.id === id)
       await firestore.Delete({entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
         id:state.lessons[index].id
       })
     for (let i = index+1 ; i <= state.lessons.length ; i++) {
-      debugger
       await firestore.update({
         entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
         pickedDoc: state.lessons[i].id,
         fields: {index: i-1}
       })
-      debugger
     }
-    debugger
     await commit('deleteLesson', id)
-    // for (let i = index ; i < state.lessons.length ; i++) {
-    //   await firestore.insert({
-    //     entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
-    //     item: state.lessons[i]})
-    // }
-    // await firestore.Delete({
-    //   entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
-    //   id
-    // })
-    // commit('deleteLesson', id)
   },
 
   updateLesson: async ({state, rootState, commit}) => {
     let item = {}
     Object.assign(item, state.newLesson)
-    //save in DB
     await firestore.update({
       entity: `courses/${rootState.courses.editedCourseId}/chapters/${rootState.chapters.newChapter.id}/lessons`,
       pickedDoc: item.id,
       fields: item
     })
-    //saves in store
     commit('resetNewLesson')
-    // commit('resetCardId')
     commit('editNewLesson', item)
   },
 

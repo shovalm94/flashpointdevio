@@ -6,9 +6,6 @@ export default {
     state.newChapter = localNewChapter
   }),
 
-  setIndex:((state, index1) =>{
-    state.lastChapterIndex = index1
-  }),
 
   resetNewChapter:((state) =>{
     for (const key in state.newChapter) {
