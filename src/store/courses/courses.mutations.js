@@ -1,13 +1,7 @@
 export default {
-  // setCourses: ((state, courses) => state.coursesList = courses),
-  setCourses: ((state, courses) => state.coursesList.push(courses)),
+  setCourses: ((state, courses) => state.coursesList = state.coursesList.concat(courses)),
 
-  setLastBatch: ((state) => state.lastBatch = true),
-  // setLastBatch: ((state, lastBatch) => state.lastBatch = lastBatch),
-
-  // setNextBatch:  ((state, courses) => state.coursesList.concat(courses))
-
-
+  setGetMore: ((state) => state.getMore = false),
 
 }
 
