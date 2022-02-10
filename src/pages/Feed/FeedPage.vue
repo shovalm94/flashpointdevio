@@ -15,7 +15,7 @@ import {mapState, mapActions, mapMutations} from "vuex";
 import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
-  name: 'post',
+  name: 'feedPage',
   components: {Courses, InfiniteLoading},
   data() {
     return {}
