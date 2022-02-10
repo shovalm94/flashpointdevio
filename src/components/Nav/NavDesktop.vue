@@ -10,7 +10,7 @@
 
           <router-link
             class="menu-item"
-            to="/profile/123456789"
+            :to="{path: `profile/${userId}`}"
             active-class=""
           >
           <div>
@@ -54,8 +54,11 @@
 
 
 
+import {mapState} from "vuex";
+
 export default {
   name: "NavDesktop",
+  computed: mapState('auth', ['user', 'userId']),
 
 }
 </script>

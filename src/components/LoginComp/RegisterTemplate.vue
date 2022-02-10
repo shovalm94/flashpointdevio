@@ -1,12 +1,11 @@
 <template>
   <q-form @submit.prevent.stop="onSubmit()">
-    <q-input ref="fullName" v-model="fullName"
-             :rules="[ val => val && val.length > 4 || 'Please type something']"
+    <q-input ref="fullName" v-model="localUser.fullName"
+             :rules="[ val => val && val.length > 2 || 'Please type something']"
              label="Full name*"
              lazy-rules
              type="text"/>
-
-    <q-input ref="email" v-model="email" :rules="[ val => val && val.length > 0 || 'Please enter your email']"
+    <q-input ref="email" v-model="localUser.email" :rules="[ val => val && val.length > 0 || 'Please enter your email',ValidEmail]"
              label="Email*"
              lazy-rules
              type="email">
@@ -17,7 +16,7 @@
 
     <q-input
       ref="phone"
-      v-model="phone"
+      v-model="localUser.phone"
       :rules="[ val => val && val.length  === 10 || 'Please enter a valid phone number']"
       label="Phone*"
       lazy-rules
@@ -29,8 +28,8 @@
     </q-input>
 
 
-    <q-input ref="password" v-model="password"
-             :rules="[ val => val && val.length > 0 || 'Please type something']"
+    <q-input ref="password" v-model="localUser.password"
+             :rules="[ val => val && val.length >= 6 || 'Please type something']"
              :type="isPwd ? 'password' : 'text'"
              label="Password*"
              lazy-rules>
@@ -44,9 +43,8 @@
       </template>
     </q-input>
 
-
-    <q-input ref="passwordRepeat" v-model="passwordRepeat"
-             :rules="[ val => val === password || 'Passwords do not match']"
+    <q-input ref="passwordRepeat" v-model="localUser.passwordRepeat"
+             :rules="[ val => val === localUser.password || 'Passwords do not match']"
              :type="isPwd ? 'password' : 'text'"
              label="Repeat password*"
              lazy-rules>
@@ -59,6 +57,8 @@
         />
       </template>
     </q-input>
+    <q-btn class="glossy" round color="secondary" icon="add_a_photo" size="md" @click="addImg=!addImg"/><br/>
+    <q-input v-if="addImg" type="file" ref="fileInput" accept="image/*" @change="getFileData"/>
 
     <q-toggle v-model="accept" label="I accept the license and terms"/>
     <br>
@@ -69,24 +69,32 @@
 
 <script>
 import firebaseInstance from '../../middleware/firebase'
+import database from '../../middleware/firestore/auth'
+import {mapState, mapActions, mapGetters, mapMutations} from 'vuex'
 
 export default {
   name: "RegisterTemplate",
 
   data() {
     return {
-
-      fullName: ' ',
-      email: '',
-      password: '',
-      passwordRepeat: '',
-      phone: '',
+      localUser: {
+        fullName: ' ',
+        email: '',
+        phone: '',
+        password: '',
+        passwordRepeat: '',
+      },
       isPwd: true,
       accept: false,
+      addImg: false,
+      fileData: '',
     }
   },
+  computed: mapState('auth', ['user', 'userId']),
 
   methods: {
+    ...mapActions('auth',['upload']),
+    ...mapMutations('auth',['setUser',"setUserId"]),
     onSubmit() {
       this.$refs.fullName.validate()
       this.$refs.email.validate()
@@ -114,15 +122,35 @@ export default {
 
     register() {
       if (this.accept === true) {
-        firebaseInstance.firebase.auth().createUserWithEmailAndPassword(this.email, this.passwordRepeat)
-          .then((userCredential) => {
-            var user = userCredential.user;
-            this.$router.push('/home')
+        firebaseInstance.firebase.auth().createUserWithEmailAndPassword(this.localUser.email, this.localUser.passwordRepeat)
+          .then((res) => {
+            window.user = res.user;
+            this.setUser({...this.localUser})
+            this.setUserId(window.user.uid)
+
+            const item= {...this.localUser};
+            delete item.password
+            delete item.passwordRepeat
+
+            database.createUser({path:'users',item,id:window.user.uid}).then(() => {
+              this.uploadImage();
+              this.$router.push('/')
+            })
           })
-          .catch(() => {
-            console.log('something went wrong')
+          .catch((err) => {
+            console.log(err)
           });
       }
+    },
+    getFileData(e) {
+      this.fileData = e.target.files[0];
+    },
+    uploadImage() {
+      this.upload(this.fileData);
+    },
+    ValidEmail (val) {
+      const emailPattern = /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/;
+      return emailPattern.test(val) || 'Invalid email';
     },
   },
 }

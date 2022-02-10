@@ -4,33 +4,32 @@
 
 <script>
 import firebaseInstance from '../../middleware/firebase'
+import {mapState, mapActions, mapMutations} from "vuex";
+import database from "src/middleware/firestore/auth";
 export default {
   name: "GoogleLogin",
+  computed: mapState('auth', ['user', 'userId']),
   methods: {
+    ...mapActions('auth',['getUser']),
+    ...mapMutations('auth',['setUser',"setUserId"]),
     loginWithGoogle() {
       const provider = new firebaseInstance.firebase.auth.GoogleAuthProvider();
       firebaseInstance.firebase.auth()
         .signInWithPopup(provider)
         .then((result) => {
-          /** @type {firebase.auth.OAuthCredential} */
-          var credential = result.credential;
-
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          var token = credential.accessToken;
-
-          // The signed-in user info.
-          var user = result.user;
           window.user = result.user;
-          this.$router.push('/home')
+          this.setUserId(window.user.uid)
+          if(result.additionalUserInfo.isNewUser) { // newUser
+            const item={fullName:result.user.displayName,email:result.user.email}
+            this.setUser(item);
+            database.createUser({path: 'users', item, id: window.user.uid})
+          }
+          else{
+            this.getUser()
+          }
+            this.$router.push('/')
         }).catch((error) => {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
+        console.log('err',error)
       });
 
     }

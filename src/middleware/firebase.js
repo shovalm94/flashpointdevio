@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import storage from "firebase/storage";
 import auth from "firebase/auth";
 import ft from "firebase/firestore/";
 const authentication = () => {

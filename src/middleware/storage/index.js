@@ -1,16 +1,13 @@
-// import firebase from "firebase";
+import firebaseInstance from "src/middleware/firebase";
 
 
-function onUpload(options) {
-
-}
-
-function imgDelete(options) {
-
+function uploadToStorage(userId, fileData) {
+  return firebaseInstance.firebase.storage().ref('profiles').child(userId).put(fileData)
+    .then(snapshot => snapshot.ref.getDownloadURL())
 }
 
 export default {
-  onUpload,
-  imgDelete
+  uploadToStorage
+
 }
 

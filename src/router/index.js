@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import firebaseInstance from '../middleware/firebase'
+import firebaseInstance from '../middleware/firebase'
 import routes from './routes'
+
 
 Vue.use(VueRouter)
 
@@ -26,9 +27,15 @@ export default function (/* { store, ssrContext } */) {
     base: process.env.VUE_ROUTER_BASE
   })
 
-  router.beforeEach((to, from, next) => {
+  router.beforeEach(  (to, from, next) => {
+    firebaseInstance.firebase.auth().onAuthStateChanged( user => {
+      if (!user && !to.meta.authNotRequired) {
+        next('/login')
+      } else {
+        next()
+      }
+    })
+    })
 
-      next()
-  })
   return router
 }
