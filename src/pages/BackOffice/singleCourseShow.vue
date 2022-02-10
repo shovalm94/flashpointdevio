@@ -2,13 +2,25 @@
   <div style="width: 350px">
     <q-input v-model="LocalEditCourse.courseDescription"> תיאור הקורס</q-input>
     <q-input v-model="LocalEditCourse.courseName">שם הקורס</q-input>
-    <q-input v-model="LocalEditCourse.imgTeacher">תמונת מורה</q-input>
-    <q-input v-model="LocalEditCourse.imgCourseUrl">תמונת קורס</q-input>
-    <q-input v-model="LocalEditCourse.imgTeacherUrl">תמונת קורס</q-input>
+
+    <q-file outlined v-model="LocalEditCourse.imgCourseUrl"
+            label="תמונת קורס" id="fileUpload">
+      <template v-slot:prepend>
+        <q-icon name="attach_file"/>
+      </template>
+    </q-file>
+
+    <q-file outlined v-model="LocalEditCourse.ImgTeacherUrl"
+            label="תמונת מורה" id="fileUpload">
+      <template v-slot:prepend>
+        <q-icon name="attach_file"/>
+      </template>
+    </q-file>
+
     <q-input v-model="LocalEditCourse.courseLength">אורך הקורס</q-input>
     <q-input v-model="LocalEditCourse.logoCourse">לוגו</q-input>
     <q-input v-model="LocalEditCourse.TeacherName">שם המורה</q-input>
-    <q-input v-model="LocalEditCourse.NumberOfStudents">שם המורה</q-input>
+    <q-input v-model="LocalEditCourse.NumberOfStudents">מספר סטודנטים</q-input>
     <q-btn @click="updateCourse"> עדכן קורס</q-btn>
   </div>
 
@@ -26,7 +38,7 @@ export default {
       LocalEditCourse: {
         students: [],
         imgCourseUrl: '',
-        imgTeacherUrl: '',
+        ImgTeacherUrl: '',
         courseDescription: '',
         courseName: '',
         courseLength: '',
@@ -34,7 +46,7 @@ export default {
         TeacherName: '',
         logoCourse: '',
         NumberOfStudents: '',
-        courseNum: 0,
+        courseNum: 1,
         id: ''
       }
     }
@@ -45,7 +57,6 @@ export default {
     ...mapMutations('courses', ['setEditedCourseId', 'setEditedCourse',]),
 
     async updateCourse() {
-      debugger
       this.setEditedCourse(this.LocalEditCourse);
       debugger
       await this.updateCourseActions()

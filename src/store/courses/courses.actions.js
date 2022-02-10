@@ -33,8 +33,8 @@ export default /* context */ {
     await firebase.Delete({entity: "courses", id})
     debugger
     await firestore.imgDelete({path: `course/${id}`})
+    await firestore.imgDelete({path: `Teacher/${id}`})
     debugger
-    // await firestore.imgDelete({ID:id,entity:'course'})
     commit('deleteCourse', id)
   },
 

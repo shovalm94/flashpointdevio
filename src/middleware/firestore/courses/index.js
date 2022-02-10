@@ -7,10 +7,10 @@ function insert(options) {
   return firebaseInstance.db().collection(`${options.entity}`).add(options.item)
 }
 
-function get(options){
-  let arr =[]
+function get(options) {
+  let arr = []
   return firebaseInstance.db().collection(`${options.entity}`).get()
-    .then(result =>{
+    .then(result => {
       result.docs.forEach(doc => {
         const obj = {
           ...doc.data(),
@@ -23,32 +23,25 @@ function get(options){
 }
 
 
-function getSingle(options){
+function getSingle(options) {
   let item = {}
-   return firebaseInstance.db().collection(`${options.entity}`).doc(options.item).get()
-    .then(result =>{
-        item = {
-          ...result.data(),
-          id: result.id
-        }
+  return firebaseInstance.db().collection(`${options.entity}`).doc(options.item).get()
+    .then(result => {
+      item = {
+        ...result.data(),
+        id: result.id
+      }
       return item
-      })
-    }
-
-
-
-function update(options) {
-  // if(options.imgTeacher){
-  //   return firebaseInstance.db().collection(`${options.entity}`).doc(`${options.pickedDoc}`)
-  //     .update(options.imgTeacher)
-  // }
-   {
-    return firebaseInstance.db().collection(`${options.entity}`).doc(`${options.pickedDoc}`)
-      .update(options.fields)
-  }
+    })
 }
 
-function Delete (options){
+function update(options) {
+  debugger
+  return firebaseInstance.db().collection(`${options.entity}`).doc(`${options.pickedDoc}`)
+    .update(options.fields)
+}
+
+function Delete(options) {
   return firebaseInstance.db().collection(`${options.entity}`).doc(options.id).delete()
 }
 

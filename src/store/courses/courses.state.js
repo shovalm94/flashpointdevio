@@ -1,6 +1,6 @@
 export default {
-  teacherImg: [],
-  ImgCourse: [],
+  // ImgTeacher: [],
+  // ImgCourse: [],
   courses: [],
   chapters: [],
   lessons: [],
@@ -12,12 +12,10 @@ export default {
     ImgTeacherUrl: '',
     courseDescription: '',
     courseName: '',
-    courseLength: '',
     TimeUploaded: '',
     TeacherName: '',
-    logoCourse: '',
     NumberOfStudents: '',
-    courseNum: 0,
+    courseNum: 1,
     id: ''
   },
 }

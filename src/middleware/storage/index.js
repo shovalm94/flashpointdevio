@@ -29,11 +29,16 @@ function imgDelete(option) {
   return storageRef.delete()
 }
 
+async function updateImg(option) {
+   firebase.storage().ref(`${option.entity / option.id}`).put(option.img);
+}
+
 
 export default {
   ...mapState('courses', ['ImgCourse', 'teacherImg']),
   ...mapMutations('courses', ['addCourseImage']),
   onUpload,
   imgDelete,
+  updateImg
 }
 
