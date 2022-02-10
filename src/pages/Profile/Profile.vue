@@ -19,7 +19,7 @@
         icon="settings"
         round
         size="12px"
-        :to="{path:`settings/${userId}`}">
+        :to="{path:`/settings/${userId}`}">
         <q-tooltip>Settings</q-tooltip>
       </q-btn>
 

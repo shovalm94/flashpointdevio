@@ -3,6 +3,8 @@ export default {
 
   setGetMore: ((state) => state.getMore = false),
 
+  setCourseId: ((state, id) => state.courseId = id)
+
 }
 
 

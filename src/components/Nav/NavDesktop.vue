@@ -1,7 +1,6 @@
 <template>
   <div>
     <q-header bordered class="bg-white" >
-
       <q-toolbar class="header-container">
         <div>
           <q-img class="logo" :src="require('../../assets/logos/Flashdev-Logo-Wide-By-JONNY.png')"/>
@@ -9,8 +8,9 @@
         <div style="height: 100%; align-items: center;display: flex; flex-direction: row-reverse">
 
           <router-link
+
             class="menu-item"
-            :to="{path: `profile/${userId}`}"
+            :to="{path: `/profile/${userId}`}"
             active-class=""
           >
           <div>
@@ -36,10 +36,10 @@
           >
           <div>
             <q-icon name="grid_view" size="28px"/>
-            <div class="icon-text">קורסים</div>
+            <div class="icon-text">הקורסים שלי</div>
           </div>
           </router-link>
-          <div @click="$router.push('/home')" class="menu-item">
+          <div @click="$router.push('/')" class="menu-item">
             <q-icon name="home" size="28px"/>
             <div class="icon-text">ראשי</div>
           </div>

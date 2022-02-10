@@ -9,7 +9,7 @@
         icon="keyboard_backspace"
         round
         size="12px"
-        to="/settings">
+        @click="$router.back()">
         <q-tooltip>Back</q-tooltip>
       </q-btn>
       <q-card-section class="text-center">

@@ -11,11 +11,23 @@ export default /* context */ {
           return
         }
         result.docs.forEach(doc => {
-          courses.push(doc.data())
+          let course = doc.data()
+          course.id = doc.id
+          courses.push(course)
         })
         commit('setCourses', courses)
       })
-  }
-}
+  },
+  addStudentsToCourses: ({state, rootState}) => {
+    let user = rootState.auth.user
+    delete user.password
+    delete user.passwordRepeat
+    user.id = window.user.uid
+    database.create({col1: 'courses', col2: 'students', id: state.courseId, user})
+  },
+  addCoursesToUser: ({commit, state}) => {
+    databaseAuth.create({col1: 'users', col2: 'courses', id: state.courseId})
+  },
 
+}
 
