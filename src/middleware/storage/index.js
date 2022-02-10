@@ -1,9 +1,13 @@
 import firebase from "firebase";
+import firestore from "../firebase"
+import {mapState, mapMutations, mapActions} from 'vuex'
+import store from '../../store'
+import url from "../storage"
 
-function onUpload(image,path,Id) {
+function onUpload(image, path, Id) {
   debugger
   const ref = firebase.storage().ref(path);
-  const name = (new Date()) + '-' + Id;
+  const name = Id;
   const metadata = {
     contentType: image.type
   };
@@ -17,11 +21,24 @@ function onUpload(image,path,Id) {
     .catch(console.error);
 }
 
-function imgDelete(options) {
+function imgDelete(option) {
+  debugger
+  const storageRef = firebase.storage().ref(`${option.path}`)
+  console.log(`${option.path}`)
+  debugger
+  return storageRef.delete()
 }
 
+async function updateImg(option) {
+   firebase.storage().ref(`${option.entity / option.id}`).put(option.img);
+}
+
+
 export default {
+  ...mapState('courses', ['ImgCourse', 'teacherImg']),
+  ...mapMutations('courses', ['addCourseImage']),
   onUpload,
   imgDelete,
+  updateImg
 }
 

@@ -1,4 +1,4 @@
-<template>
+<template xmlns:src="http://www.w3.org/1999/html">
   <div class="q-pa-md row items-start q-gutter-md">
     <div class="q-pa-md">
             <q-page-sticky position="top-left" :offset="[18, 18]">
@@ -24,8 +24,9 @@
     </div>
 
     <div class="q-pa-md row items-start q-gutter-md">
-    <q-card v-for="course of courses" class="my-card" style="background-color: darkorange">
-      <img :src="course.imageUrl" alt="">
+    <q-card v-for="(course) of courses" class="my-card" style="background-color: darkorange">
+      <img :src="course.ImgTeacherUrl" alt="photoTeacher">
+      <img :src="course.imgCourseUrl" alt="photoCourse">
       <q-card-section>
         <div class="text-h6 player-title"> שם קורס: {{ course.courseName }}</div>
       </q-card-section>
@@ -50,7 +51,7 @@ import Creator from "pages/BackOffice/Creator";
 export default {
   name: "updateCoursePropertyDialog",
   components: {Creator},
-  computed: mapState('courses', ['courses']),
+  computed: mapState('courses', ['courses','ImgCourse']),
   data() {
     return {
       inception: false,

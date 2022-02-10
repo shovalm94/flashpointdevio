@@ -1,6 +1,6 @@
 export default {
-  teacherImg:[],
-  ImgCourse: [],
+  // ImgTeacher: [],
+  // ImgCourse: [],
   courses: [],
   chapters: [],
   lessons: [],
@@ -8,15 +8,15 @@ export default {
 
   editCourse: {
     students: [],
+    imgCourseUrl: '',
+    ImgTeacherUrl: '',
     courseDescription: '',
     courseName: '',
-    courseLength: '',
     TimeUploaded: '',
     TeacherName: '',
-    logoCourse: '',
     NumberOfStudents: '',
-    id:''
+    courseNum: 1,
+    id: ''
   },
-
 }
 

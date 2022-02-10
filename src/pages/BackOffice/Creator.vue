@@ -22,7 +22,7 @@
             </template>
           </q-file>
 
-          <q-file outlined v-model="imgTeacher" label="תמונת מרצה">
+          <q-file outlined v-model="ImgTeacher" label="תמונת מרצה">
             <template v-slot:prepend>
               <q-icon name="attach_file"/>
             </template>
@@ -34,7 +34,6 @@
                    lazy-rules
                    type="text"></q-input>
 
-          <q-input v-model="localCourse.logoCourse" label="לוגו"></q-input>
           <q-btn class="text-primary" label="הוסף קורס" outline type="submit"/>
         </div>
       </q-page>
@@ -46,6 +45,7 @@
 import {mapState, mapMutations, mapActions} from 'vuex'
 import UpdateCoursePropertyDialog from "./UpdateCoursePropertyDialog";
 import firebaseFiles from "../../middleware/storage/index"
+import firestore from "../../middleware/firestore/courses/index"
 
 export default {
   name: "creator",
@@ -53,8 +53,10 @@ export default {
   data() {
     return {
       ImgCourse: [],
-      imgTeacher: [],
+      ImgTeacher: [],
       localCourse: {
+        imgCourseUrl: '',
+        ImgTeacherUrl: '',
         courseDescription: '',
         courseName: '',
         courseLength: '',
@@ -62,7 +64,8 @@ export default {
         TeacherName: '',
         logoCourse: '',
         NumberOfStudents: 0,
-        id:'',
+        id: '',
+        courseNum: 0,
         students: []
       }
     }
@@ -70,9 +73,8 @@ export default {
   computed: mapState('courses', ['editCourse', 'editedCourseId']),
   methods: {
     ...mapActions('courses', ['insertCourse']),
-    ...mapMutations('courses', ['setEditedCourse', 'setEditedCourseId']),
+    ...mapMutations('courses', ['setUrlImgInEditedTeacher', 'insertCourseMut', 'setEditedCourse', 'setEditedCourseId', 'addCourseImage', 'setUrlImgInEditedCourse']),
     onSubmit() {
-      console.log(this.localCourse.courseName)
       this.$refs.courseName.validate()
       this.$refs.description.validate()
       this.$refs.teacherName.validate()
@@ -95,13 +97,25 @@ export default {
     async insert() {
       await this.setEditedCourse(this.localCourse)
       await this.insertCourse()
-      await this.upload(this.ImgCourse, "course", this.localCourse.id)
-      debugger
-      await this.upload(this.imgTeacher, "Teacher", this.localCourse.id)
+      let urlCourse = await this.upload(this.ImgCourse, "course", this.editCourse.id)
+      await this.setUrlImgInEditedCourse(urlCourse)
+      await firestore.update({
+        entity: 'courses',
+        pickedDoc: this.editCourse.id,
+        fields: {imgCourseUrl: this.editCourse.imgCourseUrl}
+      })
+      let urlTeacher = await this.upload(this.ImgTeacher, "Teacher", this.editCourse.id)
+      await this.setUrlImgInEditedTeacher(urlTeacher)
+      await firestore.update({
+        entity: 'courses',
+        pickedDoc: this.editCourse.id,
+        fields: {ImgTeacherUrl: this.editCourse.ImgTeacherUrl}
+      })
+      await this.insertCourseMut(this.editCourse)
     },
     async upload(img, path, Id) {
-      debugger
-      await firebaseFiles.onUpload(img, path, Id);
+      let url = await firebaseFiles.onUpload(img, path, Id);
+      return url
     }
   }
 }
