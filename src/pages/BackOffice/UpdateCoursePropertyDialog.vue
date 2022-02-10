@@ -25,6 +25,7 @@
 
     <div class="q-pa-md row items-start q-gutter-md">
     <q-card v-for="(course) of courses" class="my-card" style="background-color: darkorange">
+      <img :src="course.ImgTeacherUrl" alt="photoTeacher">
       <img :src="course.imgCourseUrl" alt="photoCourse">
       <q-card-section>
         <div class="text-h6 player-title"> שם קורס: {{ course.courseName }}</div>
@@ -68,21 +69,21 @@ export default {
     ...mapActions('courses', ['getCourses', 'deleteCourseActions', "updateCourseActions"]),
 
     async deleteCourse(id) {
-      debugger
       await this.setEditedCourseId(id)
       await this.deleteCourseActions(id)
     },
 
     async updateCourse(course) {
+      debugger
       this.setCourse(course)
+      debugger
       this.setEditedCourseId(course.id)
+      debugger
       await this.$router.push('/backOffice/singleCourse')
     },
 
     showStudents(Course) {
-      debugger
       this.setEditedCourse(Course);
-      debugger
       this.$router.push('/backOffice/students')
     },
 

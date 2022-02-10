@@ -3,10 +3,12 @@
     <q-input v-model="LocalEditCourse.courseDescription"> תיאור הקורס</q-input>
     <q-input v-model="LocalEditCourse.courseName">שם הקורס</q-input>
     <q-input v-model="LocalEditCourse.imgTeacher">תמונת מורה</q-input>
-    <q-input v-model="LocalEditCourse.ImgCourse">תמונת קורס</q-input>
+    <q-input v-model="LocalEditCourse.imgCourseUrl">תמונת קורס</q-input>
+    <q-input v-model="LocalEditCourse.imgTeacherUrl">תמונת קורס</q-input>
     <q-input v-model="LocalEditCourse.courseLength">אורך הקורס</q-input>
     <q-input v-model="LocalEditCourse.logoCourse">לוגו</q-input>
     <q-input v-model="LocalEditCourse.TeacherName">שם המורה</q-input>
+    <q-input v-model="LocalEditCourse.NumberOfStudents">שם המורה</q-input>
     <q-btn @click="updateCourse"> עדכן קורס</q-btn>
   </div>
 
@@ -22,13 +24,18 @@ export default {
   data() {
     return {
       LocalEditCourse: {
+        students: [],
+        imgCourseUrl: '',
+        imgTeacherUrl: '',
         courseDescription: '',
         courseName: '',
         courseLength: '',
-        TimeUpload: '',
+        TimeUploaded: '',
         TeacherName: '',
-        imgTeacher: '',
-        logoCourse: ''
+        logoCourse: '',
+        NumberOfStudents: '',
+        courseNum: 0,
+        id: ''
       }
     }
   },
@@ -38,7 +45,9 @@ export default {
     ...mapMutations('courses', ['setEditedCourseId', 'setEditedCourse',]),
 
     async updateCourse() {
+      debugger
       this.setEditedCourse(this.LocalEditCourse);
+      debugger
       await this.updateCourseActions()
       await this.$router.push(`/backOffice/UpdateCoursePropertyDialog`)
     }

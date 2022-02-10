@@ -1,5 +1,5 @@
 export default {
-  teacherImg:[],
+  teacherImg: [],
   ImgCourse: [],
   courses: [],
   chapters: [],
@@ -8,8 +8,8 @@ export default {
 
   editCourse: {
     students: [],
-    imgCourseUrl:'',
-    ImgTeacherUrl:'',
+    imgCourseUrl: '',
+    ImgTeacherUrl: '',
     courseDescription: '',
     courseName: '',
     courseLength: '',
@@ -17,8 +17,8 @@ export default {
     TeacherName: '',
     logoCourse: '',
     NumberOfStudents: '',
-    id:''
+    courseNum: 0,
+    id: ''
   },
-
 }
 

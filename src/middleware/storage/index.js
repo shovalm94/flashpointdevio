@@ -15,11 +15,6 @@ function onUpload(image, path, Id) {
     .then(snapshot => {
       return snapshot.ref.getDownloadURL()
         .then((url) => {
-          debugger
-          // if(path === 'course')
-          // {
-          //   store.commit('courses/addCourseImage', url, {root: true})
-          // }
           return url;
         })
     })

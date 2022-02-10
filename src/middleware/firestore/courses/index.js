@@ -38,9 +38,14 @@ function getSingle(options){
 
 
 function update(options) {
-  debugger
-  return firebaseInstance.db().collection(`${options.entity}`).doc(`${options.pickedDoc}`)
-    .update(options.fields)
+  // if(options.imgTeacher){
+  //   return firebaseInstance.db().collection(`${options.entity}`).doc(`${options.pickedDoc}`)
+  //     .update(options.imgTeacher)
+  // }
+   {
+    return firebaseInstance.db().collection(`${options.entity}`).doc(`${options.pickedDoc}`)
+      .update(options.fields)
+  }
 }
 
 function Delete (options){

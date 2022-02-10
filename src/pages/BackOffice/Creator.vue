@@ -66,6 +66,7 @@ export default {
         logoCourse: '',
         NumberOfStudents: 0,
         id: '',
+        courseNum:0,
         students: []
       }
     }
@@ -73,7 +74,7 @@ export default {
   computed: mapState('courses', ['editCourse', 'editedCourseId']),
   methods: {
     ...mapActions('courses', ['insertCourse']),
-    ...mapMutations('courses', ['insertCourseMut','setEditedCourse', 'setEditedCourseId', 'addCourseImage', 'setUrlImgInEditedCourse']),
+    ...mapMutations('courses', ['setUrlImgInEditedTeacher','insertCourseMut','setEditedCourse', 'setEditedCourseId', 'addCourseImage', 'setUrlImgInEditedCourse']),
     onSubmit() {
       this.$refs.courseName.validate()
       this.$refs.description.validate()
@@ -100,6 +101,12 @@ export default {
       let url = await this.upload(this.ImgCourse, "course", this.localCourse.id)
       await this.setUrlImgInEditedCourse(url)
       await firestore.update({entity:'courses',pickedDoc:this.localCourse.id, fields:this.localCourse})
+      /*-----------------------------------------------------------*/
+      debugger
+      // let urlTeacher = await this.upload(this.imgTeacher, "Teacher", this.localCourse.id)
+      // await this.setUrlImgInEditedTeacher(urlTeacher)
+      // debugger
+      // await firestore.update({entity:'Teacher',pickedDoc:this.localCourse.id, ImgTeacher:this.localCourse.ImgTeacherUrl})
       await this.insertCourseMut(this.editCourse)
     },
     async upload(img, path, Id) {

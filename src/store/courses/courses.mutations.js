@@ -20,6 +20,8 @@ export default {
 
     setUrlImgInEditedCourse:((state, url) =>state.editCourse.imgCourseUrl = url),
 
+    setUrlImgInEditedTeacher:((state, url) =>state.editCourse.ImgTeacherUrl = url),
+
     setEditedCourseId: ((state, id) => state.editedCourseId = id),
 
     resetEditCourse: ((state) => {
