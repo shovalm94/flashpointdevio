@@ -3,21 +3,20 @@
     <q-input v-model="LocalEditCourse.courseDescription"> תיאור הקורס</q-input>
     <q-input v-model="LocalEditCourse.courseName">שם הקורס</q-input>
 
-    <q-file outlined v-model="LocalEditCourse.imgCourseUrl"
+    <q-file outlined v-model="imgcourse"
             label="תמונת קורס" id="fileUpload">
       <template v-slot:prepend>
         <q-icon name="attach_file"/>
       </template>
     </q-file>
 
-    <q-file outlined v-model="LocalEditCourse.ImgTeacherUrl"
+    <q-file outlined v-model="teacherImg"
             label="תמונת מורה" id="fileUpload">
       <template v-slot:prepend>
         <q-icon name="attach_file"/>
       </template>
     </q-file>
 
-    <q-input v-model="LocalEditCourse.courseLength">אורך הקורס</q-input>
     <q-input v-model="LocalEditCourse.logoCourse">לוגו</q-input>
     <q-input v-model="LocalEditCourse.TeacherName">שם המורה</q-input>
     <q-input v-model="LocalEditCourse.NumberOfStudents">מספר סטודנטים</q-input>
@@ -35,6 +34,8 @@ export default {
 
   data() {
     return {
+      imgcourse:[],
+      teacherImg:[],
       LocalEditCourse: {
         students: [],
         imgCourseUrl: '',
@@ -54,17 +55,20 @@ export default {
 
   methods: {
     ...mapActions('courses', ['updateCourseActions', "getCourses"]),
-    ...mapMutations('courses', ['setEditedCourseId', 'setEditedCourse',]),
+    ...mapMutations('courses', ['setEditedCourseId', 'setEditedCourse','setArrayImgCourse','setArrayImgTeacher']),
 
     async updateCourse() {
+
+      debugger
       this.setEditedCourse(this.LocalEditCourse);
+      this.setArrayImgCourse(this.imgcourse)
+      this.setArrayImgTeacher(this.teacherImg)
       debugger
       await this.updateCourseActions()
       await this.$router.push(`/backOffice/UpdateCoursePropertyDialog`)
     }
 
   },
-
 
   created() {
     //avoid reference

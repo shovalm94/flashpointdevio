@@ -1,6 +1,6 @@
 export default {
-  // ImgTeacher: [],
-  // ImgCourse: [],
+  ImgTeacher: [],
+  ImgCourse: [],
   courses: [],
   chapters: [],
   lessons: [],

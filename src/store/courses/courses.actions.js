@@ -42,12 +42,32 @@ export default /* context */ {
     let item = {}
     Object.assign(item, state.editCourse)
     //save in DB
+    await firestore.imgDelete({path: `course/${state.editCourse.id}`})
+    await firestore.imgDelete({path: `Teacher/${state.editCourse.id}`})
+    console.log(state.ImgCourse,"image111")
+    console.log(state.editCourse.id,"id")
+    debugger
+    let urlCourse = await this.upload(state.ImgCourse, "course", state.editCourse.id)
+    debugger
+    await commit("setUrlImgInEditedCourse", urlCourse)
+
+    let urlTeacher = await this.upload(state.ImgTeacher, "Teacher", state.editCourse.id)
+    await commit("setUrlImgInEditedTeacher", urlTeacher)
+
+    item.imgCourseUrl = urlCourse
+
+    item.ImgTeacherUrl = urlTeacher
+    debugger
     await firebase.update({entity: `courses`, pickedDoc: item.id, fields: item})
     //saves in store
     commit('resetEditCourse')
     commit('updateCourse', item)
   },
-
+  async upload(img, path, Id) {
+    debugger
+    let url = await firebaseFiles.onUpload(img, path, Id);
+    return url
+  }
 
 }
 

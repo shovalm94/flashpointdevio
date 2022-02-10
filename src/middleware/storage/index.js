@@ -5,7 +5,6 @@ import store from '../../store'
 import url from "../storage"
 
 function onUpload(image, path, Id) {
-  debugger
   const ref = firebase.storage().ref(path);
   const name = Id;
   const metadata = {
@@ -22,15 +21,13 @@ function onUpload(image, path, Id) {
 }
 
 function imgDelete(option) {
-  debugger
   const storageRef = firebase.storage().ref(`${option.path}`)
-  console.log(`${option.path}`)
-  debugger
   return storageRef.delete()
 }
 
 async function updateImg(option) {
-   firebase.storage().ref(`${option.entity / option.id}`).put(option.img);
+  const storageRef = firebase.storage().ref(`${option.path}`)
+  return storageRef.put(option.img)
 }
 
 

@@ -91,11 +91,6 @@ export default {
       this.setEditedCourse(course);
       this.$router.push(`/backOffice/chapters/${course.id}`);
     },
-
-
-    test : function() {
-      return  ' שם הקורס:' + this.editCourse.courseName
-    },
   },
 
   created() {
