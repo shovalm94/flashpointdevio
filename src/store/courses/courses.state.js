@@ -1,7 +1,5 @@
 
 export default {
-
-    courseId: '',
-    chapterId: '',
-    lessonId: '',
+  coursesList:[],
+  getMore: true,
 }

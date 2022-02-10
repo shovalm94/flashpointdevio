@@ -15,7 +15,8 @@
     "firebase": "8.2.9",
     "quasar": "1.15.4",
     "vue": "2.6.12",
-    "vue-fullscreen": "2.3.2"
+    "vue-fullscreen": "2.3.2",
+    "vue-infinite-loading": "2.4.5"
   },
   "devDependencies": {
     "@quasar/app": "2.1.15",

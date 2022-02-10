@@ -1,21 +1,40 @@
 <template>
   <q-page>
-    <!--    <div v-for="post in posts" class="q-mb-md">-->
-    <PostCard class="q-pa-md"/>
-    <!--    </div>-->
+    <courses/>
+    <InfiniteLoading spinner="circles" @infinite="infiniteHandler">
+      <span v-show="!getMore" class="noMore" slot="no-more">
+        No more information
+      </span>
+    </InfiniteLoading>
   </q-page>
 </template>
 
 <script>
-import PostCard from '../../components/Feed/PostCard'
-
+import Courses from "components/CourseComps/Courses";
+import {mapState, mapActions, mapMutations} from "vuex";
+import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
   name: 'post',
-  components: {PostCard},
+  components: {Courses, InfiniteLoading},
   data() {
     return {}
-  }
+  },
+  computed: {...mapState('courses', ['coursesList', 'getMore'])},
+  methods: {
+    ...mapActions('courses', ['getCourses']),
+    ...mapMutations('courses', ['setCourses', 'setGetMore']),
+
+    infiniteHandler($state) {
+      this.getCourses().then(() => {
+        if (this.getMore) {
+          return $state.loaded()
+        }
+        return $state.complete()
+      })
+    }
+
+  },
 }
 </script>
 
