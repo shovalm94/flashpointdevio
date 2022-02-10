@@ -1,7 +1,5 @@
 export default {
 
-  courseId:'',
-
   chapters:[],
 
   newChapter: {
@@ -13,8 +11,5 @@ export default {
     ChapterImg: [],
     index:'',
   },
-
-  lastChapterIndex:'',
-
 
 }

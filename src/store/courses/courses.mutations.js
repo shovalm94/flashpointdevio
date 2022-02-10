@@ -1,6 +1,5 @@
 import {date} from "quasar";
 
-
 export default {
   setCourses:((state,courses)=> state.courses = courses),
 
@@ -26,13 +25,11 @@ export default {
   }),
 
   updateCourse: ((state, course) => {
-    debugger
     const index = state.courses.findIndex(p => p.id === course.id)
     state.courses.splice(index, 1, course)
   }),
 
   deleteCourse: ((state, courseId) => {
-    debugger
     const index = state.courses.findIndex(p => p.id === courseId)
     state.courses.splice(index, 1)
   }),

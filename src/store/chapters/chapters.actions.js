@@ -8,6 +8,7 @@ export default {
 
     let newChapter = {}
     Object.assign(newChapter, state.newChapter)
+      //אם המיקום של הפרק החדש הינו האחרון - ברירת מחדל
     if (state.newChapter.index === '') {
       let index1 = -1
       for (const chapter of state.chapters) {
@@ -28,7 +29,9 @@ export default {
     //saves in store
     commit('resetNewChapter')
     commit('insertNewChapter', newChapter)
-  } else if (newChapter.index !== '') {
+  }
+    //אם המיקום של הפרק החדש הינו מיקום נבחר במיוחד
+    else if (newChapter.index !== '') {
       newChapter.id = (await firestore.insert({
         entity: `courses/${rootState.courses.editedCourseId}/chapters`,
         item: newChapter
@@ -90,7 +93,6 @@ export default {
     })
     //saves in store
     commit('resetNewChapter')
-    // commit('resetCardId')
     commit('editNewChapter', item)
   },
 
