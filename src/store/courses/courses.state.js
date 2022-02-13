@@ -15,6 +15,7 @@ export default {
     TimeUploaded: '',
     TeacherName: '',
     NumberOfStudents: '',
+    index:'',
     courseNum: 1,
     id: ''
   },

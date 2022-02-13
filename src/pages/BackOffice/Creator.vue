@@ -34,6 +34,9 @@
                    lazy-rules
                    type="text"></q-input>
 
+          <q-select outlined v-model="localCourse.index" :options="indexForScroll()"
+                    label="מספר הקורס (בברירת מחדל יכנס כשיעור האחרון)"/>
+
           <q-btn class="text-primary" label="הוסף קורס" outline type="submit"/>
         </div>
       </q-page>
@@ -54,6 +57,7 @@ export default {
     return {
       ImgCourse: [],
       ImgTeacher: [],
+
       localCourse: {
         imgCourseUrl: '',
         ImgTeacherUrl: '',
@@ -65,12 +69,13 @@ export default {
         logoCourse: '',
         NumberOfStudents: 0,
         id: '',
-        courseNum: 0,
+        index: '',
+        courseNum: 1,
         students: []
       }
     }
   },
-  computed: mapState('courses', ['editCourse', 'editedCourseId']),
+  computed: mapState('courses', ['editCourse', 'editedCourseId', 'courses']),
   methods: {
     ...mapActions('courses', ['insertCourse']),
     ...mapMutations('courses', ['setUrlImgInEditedTeacher', 'insertCourseMut', 'setEditedCourse', 'setEditedCourseId', 'addCourseImage', 'setUrlImgInEditedCourse']),
@@ -116,7 +121,17 @@ export default {
     async upload(img, path, Id) {
       let url = await firebaseFiles.onUpload(img, path, Id);
       return url
-    }
+    },
+
+    indexForScroll() {
+      let arr = []
+      for (let course of this.courses) {
+          arr.push(course.index)
+      }
+      return arr
+    },
+
+
   }
 }
 

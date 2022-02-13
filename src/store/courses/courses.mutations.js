@@ -2,7 +2,13 @@ import {date} from "quasar";
 
 
 export default {
-  setCourses: ((state, courses) => state.courses = courses),
+
+  setCourses: ((state, courses) => {
+    state.courses = courses
+    state.courses.sort(function (a, b) {
+      return a.index - b.index;
+    });
+  }),
 
   addCourseImage: ((state, url) => state.editCourse.imgCourseUrl = url),
 
@@ -14,7 +20,10 @@ export default {
 
   insertCourseMut: ((state, course) => state.courses.push(course)),
 
-  setEditedCourse: ((state, course) => state.editCourse = course),
+  setEditedCourse: ((state, course) => {state.editCourse = course
+  state.courses.sort(function (a, b) {
+    return a.index - b.index;
+  })}),
 
   setIdInEditedCourse: ((state, id) => state.editCourse.id = id),
 
@@ -37,8 +46,14 @@ export default {
   }),
 
   deleteCourse: ((state, courseId) => {
+    state.courses.sort(function (a, b) {
+      return a.index - b.index;
+    });
     const index = state.courses.findIndex(p => p.id === courseId)
     state.courses.splice(index, 1)
+    for (let i = index ; i <= state.courses.length ; i++) {
+      state.courses[i].index --
+    }
   }),
 
   setArrayImgCourse: ((state, img) =>
@@ -62,7 +77,14 @@ export default {
       state.teacherImgFlag = true
     }
     else state.teacherImgFlag = false
-  })
+  }),
+
+  switchCoursePlaces: ((state, course) =>{
+    for (let i = course.index; i < state.courses.length ; i++) {
+      state.courses[i].index ++
+    }
+    state.courses.splice(course.index, 0, course)
+  }),
 
 }
 

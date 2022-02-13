@@ -24,20 +24,23 @@
     </div>
 
     <div class="q-pa-md row items-start q-gutter-md">
-    <q-card v-for="(course) of courses" class="my-card" style="background-color: darkorange">
-      <li><img :src="course.imgCourseUrl" alt="photoCourse" style="width: 300px ; height:300px">
-      <img :src="course.imgTeacherUrl" alt="photoTeacher" style="width: 300px ; height:300px"></li>
+    <q-card v-for="(course) of courses" class="my-card">
       <q-card-section>
-        <div class="text-h6 player-title"> שם קורס: {{ course.courseName }}</div>
+        <div id="CourseName"> שם הקורס: {{ course.courseName }}</div>
       </q-card-section>
-      <q-card-section class="q-pt-none">תיאור: {{ course.courseDescription }}</q-card-section>
-      <q-card-section class="q-pt-none">הועלה לפני: {{ course.TimeAgo }}</q-card-section>
-      <q-card-section class="q-pt-none">מספר סטודנטים בקורס: {{ course.NumberOfStudents }}</q-card-section>
-      <q-card-section class="q-pt-none">
-        <q-btn @click="deleteCourse(course.id)">מחיקה</q-btn>
-        <q-btn @click="showStudents(course)">סטודנטים</q-btn>
-        <q-btn @click="updateCourse(course)">צפייה ועדכון</q-btn>
-        <q-btn @click="goToCourseChapter(course)">פרקי הקורס</q-btn>
+      <img :src="course.imgCourseUrl" alt="photoCourse" class="courseImg">
+      <q-card-section class="description">תיאור הקורס: {{ course.courseDescription }}</q-card-section>
+      <br>
+      <q-card-section class="teacherName">שם המרצה: {{ course.TeacherName }}
+        <img :src="course.imgTeacherUrl" alt="photoTeacher" class="teacherImg"></q-card-section>
+      <q-card-section class="timeAgo">הועלה לפני: {{ course.TimeAgo }}</q-card-section>
+      <q-card-section class="studentNum">מספר סטודנטים בקורס: {{ course.NumberOfStudents }}</q-card-section>
+      <q-card-section class="studentNum">קורס מספר: {{course.index}}</q-card-section>
+      <q-card-section>
+        <q-btn class="cardButtons" @click="deleteCourse(course.id)">מחיקה</q-btn>
+        <q-btn class="cardButtons" @click="showStudents(course)">סטודנטים</q-btn>
+        <q-btn class="cardButtons" @click="updateCourse(course)">צפייה ועדכון</q-btn>
+        <q-btn class="cardButtons" @click="goToCourseChapter(course)">פרקי הקורס</q-btn>
       </q-card-section>
     </q-card>
     </div>
@@ -54,7 +57,6 @@ export default {
   computed: mapState('courses', ['courses','ImgCourse']),
   data() {
     return {
-      index:0,
       inception: false,
       framework: {
         plugins: [
@@ -101,5 +103,81 @@ export default {
 </script>
 
 <style scoped>
+
+#CourseName{
+  height: 41px;
+  width: 400px;
+  color: #212121;
+  font-family: "Almoni DL AAA bold";
+  font-size: 28px;
+  letter-spacing: -0.33px;
+  line-height: 40px;
+  text-align: right;
+}
+
+.my-card{
+  box-sizing: border-box;
+  min-height: 620px;
+  min-width: 620px;
+  border: 2px solid #ECECEF;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+}
+
+.timeAgo, .studentNum{
+  height: 36px;
+  width: 400px;
+  color: #7A7A7A;
+  font-family: "Almoni DL AAA";
+  font-size: 23px;
+  letter-spacing: -0.45px;
+  line-height: 35px;
+  text-align: right;
+}
+
+.teacherName{
+  height: 60px;
+  width: 400px;
+  color: #7A7A7A;
+  font-family: "Almoni DL AAA";
+  font-size: 23px;
+  letter-spacing: -0.45px;
+  line-height: 35px;
+  text-align: right;
+  display: inline;
+}
+
+
+.description {
+  height: 42px;
+  width: 382px;
+  color: #6C6B81;
+  font-family: "Almoni DL AAA";
+  font-size: 28px;
+  letter-spacing: -0.33px;
+  line-height: 32px;
+  text-align: right;
+  display: inline;
+}
+
+.teacherImg{
+  float:inside;
+  height: 60px;
+  width: 60px;
+  display: inline;
+}
+
+.cardButtons{
+  height: 32px;
+  width: 140px;
+  border-radius: 6px;
+  background-color: #FFCA00;
+}
+.courseImg {
+  height: 346.93px;
+  width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 </style>
