@@ -25,8 +25,8 @@
 
     <div class="q-pa-md row items-start q-gutter-md">
     <q-card v-for="(course) of courses" class="my-card" style="background-color: darkorange">
-      <img :src="course.ImgTeacherUrl" alt="photoTeacher">
-      <img :src="course.imgCourseUrl" alt="photoCourse">
+      <li><img :src="course.imgCourseUrl" alt="photoCourse" style="width: 300px ; height:300px">
+      <img :src="course.imgTeacherUrl" alt="photoTeacher" style="width: 300px ; height:300px"></li>
       <q-card-section>
         <div class="text-h6 player-title"> שם קורס: {{ course.courseName }}</div>
       </q-card-section>

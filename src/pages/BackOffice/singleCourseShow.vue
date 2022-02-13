@@ -1,8 +1,7 @@
 <template>
   <div style="width: 350px">
-    <q-input v-model="LocalEditCourse.courseDescription"> תיאור הקורס</q-input>
     <q-input v-model="LocalEditCourse.courseName">שם הקורס</q-input>
-
+    <q-input v-model="LocalEditCourse.courseDescription"> תיאור הקורס</q-input>
     <q-file outlined v-model="imgcourse"
             label="תמונת קורס" id="fileUpload">
       <template v-slot:prepend>
@@ -34,12 +33,12 @@ export default {
 
   data() {
     return {
-      imgcourse:[],
-      teacherImg:[],
+      imgcourse: [],
+      teacherImg: [],
       LocalEditCourse: {
         students: [],
         imgCourseUrl: '',
-        ImgTeacherUrl: '',
+        imgTeacherUrl: '',
         courseDescription: '',
         courseName: '',
         courseLength: '',
@@ -55,10 +54,10 @@ export default {
 
   methods: {
     ...mapActions('courses', ['updateCourseActions', "getCourses"]),
-    ...mapMutations('courses', ['setEditedCourseId', 'setEditedCourse','setArrayImgCourse','setArrayImgTeacher']),
+    ...mapMutations('courses', ['setEditedCourseId', 'setEditedCourse', 'setArrayImgCourse', 'setArrayImgTeacher',
+      'CourseImgFlag', 'TeacherImgFlag']),
 
     async updateCourse() {
-
       debugger
       this.setEditedCourse(this.LocalEditCourse);
       this.setArrayImgCourse(this.imgcourse)
@@ -72,6 +71,12 @@ export default {
 
 
   created() {
+    if (this.editCourse.imgCourseUrl !== '') {
+      this.CourseImgFlag();
+    }
+    if (this.editCourse.imgTeacherUrl !== '') {
+      this.TeacherImgFlag();
+    }
     //avoid reference
     this.LocalEditCourse = {...this.editCourse}
   }

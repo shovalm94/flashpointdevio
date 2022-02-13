@@ -9,7 +9,7 @@ export default {
   editCourse: {
     students: [],
     imgCourseUrl: '',
-    ImgTeacherUrl: '',
+    imgTeacherUrl: '',
     courseDescription: '',
     courseName: '',
     TimeUploaded: '',
@@ -18,5 +18,8 @@ export default {
     courseNum: 1,
     id: ''
   },
+
+  courseImgFlag: false,
+  teacherImgFlag: false,
 }
 

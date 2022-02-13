@@ -9,7 +9,7 @@ function onUpload(image, path, Id) {
   const name = Id;
   const metadata = {
     contentType: image.type
-  };
+  }
   return ref.child(name).put(image, metadata)
     .then(snapshot => {
       return snapshot.ref.getDownloadURL()
@@ -34,6 +34,7 @@ async function updateImg(option) {
 export default {
   ...mapState('courses', ['ImgCourse', 'teacherImg']),
   ...mapMutations('courses', ['addCourseImage']),
+
   onUpload,
   imgDelete,
   updateImg

@@ -20,7 +20,7 @@ export default {
 
   setUrlImgInEditedCourse: ((state, url) => state.editCourse.imgCourseUrl = url),
 
-  setUrlImgInEditedTeacher: ((state, url) => state.editCourse.ImgTeacherUrl = url),
+  setUrlImgInEditedTeacher: ((state, url) => state.editCourse.imgTeacherUrl = url),
 
   setEditedCourseId: ((state, id) => state.editedCourseId = id),
 
@@ -32,13 +32,11 @@ export default {
   }),
 
   updateCourse: ((state, course) => {
-    debugger
     const index = state.courses.findIndex(p => p.id === course.id)
     state.courses.splice(index, 1, course)
   }),
 
   deleteCourse: ((state, courseId) => {
-    debugger
     const index = state.courses.findIndex(p => p.id === courseId)
     state.courses.splice(index, 1)
   }),
@@ -49,8 +47,21 @@ export default {
 
   setArrayImgTeacher: ((state, img) =>
       state.ImgTeacher = img
-  )
+  ),
 
+  CourseImgFlag: ((state) => {
+    if (state.courseImgFlag === false) {
+      state.courseImgFlag = true
+    }
+    else state.courseImgFlag = false
+  }),
+
+  TeacherImgFlag: ((state) => {
+    if (state.teacherImgFlag === false) {
+      state.teacherImgFlag = true
+    }
+    else state.teacherImgFlag = false
+  })
 
 }
 
