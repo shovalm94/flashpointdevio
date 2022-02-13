@@ -76,6 +76,7 @@ export default {
     },
 
     async updateCourse(course) {
+      debugger
       this.setCourse(course)
       debugger
       this.setEditedCourseId(course.id)

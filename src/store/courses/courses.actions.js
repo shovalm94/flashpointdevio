@@ -21,7 +21,6 @@ export default /* context */ {
       let res = (await firebase.insert({entity: 'courses', item: state.editCourse})).id
       await commit('setEditedCourseId', res)
       await commit('setIdInEditedCourse', res)
-      console.log(state.editCourse)
     }},
 
   getCourses: async ({commit}) => {
@@ -74,11 +73,11 @@ export default /* context */ {
     await commit("setUrlImgInEditedCourse", urlCourse)
     item.imgCourseUrl = urlCourse
 
-
+    await firestore.imgDelete({path: `Teacher/${state.editCourse.id}`})
+    // commit('TeacherImgFlag')
     let urlTeacher = await firebaseFiles.onUpload(state.ImgTeacher, "Teacher", state.editCourse.id);
     await commit("setUrlImgInEditedTeacher", urlTeacher)
     item.imgTeacherUrl = urlTeacher
-
     await firebase.update({entity: `courses`, pickedDoc: item.id, fields: item})
     commit('resetEditCourse')
     commit('updateCourse', item)
