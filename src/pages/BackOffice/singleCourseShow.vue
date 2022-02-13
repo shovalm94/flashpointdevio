@@ -10,7 +10,7 @@
     </q-file>
 
     <q-file outlined v-model="teacherImg"
-            label="תמונת מורה" id="fileUpload">
+            label="תמונת מורה" id="fileUpload1">
       <template v-slot:prepend>
         <q-icon name="attach_file"/>
       </template>
@@ -59,10 +59,11 @@ export default {
 
     async updateCourse() {
       debugger
+      console.log(this.imgcourse)
+      console.log(this.teacherImg)
       this.setEditedCourse(this.LocalEditCourse);
       this.setArrayImgCourse(this.imgcourse)
       this.setArrayImgTeacher(this.teacherImg)
-      debugger
       await this.updateCourseActions()
       await this.$router.push(`/backOffice/UpdateCoursePropertyDialog`)
     }

@@ -50,6 +50,7 @@ export default {
   ),
 
   CourseImgFlag: ((state) => {
+    debugger
     if (state.courseImgFlag === false) {
       state.courseImgFlag = true
     }
