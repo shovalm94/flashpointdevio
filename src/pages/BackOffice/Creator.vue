@@ -65,7 +65,7 @@ export default {
         logoCourse: '',
         NumberOfStudents: 0,
         id: '',
-        courseNum: 0,
+        courseNum: 1,
         students: []
       }
     }
@@ -95,8 +95,11 @@ export default {
     },
 
     async insert() {
+      debugger
       await this.setEditedCourse(this.localCourse)
+      debugger
       await this.insertCourse()
+      debugger
       let urlCourse = await this.upload(this.ImgCourse, "course", this.editCourse.id)
       await this.setUrlImgInEditedCourse(urlCourse)
       await firestore.update({
