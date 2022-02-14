@@ -1,5 +1,4 @@
 <template>
-
   <div>
     <div>
       <div class="list" v-for="course in coursesList">
@@ -24,7 +23,7 @@
           </q-item-section>
           <q-card-section>
             <div class="lessonName"> שם השיעור</div>
-            <div class="discription">
+            <div class="description">
               {{course.courseDescription}}
             </div>
           </q-card-section>
@@ -40,6 +39,7 @@
                 {{course.TeacherName}}
               </q-item-label>
             </q-item-section>
+            <q-btn outline rounded color="primary" label="Add course" @click="add(course.id)"/>
           </q-item>
         </q-card>
       </div>
@@ -60,9 +60,17 @@ export default {
   },
   computed: {...mapState('courses', ['coursesList', 'getMore'])},
   methods: {
-    ...mapActions('courses', ['getCourses']),
-    ...mapMutations('courses', ['setCourses', 'setGetMore']),
-
+    ...mapActions('courses', ['getCourses','addStudentsToCourses','addCoursesToUser']),
+    ...mapMutations('courses', ['setCourses', 'setGetMore','setCourseId']),
+    add(id) {
+      this.$q.notify({
+        color: 'positive',
+        message: 'The course added to your courses'
+      })
+      this.setCourseId(id)
+      this.addStudentsToCourses();
+      this.addCoursesToUser();
+    }
   },
   created() {
     this.getCourses()
@@ -127,7 +135,7 @@ export default {
   text-align: right;
 }
 
-.discription {
+.description {
   height: 63.77px;
   width: 382.63px;
   color: #6C6B81;

@@ -22,6 +22,16 @@ function readCourses(options){
       return courses;
   })
 }
+function readUserCourses(options){
+  let courses=[];
+  return firebaseInstance.db().collection(options.col1).doc(window.user.uid).collection(options.col2).get()
+    .then((result)=>{
+      result.docs.forEach(doc => {
+        courses.push(doc.id)
+      })
+      return courses;
+    })
+}
 function update(options){
   return firebaseInstance.db().collection(options.path).doc(options.id).update(options.item)
 }
@@ -33,6 +43,7 @@ export default {
   create,
   read,
   readCourses,
+  readUserCourses,
   update,
   deleteFromAuth
 

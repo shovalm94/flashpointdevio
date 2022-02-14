@@ -4,9 +4,13 @@ export default {
 
   setUserStatus: ((state, online) => state.user.online = online),
 
-  setUserId: ((state, id) => state.userId = id),
+  setUserId: ((state, id) => {
+    state.userId = id
+  }),
 
   setUserImage:((state,url)=> state.user.imgUrl=url),
+
+  setUserCourses:((state,courses)=> state.userCourses=courses),
 
   resetUserId: ((state) => state.userId = ''),
 

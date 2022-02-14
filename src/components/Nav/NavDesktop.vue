@@ -6,12 +6,9 @@
           <q-img class="logo" :src="require('../../assets/logos/Flashdev-Logo-Wide-By-JONNY.png')"/>
         </div>
         <div style="height: 100%; align-items: center;display: flex; flex-direction: row-reverse">
-
           <router-link
-
             class="menu-item"
             :to="{path: `/profile/${userId}`}"
-            active-class=""
           >
           <div>
             <q-icon name="account_circle" size="28px"/>
@@ -59,7 +56,6 @@ import {mapState} from "vuex";
 export default {
   name: "NavDesktop",
   computed: mapState('auth', ['user', 'userId']),
-
 }
 </script>
 

@@ -34,7 +34,6 @@
           <q-item-section>
             <q-item-label class="teacherName">{{ course.TeacherName }}</q-item-label>
           </q-item-section>
-          <q-btn outline rounded color="primary" label="Add course" @click="add(course.id)"/>
         </q-item>
       </q-card>
     </div>
@@ -59,20 +58,13 @@ export default {
     ...mapState('auth', ['user'])
   },
   methods: {
-    ...mapActions('courses', ['getCourses', 'addStudentsToCourses','addCoursesToUser']),
-    ...mapMutations('courses',['setCourses','setCourseId']),
+    ...mapActions('courses', ['getCourses']),
+    ...mapMutations('courses',['setCourses']),
+
     read() {
       this.getCourses();
     },
-    add(id) {
-      this.$q.notify({
-        color: 'positive',
-        message: 'The course added to your courses'
-      })
-      this.setCourseId(id)
-      this.addStudentsToCourses();
-      this.addCoursesToUser();
-    }
+
   },
   created() {
     this.read()

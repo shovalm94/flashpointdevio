@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import firebaseInstance from '../middleware/firebase'
 import routes from './routes'
+import Store from '../store'
 
 
 Vue.use(VueRouter)
@@ -24,18 +25,19 @@ export default function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     mode: process.env.VUE_ROUTER_MODE,
-    base: process.env.VUE_ROUTER_BASE
+    base: process.env.VUE_ROUTER_BASE,
   })
 
-  router.beforeEach(  (to, from, next) => {
-    firebaseInstance.firebase.auth().onAuthStateChanged( user => {
+  router.beforeEach((to, from, next) => {
+    firebaseInstance.firebase.auth().onAuthStateChanged(user => {
       if (!user && !to.meta.authNotRequired) {
         next('/login')
-      } else {
-        next()
+      }
+      else if(user){
+        Store.commit('auth/setUserId', user.uid)
       }
     })
-    })
-
+    next()
+  })
   return router
 }
