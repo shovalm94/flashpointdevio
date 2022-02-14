@@ -6,9 +6,9 @@ export default {
 
   setGetMore: ((state) => state.getMore = false),
 
-  setCourseId: ((state, id) => state.courseId = id)
+  setCourseId: ((state, id) => state.courseId = id),
 
-  setCourses: ((state, courses) => {
+  setCoursesBackOffice: ((state, courses) => {
     state.courses = courses
     state.courses.sort(function (a, b) {
       return a.index - b.index;

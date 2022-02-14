@@ -68,7 +68,7 @@ export default {
   methods: {
 
     ...mapMutations('courses', ['setEditedCourseId', 'setCourseStudent', 'resetEditCourse', 'updateCourse', 'setEditedCourse', 'setCourse']),
-    ...mapActions('courses', ['getCourses', 'deleteCourseActions', "updateCourseActions"]),
+    ...mapActions('courses', ['getCourses', 'deleteCourseActions', "updateCourseActions", 'getCoursesBackOffice']),
 
     async deleteCourse(id) {
       await this.setEditedCourseId(id)
@@ -97,7 +97,7 @@ export default {
   },
 
   created() {
-    this.getCourses();
+    this.getCoursesBackOffice();
   }
 }
 
