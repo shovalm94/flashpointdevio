@@ -60,7 +60,7 @@ export default {
 
       localCourse: {
         imgCourseUrl: '',
-        ImgTeacherUrl: '',
+        imgTeacherUrl: '',
         courseDescription: '',
         courseName: '',
         courseLength: '',
@@ -114,7 +114,7 @@ export default {
       await firestore.update({
         entity: 'courses',
         pickedDoc: this.editCourse.id,
-        fields: {ImgTeacherUrl: this.editCourse.ImgTeacherUrl}
+        fields: {imgTeacherUrl: this.editCourse.imgTeacherUrl}
       })
       await this.insertCourseMut(this.editCourse)
     },

@@ -35,7 +35,7 @@
         <img :src="course.imgTeacherUrl" alt="photoTeacher" class="teacherImg"></q-card-section>
       <q-card-section class="timeAgo">הועלה לפני: {{ course.TimeAgo }}</q-card-section>
       <q-card-section class="studentNum">מספר סטודנטים בקורס: {{ course.NumberOfStudents }}</q-card-section>
-      <q-card-section class="studentNum">קורס מספר: {{course.index}}</q-card-section>
+      <q-card-section class="studentNum">קורס מספר: {{ 1 +course.index}}</q-card-section>
       <q-card-section>
         <q-btn class="cardButtons" @click="deleteCourse(course.id)">מחיקה</q-btn>
         <q-btn class="cardButtons" @click="showStudents(course)">סטודנטים</q-btn>
@@ -120,7 +120,7 @@ export default {
   box-sizing: border-box;
   min-height: 620px;
   min-width: 620px;
-  border: 2px solid #ECECEF;
+  border: 1px solid #ECECEF;
   border-radius: 10px;
   background-color: #FFFFFF;
 }

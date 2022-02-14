@@ -60,31 +60,31 @@
 
 
         <div class="q-pa-md row items-start q-gutter-md">
-          <q-card v-ripple v-for="chapter in chapters">
+          <q-card class="my-card" v-ripple v-for="chapter in chapters">
 
-            <q-card-section class="bg-primary text-white">
-              <img :src="chapter.ChapterImg" alt="תמונה">
-            </q-card-section>
-
-            <q-card-section class="bg-primary text-white">
-              <div class="text-h6">פרק מספר: {{ 1 + chapter.index }}</div>
-            </q-card-section>
-
-            <q-card-section class="bg-primary text-white">
+            <q-card-section class="text">
               <div class="text-h6">שם הפרק: {{ chapter.Name }}</div>
             </q-card-section>
 
-            <q-card-section class="bg-primary text-white">
+            <q-card-section class="chapterImg">
+              <img :src="chapter.ChapterImg" alt="תמונה">
+            </q-card-section>
+
+            <q-card-section class="text">
+              <div class="text-h6">פרק מספר: {{ 1 + chapter.index }}</div>
+            </q-card-section>
+
+            <q-card-section class="text">
               <div class="text-h6">תיאור תוכן הפרק: {{ chapter.Description }}</div>
             </q-card-section>
 
-            <q-card-section class="bg-primary text-white">
+            <q-card-section class="text">
               <div class="text-h6">רמת קושי/רמת השתדלות נדרשת: {{ chapter.LevelOfDifficulty }}</div>
             </q-card-section>
 
-            <q-card-section class="bg-primary text-white">
+            <q-card-section class="text">
               <div class="q-pa-md">
-                <q-btn-dropdown color="blue" label="lessons in this chapter">
+                <q-btn-dropdown class="button-os" color="blue" label="lessons in this chapter">
                   <q-list>
                     <q-item clickable v-for="lesson in (chapter.lessons)" v-close-popup
                             @click="LessonUpdate(chapter, lesson)">
@@ -95,7 +95,7 @@
 
                   </q-list>
                 </q-btn-dropdown>
-                <q-btn push color="primary" label="להוספת שיעור חדש" @click="LessonAdd(chapter)"/>
+                <q-btn  label="להוספת שיעור חדש" @click="LessonAdd(chapter)"/>
               </div>
             </q-card-section>
 
@@ -234,5 +234,50 @@ export default {
 </script>
 
 <style scoped>
+
+.my-card{
+  box-sizing: border-box;
+  max-height: 650px;
+  min-width: 620px;
+  border: 2px solid #ECECEF;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+}
+
+.chapterImg {
+  max-height: 346px;
+  width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+button{
+  border: 2.5px solid #0e172c;;
+  border-radius: 15px;
+}
+
+button:hover{
+  border: 2.5px solid #0e172c;;
+  padding: 15px;
+  border-radius: 15px;
+  /*box-shadow: inset 0 0 2px #f9f8fc;*/
+}
+
+
+.button-os{
+  position: absolute;
+  min-width: 200px;
+  height: 45px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: #f9f8fc;
+  border: 2.5px solid #0e172c;
+}
+
+
 
 </style>
