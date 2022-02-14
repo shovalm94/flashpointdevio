@@ -35,9 +35,10 @@ export default function (/* { store, ssrContext } */) {
       }
       else if(user){
         Store.commit('auth/setUserId', user.uid)
+        next()
       }
     })
-    next()
+
   })
   return router
 }
