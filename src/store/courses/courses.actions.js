@@ -60,10 +60,13 @@ export default /* context */ {
   updateCourseActions: async ({state, commit}) => {
     let item = {}
     Object.assign(item, state.editCourse)
+
     if(state.courseImgFlag === true){
+
       await firestore.imgDelete({path: `course/${state.editCourse.id}`})
       commit('CourseImgFlag')
     }
+
     if(state.teacherImgFlag === true){
       await firestore.imgDelete({path: `Teacher/${state.editCourse.id}`})
       commit('TeacherImgFlag')
@@ -73,8 +76,6 @@ export default /* context */ {
     await commit("setUrlImgInEditedCourse", urlCourse)
     item.imgCourseUrl = urlCourse
 
-    await firestore.imgDelete({path: `Teacher/${state.editCourse.id}`})
-    // commit('TeacherImgFlag')
     let urlTeacher = await firebaseFiles.onUpload(state.ImgTeacher, "Teacher", state.editCourse.id);
     await commit("setUrlImgInEditedTeacher", urlTeacher)
     item.imgTeacherUrl = urlTeacher

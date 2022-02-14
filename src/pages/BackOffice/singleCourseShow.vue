@@ -20,7 +20,7 @@
       </template>
     </q-file>
 
-    <q-file outlined v-model="teacherImg"
+    <q-file ref="imgTeacher" outlined v-model="teacherImg"
             label="תמונת מורה" id="fileUpload1">
       <template v-slot:prepend>
         <q-icon name="attach_file"/>
@@ -36,11 +36,7 @@
     </q-input>
 
 
-      <q-input v-model="LocalEditCourse.NumberOfStudents"
-             :rules="[ val => val && val.length > 1 || 'Please type course name']"
-             label="מספר סטודנטים"
-             lazy-rules
-             type="text">
+      <q-input v-model="LocalEditCourse.NumberOfStudents" label="מספר סטודנטים">
       </q-input>
 
       <q-btn class="text-primary" label="עדכן קורס " outline type="submit"/>
@@ -75,6 +71,7 @@ export default {
         logoCourse: '',
         NumberOfStudents: '',
         courseNum: 1,
+        index:'',
         id: ''
       }
     }
