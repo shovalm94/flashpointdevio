@@ -44,10 +44,11 @@ export default /* context */ {
 
 
   deleteCourseActions: async ({state, commit}, id) => {
+
     const index = state.courses.findIndex(p => p.id === id)
     await firebase.Delete({entity: "courses", id})
-    for (let i = index+1 ; i <= state.courses.length ; i++) {
-      await firebase.update({
+    for (let i = index+1 ; i < state.courses.length ; i++) {
+       await firebase.update({
         entity: `courses`,
         pickedDoc: state.courses[i].id,
         fields: {index: i-1}
@@ -55,25 +56,22 @@ export default /* context */ {
     }
     await firestore.imgDelete({path: `course/${id}`})
     await firestore.imgDelete({path: `Teacher/${id}`})
-    debugger
-    commit('deleteCourse', id)
+     commit('deleteCourse', id)
+     commit('deleteCourseStep2', index)
   },
+
 
   updateCourseActions: async ({state, commit}) => {
     let item = {}
     Object.assign(item, state.editCourse)
-
     if(state.courseImgFlag === true){
-
       await firestore.imgDelete({path: `course/${state.editCourse.id}`})
       commit('CourseImgFlag')
     }
-
     if(state.teacherImgFlag === true){
       await firestore.imgDelete({path: `Teacher/${state.editCourse.id}`})
       commit('TeacherImgFlag')
       }
-
     let urlCourse = await firebaseFiles.onUpload(state.ImgCourse, "course", state.editCourse.id);
     await commit("setUrlImgInEditedCourse", urlCourse)
     item.imgCourseUrl = urlCourse
@@ -85,6 +83,7 @@ export default /* context */ {
     commit('resetEditCourse')
     commit('updateCourse', item)
   },
+
 
   getCourses({state, commit}) {
 
@@ -101,7 +100,6 @@ export default /* context */ {
           courses.push(course)
         })
         commit('setCourses', courses)
-
       })
   },
 
@@ -112,6 +110,7 @@ export default /* context */ {
     user.id = window.user.uid
     databaseC.create({col1: 'courses', col2: 'students', id: state.courseId, user})
   },
+
   addCoursesToUser: ({commit, state}) => {
     databaseAuth.create({col1: 'users', col2: 'courses', id: state.courseId})
   },

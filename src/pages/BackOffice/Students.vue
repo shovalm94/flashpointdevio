@@ -6,6 +6,7 @@
         <q-btn color="primary" label="חזור לרשימת הקורסים" @click="exit()" style="width: 350px"/>
     </q-page-sticky>
   </div>
+      <h1>{{editCourse.courseName}}</h1><br>
   <div class="q-pa-md row items-start q-gutter-md">
     <q-card v-for="student in editCourse.students" class="my-card">
       <q-card-section>
@@ -47,5 +48,13 @@ export default {
 </script>
 
 <style scoped>
+
+.my-card{
+  box-sizing: border-box;
+  min-width: 40px;
+  border: 1px solid #ECECEF;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+}
 
 </style>

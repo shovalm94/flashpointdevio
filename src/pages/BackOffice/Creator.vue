@@ -37,7 +37,7 @@
           <q-select outlined v-model="localCourse.index" :options="indexForScroll()"
                     label="מספר הקורס (בברירת מחדל יכנס כשיעור האחרון)"/>
 
-          <q-btn class="text-primary" label="הוסף קורס" outline type="submit"/>
+          <q-btn class="text-primary" label="הוסף קורס" outline type="submit" v-close-popup/>
         </div>
       </q-page>
     </q-form>
@@ -70,7 +70,6 @@ export default {
         NumberOfStudents: 0,
         id: '',
         index: '',
-        courseNum: 1,
         students: []
       }
     }
@@ -87,7 +86,7 @@ export default {
         this.formHasError = true
       } else if (this.accept !== true) {
         this.$q.notify({
-          message: 'success'
+          message: 'success. please wait a few seconds for the course to load'
         })
       } else {
         this.$q.notify({
@@ -97,6 +96,7 @@ export default {
         })
       }
       this.insert()
+
     },
 
     async insert() {
@@ -116,12 +116,15 @@ export default {
         pickedDoc: this.editCourse.id,
         fields: {imgTeacherUrl: this.editCourse.imgTeacherUrl}
       })
-      await this.insertCourseMut(this.editCourse)
+       this.insertCourseMut(this.editCourse)
     },
+
+
     async upload(img, path, Id) {
       let url = await firebaseFiles.onUpload(img, path, Id);
       return url
     },
+
 
     indexForScroll() {
       let arr = []
@@ -138,6 +141,7 @@ export default {
 </script>
 
 <style scoped>
+
 #addCourse {
   color: #1D1D1D;
   background: #1976D2;

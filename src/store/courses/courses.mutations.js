@@ -2,6 +2,7 @@ import {date} from "quasar";
 
 
 export default {
+
   setCourses: ((state, courses) => state.coursesList = state.coursesList.concat(courses)),
 
   setGetMore: ((state) => state.getMore = false),
@@ -50,14 +51,18 @@ export default {
     state.courses.splice(index, 1, course)
   }),
 
-  deleteCourse: ((state, courseId) => {
+  deleteCourse: ((state, id) => {
     state.courses.sort(function (a, b) {
-      return a.index - b.index;
+      return a.index- b.index;
     });
-    const index = state.courses.findIndex(p => p.id === courseId)
+    const index = state.courses.findIndex(p => p.id === id)
     state.courses.splice(index, 1)
-    for (let i = index ; i <= state.courses.length ; i++) {
-      state.courses[i].index --
+  }),
+
+  deleteCourseStep2: ((state, index) => {
+    debugger
+    for (let i = index ; i < state.courses.length ; i++) {
+      state.courses[i].index--
     }
   }),
 
@@ -70,7 +75,6 @@ export default {
   ),
 
   CourseImgFlag: ((state) => {
-    debugger
     if (state.courseImgFlag === false) {
       state.courseImgFlag = true
     }
@@ -91,6 +95,11 @@ export default {
     state.courses.splice(course.index, 0, course)
   }),
 
+  sortByIndex: ((state)=>{
+    state.courses.sort(function (a, b) {
+      return a.index- b.index;
+    });
+  })
 }
 
 

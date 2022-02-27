@@ -1,4 +1,9 @@
 <template>
+  <div class="q-pa-md">
+    <q-page-sticky position="top-left" :offset="[18, 18]">
+        <q-btn color="primary" label="חזור לרשימת הקורסים" @click="exit()" style="width: 350px"/>
+    </q-page-sticky>
+
   <div style="width: 350px">
     <q-form @submit.prevent.stop="onSubmit()">
 
@@ -45,7 +50,7 @@
 
     </q-form>
   </div>
-
+  </div>
 </template>
 
 <script>
@@ -57,8 +62,10 @@ export default {
 
   data() {
     return {
+
       imgcourse: [],
       teacherImg: [],
+
       LocalEditCourse: {
         students: [],
         imgCourseUrl: '',
@@ -70,7 +77,6 @@ export default {
         TeacherName: '',
         logoCourse: '',
         NumberOfStudents: '',
-        courseNum: 1,
         index:'',
         id: ''
       }
@@ -107,10 +113,15 @@ export default {
       this.setEditedCourse(this.LocalEditCourse);
       this.setArrayImgCourse(this.imgcourse)
       this.setArrayImgTeacher(this.teacherImg)
-      debugger
       await this.updateCourseActions()
       await this.$router.push(`/backOffice/UpdateCoursePropertyDialog`)
+    },
+
+    exit() {
+      this.$router.push(`/backOffice/UpdateCoursePropertyDialog`);
     }
+
+
   },
 
   created() {

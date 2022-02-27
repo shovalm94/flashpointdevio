@@ -18,11 +18,11 @@ export default {
     TeacherName: '',
     NumberOfStudents: '',
     index:'',
-    courseNum: 1,
     id: ''
   },
   courseImgFlag: false,
   teacherImgFlag: false,
+
   //front
   coursesList:[],
   getMore: true,

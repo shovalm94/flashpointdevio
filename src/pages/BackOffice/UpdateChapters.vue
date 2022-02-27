@@ -7,6 +7,7 @@
     <q-file outlined v-model="updatedNewChapter.ChapterImg" label="upload image"
             hint="תמונת הפרק" id="fileUpload" ></q-file>
     <q-btn color="primary" label="Update" @click="update()"/>
+    <q-btn color="primary" label="back" @click="exit()"/>
   </div>
 </template>
 
@@ -52,6 +53,10 @@ export default {
 
     getItemById() {
       this.getSingleChapter(this.newChapter.id);
+    },
+
+    exit() {
+      this.$router.push(`/backOffice/chapters/${this.newChapter.id}`);
     },
 
   },

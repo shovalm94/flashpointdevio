@@ -95,7 +95,7 @@
 
                   </q-list>
                 </q-btn-dropdown>
-                <q-btn  label="להוספת שיעור חדש" @click="LessonAdd(chapter)"/>
+                <q-btn label="להוספת שיעור חדש" @click="LessonAdd(chapter)"/>
               </div>
             </q-card-section>
 
@@ -237,7 +237,7 @@ export default {
 
 .my-card{
   box-sizing: border-box;
-  max-height: 650px;
+  max-height: 620px;
   min-width: 620px;
   border: 2px solid #ECECEF;
   border-radius: 10px;
@@ -259,15 +259,15 @@ button{
 
 button:hover{
   border: 2.5px solid #0e172c;;
-  padding: 15px;
   border-radius: 15px;
-  /*box-shadow: inset 0 0 2px #f9f8fc;*/
+  box-shadow: inset 0 0 2px #f9f8fc;
 }
 
 
 .button-os{
   position: absolute;
-  min-width: 200px;
+  min-width: 180px;
+  max-width: 300px;
   height: 45px;
   top: 0;
   left: 0;

@@ -32,7 +32,7 @@
       <q-card-section class="description">תיאור הקורס: {{ course.courseDescription }}</q-card-section>
       <br>
       <q-card-section class="teacherName">שם המרצה: {{ course.TeacherName }}
-        <img :src="course.imgTeacherUrl" alt="photoTeacher" class="teacherImg"></q-card-section>
+        <q-avatar><img :src="course.imgTeacherUrl" alt="photoTeacher" class="teacherImg"></q-avatar></q-card-section>
       <q-card-section class="timeAgo">הועלה לפני: {{ course.TimeAgo }}</q-card-section>
       <q-card-section class="studentNum">מספר סטודנטים בקורס: {{ course.NumberOfStudents }}</q-card-section>
       <q-card-section class="studentNum">קורס מספר: {{ 1 +course.index}}</q-card-section>
@@ -67,16 +67,16 @@ export default {
   },
   methods: {
 
-    ...mapMutations('courses', ['setEditedCourseId', 'setCourseStudent', 'resetEditCourse', 'updateCourse', 'setEditedCourse', 'setCourse']),
+    ...mapMutations('courses', ['setIdInEditedCourse', 'setEditedCourseId', 'setCourseStudent', 'resetEditCourse', 'updateCourse', 'setEditedCourse', 'setCourse', 'sortByIndex']),
     ...mapActions('courses', ['getCourses', 'deleteCourseActions', "updateCourseActions", 'getCoursesBackOffice']),
 
     async deleteCourse(id) {
-      await this.setEditedCourseId(id)
+      await this.sortByIndex()
+      await this.setIdInEditedCourse(id)
       await this.deleteCourseActions(id)
     },
 
     async updateCourse(course) {
-      debugger
       this.setCourse(course)
       debugger
       this.setEditedCourseId(course.id)
@@ -161,24 +161,25 @@ export default {
   display: inline;
 }
 
-.teacherImg{
-  float:inside;
-  height: 60px;
-  width: 60px;
-  display: inline;
-}
-
 .cardButtons{
   height: 32px;
   width: 140px;
   border-radius: 6px;
   background-color: #FFCA00;
 }
+
 .courseImg {
-  height: 346.93px;
-  width: 520px;
+  height: 300px;
+  width: 420px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.teacherImg{
+  float:inside;
+  height: 70px;
+  width: 70px;
+  display: inline;
 }
 
 </style>
