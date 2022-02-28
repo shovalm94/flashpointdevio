@@ -44,10 +44,10 @@ export default /* context */ {
 
 
   deleteCourseActions: async ({state, commit}, id) => {
-
     const index = state.courses.findIndex(p => p.id === id)
     await firebase.Delete({entity: "courses", id})
     for (let i = index+1 ; i < state.courses.length ; i++) {
+      debugger
        await firebase.update({
         entity: `courses`,
         pickedDoc: state.courses[i].id,
@@ -56,8 +56,8 @@ export default /* context */ {
     }
     await firestore.imgDelete({path: `course/${id}`})
     await firestore.imgDelete({path: `Teacher/${id}`})
-     commit('deleteCourse', id)
-     commit('deleteCourseStep2', index)
+    await commit('deleteCourse', id)
+    await commit('deleteCourseStep2', index)
   },
 
 

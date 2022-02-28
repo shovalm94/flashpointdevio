@@ -55,6 +55,7 @@ export default {
     state.courses.sort(function (a, b) {
       return a.index- b.index;
     });
+    debugger
     const index = state.courses.findIndex(p => p.id === id)
     state.courses.splice(index, 1)
   }),
