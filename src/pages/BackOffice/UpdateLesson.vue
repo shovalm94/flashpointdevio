@@ -3,9 +3,6 @@
     <q-page class="flex flex-center">
       <div class="q-pa-md" style="width: 350px">
 
-        <q-select outlined v-model="updatedNewLesson.index" :options="indexForScroll()"
-                  label="מספר השיעור (בברירת מחדל יכנס כשיעור האחרון)"/>
-
         <q-input ref="name" outlined v-model="updatedNewLesson.name"
                  :rules="[ val => val && val.length > 1 || 'Please type name']"
                  label="Name"
@@ -21,9 +18,12 @@
         <q-file outlined v-model="updatedNewLesson.lessonVideo" label="upload video"
                 hint="" id="fileUpload"></q-file>
 
-        <q-btn color="primary" label="remove" @click="remove(updatedNewLesson.id)"/>
-        <q-btn color="primary" label="back" @click="exit()"/>
-        <q-btn class="text-primary" label="Update" outline type="submit"/>
+        <q-select outlined v-model="updatedNewLesson.index" :options="indexForScroll()"
+                  label="מספר השיעור (בברירת מחדל יכנס כשיעור האחרון)"/>
+        <br>
+        <q-btn class="btn" color="primary" label="remove" @click="remove(updatedNewLesson.id)"/>
+        <q-btn class="btn" color="primary" label="back" @click="exit()"/>
+        <q-btn class="btn" label="Update" outline type="submit"/>
 
       </div>
 
@@ -56,8 +56,8 @@ export default {
         name: '',
         description: '',
         lessonVideo: [],
-        id:'',
-        index:''
+        id: '',
+        index: ''
       },
     }
   },
@@ -132,5 +132,9 @@ export default {
 </script>
 
 <style scoped>
+.btn{
+  margin-left: 12px;
+  margin-right: 12px;
+}
 
 </style>

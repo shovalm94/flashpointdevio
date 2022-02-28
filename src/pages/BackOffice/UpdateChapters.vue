@@ -6,8 +6,8 @@
     <q-input outlined v-model="updatedNewChapter.LevelOfDifficulty" label="רמת קושי"/>
     <q-file outlined v-model="updatedNewChapter.ChapterImg" label="upload image"
             hint="תמונת הפרק" id="fileUpload" ></q-file>
-    <q-btn color="primary" label="Update" @click="update()"/>
-    <q-btn color="primary" label="back" @click="exit()"/>
+    <q-btn class="btn" color="primary" label="Update" @click="update()"/>
+    <q-btn class="btn" color="primary" label="back" @click="exit()"/>
   </div>
 </template>
 
@@ -71,7 +71,10 @@ export default {
 </script>
 
 <style scoped>
-
+.btn{
+  margin-left: 12px;
+  margin-right: 12px;
+}
 </style>
 
 
