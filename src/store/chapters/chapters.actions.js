@@ -1,14 +1,14 @@
-import database from "../../middleware/firebase";
+import database from "../../middleware/storage";
 import firestore from "src/middleware/firestore/courses/index.js"
 import moment from "moment";
 
 export default {
-
   insertNewChapter: async ({state, commit, rootState}) => {
+    debugger
 
     let newChapter = {}
     Object.assign(newChapter, state.newChapter)
-      //אם המיקום של הפרק החדש הינו האחרון - ברירת מחדל
+    //אם המיקום של הפרק החדש הינו האחרון - ברירת מחדל
     if (state.newChapter.index === '') {
       let index1 = -1
       for (const chapter of state.chapters) {
@@ -21,15 +21,17 @@ export default {
       } else {
         newChapter.index = index1 + 1;
       }
-    //save in DS
-    newChapter.id = (await firestore.insert({
-      entity: `courses/${rootState.courses.editedCourseId}/chapters`,
-      item: newChapter
-    })).id
-    //saves in store
-    commit('resetNewChapter')
-    commit('insertNewChapter', newChapter)
-  }
+      debugger
+      //save in DS
+      newChapter.id = (await firestore.insert({
+        entity: `courses/${rootState.courses.editedCourseId}/chapters`,
+        item: newChapter
+      })).id
+
+      //saves in store
+      commit('resetNewChapter')
+      commit('setNewChapter',newChapter)
+    }
     //אם המיקום של הפרק החדש הינו מיקום נבחר במיוחד
     else if (newChapter.index !== '') {
       newChapter.id = (await firestore.insert({
@@ -38,13 +40,16 @@ export default {
       })).id
       await commit('switchChapterPlaces', newChapter)
       for (let i = newChapter.index; i < state.chapters.length; i++) {
-        await firestore.Delete({entity: `courses/${rootState.courses.editedCourseId}/chapters`,
-          id:state.chapters[i].id})
+        await firestore.Delete({
+          entity: `courses/${rootState.courses.editedCourseId}/chapters`,
+          id: state.chapters[i].id
+        })
       }
-      for (let i = newChapter.index ; i < state.chapters.length ; i++) {
+      for (let i = newChapter.index; i < state.chapters.length; i++) {
         await firestore.insert({
           entity: `courses/${rootState.courses.editedCourseId}/chapters`,
-          item: state.chapters[i]})
+          item: state.chapters[i]
+        })
       }
     }
 
@@ -97,16 +102,23 @@ export default {
   },
 
   deleteChapter: async ({state, rootState, commit}, id) => {
+    debugger
+    await database.imgDelete({path: `chapters/${id}`})
+    debugger
     const index = state.chapters.findIndex(p => p.id === id)
-    for (let i = index; i < state.chapters.length ; i++) {
-      await firestore.Delete({entity: `courses/${rootState.courses.editedCourseId}/chapters`, id:state.chapters[i].id})
+    for (let i = index; i < state.chapters.length; i++) {
+      await firestore.Delete({entity: `courses/${rootState.courses.editedCourseId}/chapters`, id: state.chapters[i].id})
     }
     await commit('deleteChapter', id)
-    for (let i = index ; i < state.chapters.length ; i++) {
+    for (let i = index; i < state.chapters.length; i++) {
       await firestore.insert({
         entity: `courses/${rootState.courses.editedCourseId}/chapters`,
-        item: state.chapters[i]})
+        item: state.chapters[i]
+      })
     }
+    debugger
+
+
   },
 
 }

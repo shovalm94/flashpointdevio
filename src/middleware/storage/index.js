@@ -23,6 +23,7 @@ function onUpload(image, path, Id) {
 }
 
 function imgDelete(option) {
+  debugger
   const storageRef = firebase.storage().ref(`${option.path}`)
   return storageRef.delete()
 }

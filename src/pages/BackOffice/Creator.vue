@@ -121,10 +121,10 @@ export default {
 
 
     async upload(img, path, Id) {
+      debugger
       let url = await firebaseFiles.onUpload(img, path, Id);
       return url
     },
-
 
     indexForScroll() {
       let arr = []

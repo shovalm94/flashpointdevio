@@ -1,15 +1,17 @@
 export default {
 
   chapters:[],
+  ChapterImg: [],
 
   newChapter: {
+    url:'',
     Name: '',
     Description:'',
     LevelOfDifficulty: '',
     TimeUpload:'',
     lessons: [],
-    ChapterImg: [],
     index:'',
+    id:''
   },
 
 }

@@ -2,7 +2,7 @@
   <q-form @submit.prevent.stop="onSubmit()">
     <q-page class="flex flex-center">
       <div class="q-pa-md" style="min-width: 450px">
-        <h2> שם הקורס: {{this.editCourse.courseName }}</h2>
+        <h2> שם הקורס: {{ this.editCourse.courseName }}</h2>
         <br><br><br>
 
         <div class="q-pa-md">
@@ -40,8 +40,9 @@
                                lazy-rules
                                type="text"/>
 
-                      <q-file outlined v-model="localNewChapter.ChapterImg" label="upload image"
+                      <q-file outlined v-model="ChapterImg" label="upload image"
                               hint="תמונת הפרק" id="fileUpload"></q-file>
+
                       <q-select outlined v-model="localNewChapter.index" :options="indexForScroll()"
                                 label="מספר הפרק (בברירת מחדל יכנס כפרק האחרון)"/>
                       <q-btn push color="primary" label="insert" @click="insert()"/>
@@ -67,7 +68,7 @@
             </q-card-section>
 
             <q-card-section class="chapterImg">
-              <img :src="chapter.ChapterImg" alt="תמונה">
+              <img :src="chapter.url" alt="תמונה">
             </q-card-section>
 
             <q-card-section class="text">
@@ -114,6 +115,8 @@
 <script>
 
 import {mapActions, mapState, mapMutations} from 'vuex';
+import firestore from "src/middleware/firestore/courses";
+import firebaseFiles from "src/middleware/storage";
 
 export default {
   name: "Chapters",
@@ -125,14 +128,16 @@ export default {
 
   data() {
     return {
+      ChapterImg: [],
 
       localNewChapter: {
         Name: '',
         Description: '',
         LevelOfDifficulty: '',
-        ChapterImg: [],
         TimeUpload: new Date().toString(),
         lessons: [],
+        url:'',
+
         index: '',
       },
 
@@ -148,8 +153,8 @@ export default {
   },
 
   methods: {
-    ...mapActions('chapters', ['insertNewChapter', 'getChapters', 'getLessons', 'deleteChapter']),
-    ...mapMutations('chapters', ['setNewChapter']),
+    ...mapActions('chapters', ['insertNewChapter', 'getChapters', 'getLessons', 'deleteChapter', ]),
+    ...mapMutations('chapters', ['setNewChapter', 'insertNewChapterMut','setUrlImgInEditedChapter']),
     ...mapMutations('lessons', ['resetNewLesson', 'setNewLesson', 'setLessons']),
 
     async seeChapters() {
@@ -178,13 +183,24 @@ export default {
       this.insert()
     },
 
+
     setLocalNewChapter() {
       this.setNewChapter(this.localNewChapter);
     },
 
     async insert() {
       await this.setLocalNewChapter();
-      await this.insertNewChapter();
+      await this.insertNewChapter()
+      let urlChapter = await this.uploadImg(this.ChapterImg, `chapters`, this.newChapter.id)
+      debugger
+      await this.setUrlImgInEditedChapter(urlChapter)
+      debugger
+      await firestore.update({
+        entity: `courses/${this.editCourse.id}/chapters`,
+        pickedDoc: this.newChapter.id,
+        fields: {url: this.newChapter.url}
+      })
+      this.insertNewChapterMut(this.newChapter)
     },
 
     remove(id) {
@@ -202,11 +218,11 @@ export default {
       await this.$router.push(`/backOffice/lessons`);
     },
 
-   async LessonUpdate(chapter, lesson) {
+    async LessonUpdate(chapter, lesson) {
       await this.setNewChapter(chapter);
       this.resetNewLesson();
       this.setNewLesson(lesson);
-     await this.setLessons(this.newChapter.lessons)
+      await this.setLessons(this.newChapter.lessons)
       await this.$router.push(`/backOffice/updateLesson/${lesson.id}`);
     },
 
@@ -222,6 +238,12 @@ export default {
       this.$router.push(`/backOffice/UpdateCoursePropertyDialog`);
     },
 
+    async uploadImg(img, path, Id) {
+      debugger
+      let url = await firebaseFiles.onUpload(img, path, Id);
+      return url
+    }
+
 
   },
 
@@ -235,9 +257,9 @@ export default {
 
 <style scoped>
 
-.my-card{
+.my-card {
   box-sizing: border-box;
-  max-height: 620px;
+  max-height: 1000px;
   min-width: 620px;
   border: 2px solid #ECECEF;
   border-radius: 10px;
@@ -245,26 +267,25 @@ export default {
 }
 
 .chapterImg {
-  max-height: 346px;
-  width: 520px;
+  max-width:300px ;
+  max-height: 250px;
   margin-left: auto;
   margin-right: auto;
 }
 
-
-button{
+button {
   border: 2.5px solid #0e172c;;
   border-radius: 15px;
 }
 
-button:hover{
+button:hover {
   border: 2.5px solid #0e172c;;
   border-radius: 15px;
   box-shadow: inset 0 0 2px #f9f8fc;
 }
 
 
-.button-os{
+.button-os {
   position: absolute;
   min-width: 180px;
   max-width: 300px;
@@ -277,7 +298,6 @@ button:hover{
   background-color: #f9f8fc;
   border: 2.5px solid #0e172c;
 }
-
 
 
 </style>

@@ -14,7 +14,7 @@ export default {
     delete state.newChapter.id;
   }),
 
-  insertNewChapter:((state, chapter) =>{
+  insertNewChapterMut:((state, chapter) =>{
     state.chapters.push(chapter)
   }),
 
@@ -52,5 +52,6 @@ export default {
       state.chapters[i].index --
     }
   }),
+  setUrlImgInEditedChapter: ((state, url) => state.newChapter.url = url),
 
 }
